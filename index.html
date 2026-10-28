@@ -1,158 +1,256 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <title>Лечебник Деда Мирона</title>
-  <style>
-    body {
-      font-family: 'Georgia', serif;
-      background-color: #f5f2eb;
-      color: #2b2621;
-      margin: 0;
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лечебник Травника Мирона — 150 Родовых Алтайских Рецептов</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cedar: {
+              800: '#1B2A22',
+              900: '#111B15',
+            },
+            bark: '#8B5A2B',
+            moss: '#4A5D45',
+            parchment: '#F9F6F0',
+            clay: '#B8543F'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Manrope', 'sans-serif'],
+          }
+        }
+      }
     }
-    .book-page {
-      background: #fffdf9;
-      width: 100%;
-      max-width: 650px;
-      padding: 40px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      border: 1px solid #dcd3c1;
-      border-radius: 4px;
-    }
-    .header-tag {
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: #7d6b56;
-      margin-bottom: 8px;
-    }
-    h1 {
-      font-size: 28px;
-      margin: 0 0 10px 0;
-      color: #2e3b2b;
-      font-weight: normal;
-    }
-    .subtitle {
-      font-style: italic;
-      color: #63584c;
-      margin-bottom: 24px;
-      font-size: 15px;
-      border-bottom: 1px solid #eee5d5;
-      padding-bottom: 12px;
-    }
-    .grid-info {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      background: #fbf8f2;
-      padding: 14px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-    .grid-info div b {
-      display: block;
-      color: #4a5d45;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-    }
-    p {
-      line-height: 1.6;
-      font-size: 15px;
-      margin-bottom: 16px;
-    }
-    .dialogue-box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin: 25px 0;
-      padding-top: 15px;
-      border-top: 1px dashed #dcd3c1;
-    }
-    .quote-card {
-      background: #fdfbf7;
-      border-left: 3px solid #8c9e83;
-      padding: 8px 12px;
-      font-size: 13px;
-    }
-    .quote-card b {
-      display: block;
-      color: #2e3b2b;
-      margin-bottom: 4px;
-    }
-    .warning-box {
-      background: #faefe8;
-      border: 1px solid #ebd2c5;
-      border-left: 4px solid #b8543f;
-      padding: 12px 16px;
-      margin-top: 25px;
-      border-radius: 4px;
-    }
-    .warning-box h4 {
-      margin: 0 0 6px 0;
-      color: #8c2e1b;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .warning-box ul {
-      margin: 0;
-      padding-left: 18px;
-      font-size: 13px;
-      color: #4a342d;
-    }
-    .warning-box li {
-      margin-bottom: 4px;
-    }
-  </style>
+  </script>
 </head>
-<body>
+<body class="bg-parchment text-[#2C2A29] font-sans antialiased">
 
-<div class="book-page">
-  <div class="header-tag">Часть I. Травы и коренья Алтая</div>
-  <h1>Золотой корень</h1>
-  <div class="subtitle">Родиола розовая. Сила горных перевалов, когда тело сдает.</div>
+  <!-- ================= СЕКЦИЯ 1: ГЛАВНЫЙ ЭКРАН ================= -->
+  <header class="relative bg-cedar-900 text-parchment overflow-hidden border-b-4 border-bark">
+    <div class="max-w-4xl mx-auto px-5 py-14 sm:py-20 text-center relative z-10">
+      <span class="inline-block px-3 py-1 bg-moss/40 border border-moss/60 text-[#D8E2DC] text-xs font-semibold tracking-widest uppercase rounded-full mb-4">
+        Алтайское вековое ремесло • Предгорья Белухи
+      </span>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-[#F3EFE6] leading-tight mb-4">
+        Лечебник Травника Мирона
+      </h1>
+      <p class="text-lg sm:text-xl text-[#D5D0C7] max-w-2xl mx-auto font-light leading-relaxed mb-8">
+        150 родовых алтайских рецептов, записанных внучкой Аришей. Практическое руководство по травам, суставам, пищеварению и долголетию без сказок и пустых обещаний.
+      </p>
 
-  <div class="grid-info">
-    <div>
-      <b>Когда брать</b>
-      Конец августа — сентябрь, когда семена осыпались.
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <!-- Кнопка, имитирующая успешную оплату и мгновенно открывающая книгу -->
+        <button onclick="unlockBook()" class="w-full sm:w-auto px-8 py-4 bg-[#C28243] hover:bg-[#A96D32] text-white font-semibold rounded-xl shadow-lg shadow-black/30 transition transform hover:-translate-y-0.5 text-base flex items-center justify-center gap-2">
+          <span>📖 Читать Лечебник (Доступ открыт)</span>
+        </button>
+        <a href="#about" class="w-full sm:w-auto px-6 py-4 bg-white/10 hover:bg-white/15 text-[#EAE6DF] font-medium rounded-xl border border-white/20 transition text-base">
+          О заимке и Мироне
+        </a>
+      </div>
     </div>
-    <div>
-      <b>Где искать</b>
-      Курумники, каменистые осыпи у ледяных ручьев.
+  </header>
+
+  <!-- ================= СЕКЦИЯ 2: О ДЕДЕ МИРОНЕ И АРИШЕ ================= -->
+  <section id="about" class="max-w-4xl mx-auto px-5 py-14">
+    <div class="bg-white rounded-2xl p-6 sm:p-10 border border-[#E5E0D6] shadow-sm">
+      <div class="flex items-center gap-2 text-bark uppercase tracking-wider text-xs font-bold mb-2">
+        <span>Порядок тайги</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-serif font-bold text-cedar-900 mb-4">
+        «Это не больница. Это вековой опыт алтайской земли»
+      </h2>
+      <div class="prose text-sm sm:text-base text-[#4D4944] leading-relaxed space-y-4">
+        <p>
+          Меня зовут <b>Мирон</b>. Мне 65 лет, и всю сознательную жизнь я хожу по алтайским белкам, знаю каждую каменистую осыпь, где прячется золотой корень, и каждую речную заводь с курильским чаем.
+        </p>
+        <p>
+          Рядом со мной всегда внучка — <b>Ариша</b>. Ей шестнадцать, она выросла среди сушёного бадана, берёзовой чаги и хвои. В то время как многие в её возрасте сидят только в гаджетах, Ариша ходит со мной по тропам и ведёт эту книгу. Я говорю суть и даю наказ, а она аккуратно записывает рецепты понятным для каждого человека языком.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 pt-6 border-t border-[#EFECE6]">
+        <div class="p-4 bg-[#F8F6F1] rounded-xl border-l-4 border-bark">
+          <div class="font-bold text-sm text-cedar-900">Дед Мирон (65 лет)</div>
+          <div class="text-xs text-[#6B6661] mt-1">Опыт тайги, строгие запреты, родовые алтайские сборы и выдержка.</div>
+        </div>
+        <div class="p-4 bg-[#F8F6F1] rounded-xl border-l-4 border-moss">
+          <div class="font-bold text-sm text-cedar-900">Ариша (16 лет)</div>
+          <div class="text-xs text-[#6B6661] mt-1">Точные дозировки, правила заваривания, структура и забота о читателе.</div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <p>Корень чистят в проточной воде, режут тонкими пластинками и сушат в тени на легком сквозняке. Свежий пахнет розой, сушеный — чуть терпко. Это главная помощь тому, кто выбился из сил, мерзнет в тайге или восстанавливается после долгой хвори.</p>
-
-  <p><b>Как пить горный чай:</b> пластинку корня величиной с ноготь залить стаканом горячей воды (градусов 80, не крутым кипятком). Дать постоять 15 минут. Пить строго в первой половине дня.</p>
-
-  <div class="dialogue-box">
-    <div class="quote-card">
-      <b>Дед Мирон</b>
-      «Один глоток утром — и день отшагаешь без одышки. А к ночи выпьешь — будешь звезды в окно считать до утра».
+  <!-- ================= СЕКЦИЯ 3: ГЛАВЫ КНИГИ (ПРЕДПРОСМОТР) ================= -->
+  <section class="max-w-4xl mx-auto px-5 py-6">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl sm:text-3xl font-serif font-bold text-cedar-900">Что входит в 150 родовых рецептов</h2>
+      <p class="text-sm text-[#736E67] mt-1">Книга разделена на 6 ясных прикладных глав</p>
     </div>
-    <div class="quote-card">
-      <b>Ариша</b>
-      «Дедушка велит помнить: кружками его не глушат. Это корень строгий, капнул в чашку — и порядок».
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
+        <div class="text-xl mb-2">🏔️</div>
+        <div class="font-bold text-sm text-cedar-900">1. Травы и коренья</div>
+        <div class="text-xs text-[#6B6661] mt-1">30 главных трав Алтая: золотой корень, бадан, чага, красная щетка.</div>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
+        <div class="text-xl mb-2">🪵</div>
+        <div class="font-bold text-sm text-cedar-900">2. Суставы и спина</div>
+        <div class="text-xs text-[#6B6661] mt-1">Сабельник, хвойные растирки, компрессы при ломоте и тяжелой работе.</div>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
+        <div class="text-xl mb-2">🌾</div>
+        <div class="font-bold text-sm text-cedar-900">3. Живот и печень</div>
+        <div class="text-xs text-[#6B6661] mt-1">Кисели, семя льна, отвары для чистки желчных путей без вреда.</div>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
+        <div class="text-xl mb-2">🌿</div>
+        <div class="font-bold text-sm text-cedar-900">4. Ноги и сосуды</div>
+        <div class="text-xs text-[#6B6661] mt-1">Ванночки от отеков, конский каштан, облегчение вечерней тяжести.</div>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
+        <div class="text-xl mb-2">🌙</div>
+        <div class="font-bold text-sm text-cedar-900">5. Сон и покой</div>
+        <div class="text-xs text-[#6B6661] mt-1">Таежные сборы от дурных мыслей, вечерний чай, здоровый сон.</div>
+      </div>
+      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
+        <div class="text-xl mb-2">🔥</div>
+        <div class="font-bold text-sm text-cedar-900">6. Баня и простуда</div>
+        <div class="text-xs text-[#6B6661] mt-1">Малиновый лист, чабрец, правила мягкого алтайского пара без угара.</div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="warning-box">
-    <h4>Кому строго нельзя</h4>
-    <ul>
-      <li>При повышенном давлении и частых кризах.</li>
-      <li>При сильной бессоннице и нервном перевозбуждении.</li>
-      <li>Беременным и кормящим мамам.</li>
-    </ul>
-  </div>
-</div>
+  <!-- ================= СЕКЦИЯ 4: ИНТЕРАКТИВНЫЙ БЛОК КНИГИ (ОТКРЫВАЕТСЯ ПО КНОПКЕ) ================= -->
+  <section id="book-reader-section" class="max-w-4xl mx-auto px-5 py-12 hidden">
+    <div class="bg-[#FFFDF9] rounded-2xl border-2 border-bark p-6 sm:p-10 shadow-2xl relative">
+      
+      <!-- Панель статуса доступа -->
+      <div class="flex flex-wrap justify-between items-center pb-6 border-b border-[#EADFCB] gap-4">
+        <div>
+          <span class="inline-block px-2.5 py-0.5 bg-green-100 text-green-800 text-xs font-bold rounded-full uppercase">
+            ✓ Оплачено • Полный доступ
+          </span>
+          <h3 class="text-2xl font-serif font-bold text-cedar-900 mt-1">Электронный Лечебник Мирона</h3>
+        </div>
+        <button onclick="window.print()" class="px-4 py-2 bg-[#EFE9DF] hover:bg-[#E3DC CE] text-xs font-semibold rounded-lg border border-[#D5CBBB] flex items-center gap-1.5 transition">
+          <span>🖨️ Сохранить в PDF / Распечатать</span>
+        </button>
+      </div>
 
+      <!-- Страница 1: Золотой корень -->
+      <div class="py-8 border-b border-[#EADFCB] space-y-4">
+        <div class="text-xs font-bold tracking-widest uppercase text-moss">Раздел I • Рецепт №1</div>
+        <h4 class="text-2xl font-serif font-bold text-cedar-900">Золотой корень (Родиола розовая)</h4>
+        <p class="text-sm italic text-[#6B6661]">Главная опора тела при упадке сил, слабости и после тяжелой хвори.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-[#FBF9F4] p-4 rounded-xl border border-[#EBE3D3]">
+          <div><b>Где искать:</b> Курумники, каменистые осыпи у ледяных ручьев.</div>
+          <div><b>Когда брать:</b> Конец августа — сентябрь, когда опали семена.</div>
+        </div>
+
+        <div class="text-sm space-y-2">
+          <b>Приготовление:</b>
+          <p class="text-[#4A4743]">Пластинку сухого корня величиной с ноготь залить 250 мл горячей воды (85°C). Настоять 15 минут под холстом. Пить строго в первой половине дня.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+          <div class="p-3 bg-white rounded-lg border-l-3 border-bark shadow-sm">
+            <b>Дед Мирон:</b> «Один глоток поутру — и день на ногах отшагаешь. К ночи не пей, спать не будешь».
+          </div>
+          <div class="p-3 bg-white rounded-lg border-l-3 border-moss shadow-sm">
+            <b>Ариша:</b> «Не сыпьте много! Корень мощный, одной пластинки на заварник хватает за глаза».
+          </div>
+        </div>
+
+        <div class="p-3 bg-[#FDF2F0] rounded-lg border border-[#F6D6D0] text-xs text-[#8F3929]">
+          <b>Кому нельзя:</b> При высоком давлении, бессоннице, гипертонических кризах и беременности.
+        </div>
+      </div>
+
+      <!-- Страница 2: Бадан толстолистный -->
+      <div class="py-8 border-b border-[#EADFCB] space-y-4">
+        <div class="text-xs font-bold tracking-widest uppercase text-moss">Раздел I • Рецепт №2</div>
+        <h4 class="text-2xl font-serif font-bold text-cedar-900">Бадан толстолистный (Чигирский чай)</h4>
+        <p class="text-sm italic text-[#6B6661]">Крепость живота и очищение от жара.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-[#FBF9F4] p-4 rounded-xl border border-[#EBE3D3]">
+          <div><b>Где искать:</b> Высокогорные скалы, крутые каменистые склоны.</div>
+          <div><b>Что брать:</b> Строго старый перезимовавший черный лист. Зеленый лист ядовит.</div>
+        </div>
+
+        <div class="text-sm space-y-2">
+          <b>Приготовление:</b>
+          <p class="text-[#4A4743]">Один сухой лист промыть в ледяной воде, поломать руками в глиняный чайник, залить кипятком и укутать на 20 минут. Чай выходит смолянистый, с хвойным духом.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+          <div class="p-3 bg-white rounded-lg border-l-3 border-bark shadow-sm">
+            <b>Дед Мирон:</b> «Бадан три зимы под сугробами лежал, силу копил. Желудок крепит накрепко».
+          </div>
+          <div class="p-3 bg-white rounded-lg border-l-3 border-moss shadow-sm">
+            <b>Ариша:</b> «Если вкус покажется слишком вяжущим, добавьте ложку алтайского меда».
+          </div>
+        </div>
+
+        <div class="p-3 bg-[#FDF2F0] rounded-lg border border-[#F6D6D0] text-xs text-[#8F3929]">
+          <b>Кому нельзя:</b> При склонности к тромбозам и запорах (бадан сильно вяжет).
+        </div>
+      </div>
+
+      <!-- Страница 3: Курильский чай -->
+      <div class="py-8 space-y-4">
+        <div class="text-xs font-bold tracking-widest uppercase text-moss">Раздел I • Рецепт №3</div>
+        <h4 class="text-2xl font-serif font-bold text-cedar-900">Курильский чай (Лапчатка кустарниковая)</h4>
+        <p class="text-sm italic text-[#6B6661]">Покой в животе при расстройствах и дорожной усталости.</p>
+
+        <div class="text-sm space-y-2">
+          <b>Приготовление:</b>
+          <p class="text-[#4A4743]">Столовую ложку цветущих верхушек залить 300 мл горячей воды (85°C), настоять 15 минут. Пить тёплым небольшими глотками.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+          <div class="p-3 bg-white rounded-lg border-l-3 border-bark shadow-sm">
+            <b>Дед Мирон:</b> «Если путник с перевала спустился, а нутро крутит — котелок курильского чая ставим сразу».
+          </div>
+          <div class="p-3 bg-white rounded-lg border-l-3 border-moss shadow-sm">
+            <b>Ариша:</b> «Пьётся приятно, как мягкий зелёный чай без горечи».
+          </div>
+        </div>
+
+        <div class="p-3 bg-[#FDF2F0] rounded-lg border border-[#F6D6D0] text-xs text-[#8F3929]">
+          <b>Кому нельзя:</b> При пониженном давлении (гипотонии) и тяжелых болезнях почек.
+        </div>
+      </div>
+
+      <div class="text-center pt-8 border-t border-[#EADFCB]">
+        <p class="text-xs text-[#736E67]">Книга дополняется новыми рецептами прямо в этом окне.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ПОДВАЛ ================= -->
+  <footer class="bg-cedar-900 text-[#A6A097] text-center py-10 px-4 border-t border-bark text-xs">
+    <p>© Лечебник Травника Мирона и внучки Ариши. Алтайский край.</p>
+    <p class="mt-1 text-[#6F6A63]">Все рецепты носят оздоровительный характер и не заменяют консультацию врача.</p>
+  </footer>
+
+  <!-- СКРИПТ: РАСКРЫТИЕ КНИГИ И СКРОЛЛ ПО КЛИКУ НА КНОПКУ -->
+  <script>
+    function unlockBook() {
+      const bookSection = document.getElementById('book-reader-section');
+      bookSection.classList.remove('hidden');
+      bookSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
