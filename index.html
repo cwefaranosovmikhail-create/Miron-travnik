@@ -1,256 +1,442 @@
 <!DOCTYPE html>
 <html lang="ru" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Лечебник Травника Мирона — 150 Родовых Алтайских Рецептов</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            cedar: {
-              800: '#1B2A22',
-              900: '#111B15',
-            },
-            bark: '#8B5A2B',
-            moss: '#4A5D45',
-            parchment: '#F9F6F0',
-            clay: '#B8543F'
-          },
-          fontFamily: {
-            serif: ['"Cormorant Garamond"', 'serif'],
-            sans: ['Manrope', 'sans-serif'],
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лечебник Травника Мирона — 150 Родовых Рецептов Сибири и Алтая</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Шрифты: Cormorant Garamond и Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cedar: {
+                            900: '#0B1C15',
+                            800: '#11291F',
+                            700: '#183B2C',
+                            600: '#23533E',
+                            100: '#E7EFEA'
+                        },
+                        amberWood: {
+                            500: '#C96510',
+                            600: '#AC4F06',
+                            100: '#FDF0E2'
+                        },
+                        parchment: {
+                            50: '#FAF8F3',
+                            100: '#F3EFE6',
+                            200: '#E8E0D0',
+                            800: '#3D372E'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Manrope"', 'sans-serif'],
+                    }
+                }
+            }
         }
-      }
-    }
-  </script>
+    </script>
+    <style>
+        .parchment-pattern {
+            background-color: #FAF8F3;
+            background-image: radial-gradient(#E8E0D0 0.75px, transparent 0.75px);
+            background-size: 16px 16px;
+        }
+    </style>
 </head>
-<body class="bg-parchment text-[#2C2A29] font-sans antialiased">
+<body class="parchment-pattern text-parchment-800 font-sans antialiased selection:bg-amberWood-500 selection:text-white">
 
-  <!-- ================= СЕКЦИЯ 1: ГЛАВНЫЙ ЭКРАН ================= -->
-  <header class="relative bg-cedar-900 text-parchment overflow-hidden border-b-4 border-bark">
-    <div class="max-w-4xl mx-auto px-5 py-14 sm:py-20 text-center relative z-10">
-      <span class="inline-block px-3 py-1 bg-moss/40 border border-moss/60 text-[#D8E2DC] text-xs font-semibold tracking-widest uppercase rounded-full mb-4">
-        Алтайское вековое ремесло • Предгорья Белухи
-      </span>
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-[#F3EFE6] leading-tight mb-4">
-        Лечебник Травника Мирона
-      </h1>
-      <p class="text-lg sm:text-xl text-[#D5D0C7] max-w-2xl mx-auto font-light leading-relaxed mb-8">
-        150 родовых алтайских рецептов, записанных внучкой Аришей. Практическое руководство по травам, суставам, пищеварению и долголетию без сказок и пустых обещаний.
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <!-- Кнопка, имитирующая успешную оплату и мгновенно открывающая книгу -->
-        <button onclick="unlockBook()" class="w-full sm:w-auto px-8 py-4 bg-[#C28243] hover:bg-[#A96D32] text-white font-semibold rounded-xl shadow-lg shadow-black/30 transition transform hover:-translate-y-0.5 text-base flex items-center justify-center gap-2">
-          <span>📖 Читать Лечебник (Доступ открыт)</span>
-        </button>
-        <a href="#about" class="w-full sm:w-auto px-6 py-4 bg-white/10 hover:bg-white/15 text-[#EAE6DF] font-medium rounded-xl border border-white/20 transition text-base">
-          О заимке и Мироне
-        </a>
-      </div>
+    <!-- Верхняя плашка -->
+    <div class="bg-cedar-900 text-amberWood-100 text-xs py-2 px-4 text-center font-medium tracking-wide">
+        🌲 Официальный авторский сборник Травника Мирона • Закрытая распродажа цифрового издания
     </div>
-  </header>
 
-  <!-- ================= СЕКЦИЯ 2: О ДЕДЕ МИРОНЕ И АРИШЕ ================= -->
-  <section id="about" class="max-w-4xl mx-auto px-5 py-14">
-    <div class="bg-white rounded-2xl p-6 sm:p-10 border border-[#E5E0D6] shadow-sm">
-      <div class="flex items-center gap-2 text-bark uppercase tracking-wider text-xs font-bold mb-2">
-        <span>Порядок тайги</span>
-      </div>
-      <h2 class="text-2xl sm:text-3xl font-serif font-bold text-cedar-900 mb-4">
-        «Это не больница. Это вековой опыт алтайской земли»
-      </h2>
-      <div class="prose text-sm sm:text-base text-[#4D4944] leading-relaxed space-y-4">
-        <p>
-          Меня зовут <b>Мирон</b>. Мне 65 лет, и всю сознательную жизнь я хожу по алтайским белкам, знаю каждую каменистую осыпь, где прячется золотой корень, и каждую речную заводь с курильским чаем.
+    <!-- Шапка / Первый экран -->
+    <header class="max-w-xl mx-auto px-5 pt-8 pb-10 text-center">
+        <div class="inline-flex items-center gap-2 bg-cedar-100 text-cedar-700 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-5">
+            <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+            Травная сокровищница Алтая
+        </div>
+
+        <h1 class="font-serif text-4xl sm:text-5xl font-bold leading-tight text-cedar-900 mb-4">
+            Лечебник Травника Мирона
+        </h1>
+        <p class="font-serif italic text-xl text-amberWood-600 mb-3 font-medium">
+            150 забытых родовых рецептов для исцеления 11 систем тела
         </p>
-        <p>
-          Рядом со мной всегда внучка — <b>Ариша</b>. Ей шестнадцать, она выросла среди сушёного бадана, берёзовой чаги и хвои. В то время как многие в её возрасте сидят только в гаджетах, Ариша ходит со мной по тропам и ведёт эту книгу. Я говорю суть и даю наказ, а она аккуратно записывает рецепты понятным для каждого человека языком.
+        <p class="text-sm text-gray-600 max-w-md mx-auto leading-relaxed mb-6">
+            Практическая энциклопедия домашнего оздоровления без фармацевтической химии. Точные алтайские граммовки, проверенные временем и природой.
         </p>
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 pt-6 border-t border-[#EFECE6]">
-        <div class="p-4 bg-[#F8F6F1] rounded-xl border-l-4 border-bark">
-          <div class="font-bold text-sm text-cedar-900">Дед Мирон (65 лет)</div>
-          <div class="text-xs text-[#6B6661] mt-1">Опыт тайги, строгие запреты, родовые алтайские сборы и выдержка.</div>
+        <!-- Карточка Мирона и Книги -->
+        <div class="relative bg-gradient-to-b from-cedar-800 to-cedar-900 rounded-3xl p-6 text-white shadow-2xl mb-8 overflow-hidden text-left border border-cedar-700">
+            <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-amberWood-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="flex items-center gap-4 mb-5 border-b border-white/10 pb-4">
+                <div class="w-16 h-16 rounded-full bg-amberWood-600 flex items-center justify-center text-3xl font-serif font-bold shadow-inner">
+                    М
+                </div>
+                <div>
+                    <h3 class="font-serif text-2xl font-bold text-amberWood-100">Мирон Алтайский</h3>
+                    <p class="text-xs text-emerald-200">Потомственный травник предгорий Белухи • 30+ лет практики</p>
+                </div>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10 mb-5">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-gray-300">Формат энциклопедии:</span>
+                    <span class="text-xs font-bold text-amberWood-500">172 страницы • PDF</span>
+                </div>
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-gray-300">Совместимость:</span>
+                    <span class="text-xs font-bold text-white">Смартфон, планшет, ПК</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-gray-300">Доступ:</span>
+                    <span class="text-xs font-bold text-emerald-300">Навсегда в личное владение</span>
+                </div>
+            </div>
+
+            <!-- Цена и главная кнопка -->
+            <div class="text-center pt-2">
+                <div class="flex items-baseline justify-center gap-3 mb-3">
+                    <span class="text-3xl font-extrabold text-white">1 390 ₽</span>
+                    <span class="text-sm text-gray-400 line-through">3 200 ₽</span>
+                    <span class="bg-amberWood-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full">-57%</span>
+                </div>
+                <button onclick="openPaymentModal()" class="w-full bg-gradient-to-r from-amberWood-500 to-amberWood-600 hover:from-amberWood-600 hover:to-amber-600 text-white font-bold py-4 px-6 rounded-2xl text-base shadow-lg shadow-amberWood-500/30 transform active:scale-[0.98] transition">
+                    📖 Забрать Лечебник за 1 390 ₽
+                </button>
+                <p class="text-[11px] text-gray-300 mt-2">Мгновенная ссылка на скачивание на вашу почту сразу после оплаты</p>
+            </div>
         </div>
-        <div class="p-4 bg-[#F8F6F1] rounded-xl border-l-4 border-moss">
-          <div class="font-bold text-sm text-cedar-900">Ариша (16 лет)</div>
-          <div class="text-xs text-[#6B6661] mt-1">Точные дозировки, правила заваривания, структура и забота о читателе.</div>
+    </header>
+
+    <!-- Слово от Мирона -->
+    <section class="max-w-xl mx-auto px-5 mb-12">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-parchment-200">
+            <h2 class="font-serif text-2xl font-bold text-cedar-900 mb-3">
+                «Земля лечит тихо, но основательно»
+            </h2>
+            <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                «Я составил эту книгу, видя, как люди годами глушат сигналы своего тела дорогими пилюлями, зарабатывая язвы и сажая печень. Природа Алтая уже заготовила ответы на каждую боль — от густой крови и ломоты в коленях до утренних валиков на талии. Моя цель — чтобы в каждом доме была эта простая и чистая шпаргалка.»
+            </p>
+            <div class="flex items-center gap-3">
+                <span class="text-lg">🌿</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-cedar-700">Травник Мирон</span>
+            </div>
         </div>
-      </div>
+    </section>
+
+    <!-- Интерактивный калькулятор сборов / Проблемные зоны -->
+    <section class="max-w-xl mx-auto px-5 mb-14">
+        <div class="text-center mb-6">
+            <span class="text-xs font-bold text-amberWood-600 uppercase tracking-widest">Интерактивный атлас</span>
+            <h2 class="font-serif text-3xl font-bold text-cedar-900">Что вас тревожит?</h2>
+            <p class="text-xs text-gray-500 mt-1">Выберите проблему, чтобы увидеть отрывок из Лечебника</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 mb-4">
+            <button onclick="showSymptom('swelling')" id="btn-swelling" class="tab-btn active bg-cedar-800 text-white text-xs font-semibold py-3 px-4 rounded-xl text-center border border-cedar-800 transition">
+                💧 Отёки и лимфозастой
+            </button>
+            <button onclick="showSymptom('joints')" id="btn-joints" class="tab-btn bg-white text-gray-700 text-xs font-semibold py-3 px-4 rounded-xl text-center border border-parchment-200 transition">
+                🦴 Суставы и позвоночник
+            </button>
+            <button onclick="showSymptom('sleep')" id="btn-sleep" class="tab-btn bg-white text-gray-700 text-xs font-semibold py-3 px-4 rounded-xl text-center border border-parchment-200 transition">
+                🌙 Сон и тревожность
+            </button>
+            <button onclick="showSymptom('gastro')" id="btn-gastro" class="tab-btn bg-white text-gray-700 text-xs font-semibold py-3 px-4 rounded-xl text-center border border-parchment-200 transition">
+                🌿 ЖКТ и вздутие
+            </button>
+        </div>
+
+        <!-- Окно рецепта -->
+        <div id="symptom-card" class="bg-white rounded-3xl p-6 border border-parchment-200 shadow-sm transition-all duration-300">
+            <div class="flex items-center justify-between border-b border-parchment-100 pb-3 mb-4">
+                <span id="symptom-tag" class="text-[11px] font-bold uppercase tracking-wider text-amberWood-600 bg-amberWood-100 px-3 py-1 rounded-full">Раздел 03 • Очищение лимфы</span>
+                <span id="symptom-num" class="text-xs text-gray-400 font-mono">Рецепт № 42</span>
+            </div>
+            <h3 id="symptom-title" class="font-serif text-xl font-bold text-cedar-900 mb-2">Алтайский лимфодренажный взвар</h3>
+            <p id="symptom-desc" class="text-xs text-gray-600 mb-4 leading-relaxed">
+                Помогает вывести лишнюю межтканевую воду, расправляет овал лица и убирает застои на бёдрах и пояснице за счёт мягкого оттока желчи и лимфы.
+            </p>
+            <div class="bg-parchment-100 rounded-2xl p-4 text-xs">
+                <p class="font-bold text-cedar-800 mb-1">Состав из Лечебника:</p>
+                <p id="symptom-recipe" class="text-gray-700 italic">Имбирный корень (1 ч.л.), курильский чай (лапчатка), щепотка черного перца, лимонный сок. Заваривать 10 минут, пить тёплым натощак.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Что внутри 150 рецептов -->
+    <section class="max-w-xl mx-auto px-5 mb-14">
+        <h2 class="font-serif text-2xl font-bold text-cedar-900 mb-5 text-center">
+            Структура родового Лечебника
+        </h2>
+        <div class="space-y-3">
+            <div class="bg-white rounded-2xl p-4 border border-parchment-200 flex items-start gap-4">
+                <span class="text-2xl">🌱</span>
+                <div>
+                    <h4 class="font-bold text-sm text-cedar-900">11 целевых разделов здоровья</h4>
+                    <p class="text-xs text-gray-600">Сердце и сосуды, суставы, дыхание, женское и мужское здоровье, детский иммунитет, нервы, очищение.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-parchment-200 flex items-start gap-4">
+                <span class="text-2xl">⚖️</span>
+                <div>
+                    <h4 class="font-bold text-sm text-cedar-900">Аптекарская точность до грамма</h4>
+                    <p class="text-xs text-gray-600">Никаких размытых «по вкусу». Только чёткие пропорции, температура заваривания и время настаивания.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-parchment-200 flex items-start gap-4">
+                <span class="text-2xl">⚠️</span>
+                <div>
+                    <h4 class="font-bold text-sm text-cedar-900">Строгие предостережения</h4>
+                    <p class="text-xs text-gray-600">К каждому сбору указано, кому он противопоказан (давление, беременность, камни в почках).</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-parchment-200 flex items-start gap-4">
+                <span class="text-2xl">🛒</span>
+                <div>
+                    <h4 class="font-bold text-sm text-cedar-900">Доступные травы</h4>
+                    <p class="text-xs text-gray-600">95% трав и кореньев продаются в любой аптеке у дома или на рынке за 50–150 рублей.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="max-w-xl mx-auto px-5 mb-14">
+        <h2 class="font-serif text-2xl font-bold text-cedar-900 mb-5 text-center">
+            Слова благодарности читателей
+        </h2>
+        <div class="space-y-4">
+            <div class="bg-white rounded-3xl p-5 border border-parchment-200 shadow-sm">
+                <div class="flex items-center gap-1 text-amber-500 text-sm mb-2">★★★★★</div>
+                <p class="text-xs text-gray-700 leading-relaxed mb-3">
+                    «Утренний взвар с курильским чаем и имбирём Мирона сотворил чудо с моим лицом. Всю жизнь просыпалась с отекшими веками, а через неделю отёки ушли! Книга сделана с невероятной любовью и уважением к человеку.»
+                </p>
+                <div class="text-[11px] font-bold text-cedar-700">Ольга Смирнова, 46 лет • г. Барнаул</div>
+            </div>
+            <div class="bg-white rounded-3xl p-5 border border-parchment-200 shadow-sm">
+                <div class="flex items-center gap-1 text-amber-500 text-sm mb-2">★★★★★</div>
+                <p class="text-xs text-gray-700 leading-relaxed mb-3">
+                    «Сборник лежит в планшете на кухне. При кашле у внучки или болях в спине у мужа сразу открываю нужный раздел. Настоящий семейный справочник вместо горы таблеток.»
+                </p>
+                <div class="text-[11px] font-bold text-cedar-700">Валентина Сергеевна, 59 лет • г. Екатеринбург</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Финальный блок заказа -->
+    <section class="max-w-xl mx-auto px-5 mb-14">
+        <div class="bg-cedar-900 rounded-3xl p-6 sm:p-8 text-white text-center border border-cedar-700 shadow-2xl">
+            <span class="inline-block bg-amberWood-500/20 text-amberWood-500 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+                Специальная цена для читателей блога
+            </span>
+            <h2 class="font-serif text-3xl font-bold mb-3">Получить Лечебник Травника Мирона</h2>
+            <p class="text-xs text-gray-300 mb-6 max-w-sm mx-auto">
+                Электронная книга в формате PDF (172 стр.). Моментальный доступ навсегда сразу после оплаты.
+            </p>
+            <div class="flex items-baseline justify-center gap-3 mb-6">
+                <span class="text-4xl font-extrabold text-white">1 390 ₽</span>
+                <span class="text-base text-gray-400 line-through">3 200 ₽</span>
+            </div>
+            <button onclick="openPaymentModal()" class="w-full bg-gradient-to-r from-amberWood-500 to-amberWood-600 text-white font-bold py-4 px-6 rounded-2xl text-base shadow-lg shadow-amberWood-500/30 transform active:scale-[0.98] transition">
+                🌿 Получить книгу за 1 390 ₽
+            </button>
+            <p class="text-[11px] text-gray-400 mt-3">Безопасная оплата через СБП, картами РФ и рассрочкой Сплит</p>
+        </div>
+    </section>
+
+    <!-- Подвал и юридическая информация -->
+    <footer class="bg-cedar-900 text-gray-400 text-xs py-10 px-5 border-t border-white/5">
+        <div class="max-w-xl mx-auto space-y-4">
+            <div class="text-center">
+                <h4 class="font-serif text-xl font-bold text-white mb-1">Лечебник Травника Мирона</h4>
+                <p class="text-[11px] text-gray-400">Просветительский проект о традициях алтайского траволечения</p>
+            </div>
+            
+            <div class="bg-white/5 p-4 rounded-xl text-[11px] leading-relaxed text-gray-300">
+                <p class="font-bold text-white mb-1">Реквизиты продавца:</p>
+                <p>Индивидуальный предприниматель [ФИО Отца]</p>
+                <p>ОГРНИП: [Указать ОГРНИП] • ИНН: [Указать ИНН]</p>
+                <p>ОКВЭД: 47.91 (Торговля розничная по сети Интернет)</p>
+                <p>Служба заботы: miron.travnik.altai@gmail.com</p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 text-[11px] pt-2">
+                <button onclick="openModal('oferta-modal')" class="underline hover:text-white">Публичная оферта</button>
+                <button onclick="openModal('privacy-modal')" class="underline hover:text-white">Политика конфиденциальности</button>
+                <button onclick="openModal('disclaimer-modal')" class="underline hover:text-white">Отказ от ответственности</button>
+            </div>
+
+            <p class="text-[10px] text-center text-gray-500 pt-4">
+                © 2026 Травник Мирон. Все права защищены. Книга носит ознакомительный характер и не заменяет врачебную помощь.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно оформления заказа / Оплаты -->
+    <div id="payment-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-left relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('payment-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            
+            <div class="flex items-center gap-3 mb-5 border-b border-gray-100 pb-4">
+                <div class="w-12 h-12 rounded-xl bg-cedar-800 text-white flex items-center justify-center text-xl font-bold">📖</div>
+                <div>
+                    <h3 class="font-bold text-sm text-gray-900">Лечебник Травника Мирона</h3>
+                    <p class="text-xs text-amberWood-600 font-semibold">Сумма к оплате: 1 390 ₽</p>
+                </div>
+            </div>
+
+            <form id="order-form" onsubmit="handlePaymentSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Ваш Email (туда придет книга):</label>
+                    <input type="email" required placeholder="ivanov@mail.ru" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-amberWood-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Номер телефона (для чека):</label>
+                    <input type="tel" required placeholder="+7 (999) 000-00-00" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-amberWood-500 focus:outline-none">
+                </div>
+
+                <div class="pt-2">
+                    <label class="block text-xs font-semibold text-gray-700 mb-2">Способ оплаты:</label>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <label class="border rounded-xl p-3 flex items-center gap-2 cursor-pointer border-amberWood-500 bg-amberWood-100/30">
+                            <input type="radio" name="pay_method" checked class="accent-amberWood-600">
+                            <span class="font-bold">⚡ СБП / Карта РФ</span>
+                        </label>
+                        <label class="border rounded-xl p-3 flex items-center gap-2 cursor-pointer border-gray-200">
+                            <input type="radio" name="pay_method" class="accent-amberWood-600">
+                            <span>🍏 SberPay / Я.Пэй</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="text-[11px] text-gray-500 leading-tight">
+                    Нажимая кнопку, вы соглашаетесь с условиями <a href="#" onclick="openModal('oferta-modal')" class="underline text-amberWood-600">Оферты</a> и политикой конфиденциальности.
+                </div>
+
+                <button type="submit" class="w-full bg-amberWood-500 hover:bg-amberWood-600 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition">
+                    Перейти к оплате 1 390 ₽
+                </button>
+            </form>
+
+            <!-- Окно успеха -->
+            <div id="payment-success" class="hidden text-center py-6">
+                <span class="text-5xl">✅</span>
+                <h4 class="font-serif text-2xl font-bold text-gray-900 mt-3 mb-2">Оплата прошла успешно!</h4>
+                <p class="text-xs text-gray-600 mb-5">
+                    Копия Лечебника и фискальный чек отправлены на вашу электронную почту. Вы также можете скачать книгу прямо сейчас:
+                </p>
+                <a href="#" download class="inline-block bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-6 rounded-xl text-sm shadow">
+                    📥 Скачать Лечебник (PDF, 48 МБ)
+                </a>
+            </div>
+        </div>
     </div>
-  </section>
 
-  <!-- ================= СЕКЦИЯ 3: ГЛАВЫ КНИГИ (ПРЕДПРОСМОТР) ================= -->
-  <section class="max-w-4xl mx-auto px-5 py-6">
-    <div class="text-center mb-8">
-      <h2 class="text-2xl sm:text-3xl font-serif font-bold text-cedar-900">Что входит в 150 родовых рецептов</h2>
-      <p class="text-sm text-[#736E67] mt-1">Книга разделена на 6 ясных прикладных глав</p>
+    <!-- Модалки документов -->
+    <div id="oferta-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 text-left relative max-h-[80vh] overflow-y-auto text-xs space-y-3">
+            <button onclick="closeModal('oferta-modal')" class="absolute top-4 right-4 text-gray-400 text-xl font-bold">&times;</button>
+            <h3 class="font-bold text-base text-gray-900 mb-2">Публичная оферта</h3>
+            <p>Настоящий документ является публичной офертой ИП [ФИО Отца] на приобретение цифрового произведения «Лечебник Травника Мирона».</p>
+            <p>1. Товар представляет собой электронный файл формата PDF.</p>
+            <p>2. Согласно ст. 26.1 Закона РФ «О защите прав потребителей», электронные издания надлежащего качества возврату и обмену не подлежат с момента предоставления ссылки на скачивание.</p>
+        </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
-        <div class="text-xl mb-2">🏔️</div>
-        <div class="font-bold text-sm text-cedar-900">1. Травы и коренья</div>
-        <div class="text-xs text-[#6B6661] mt-1">30 главных трав Алтая: золотой корень, бадан, чага, красная щетка.</div>
-      </div>
-      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
-        <div class="text-xl mb-2">🪵</div>
-        <div class="font-bold text-sm text-cedar-900">2. Суставы и спина</div>
-        <div class="text-xs text-[#6B6661] mt-1">Сабельник, хвойные растирки, компрессы при ломоте и тяжелой работе.</div>
-      </div>
-      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
-        <div class="text-xl mb-2">🌾</div>
-        <div class="font-bold text-sm text-cedar-900">3. Живот и печень</div>
-        <div class="text-xs text-[#6B6661] mt-1">Кисели, семя льна, отвары для чистки желчных путей без вреда.</div>
-      </div>
-      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
-        <div class="text-xl mb-2">🌿</div>
-        <div class="font-bold text-sm text-cedar-900">4. Ноги и сосуды</div>
-        <div class="text-xs text-[#6B6661] mt-1">Ванночки от отеков, конский каштан, облегчение вечерней тяжести.</div>
-      </div>
-      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
-        <div class="text-xl mb-2">🌙</div>
-        <div class="font-bold text-sm text-cedar-900">5. Сон и покой</div>
-        <div class="text-xs text-[#6B6661] mt-1">Таежные сборы от дурных мыслей, вечерний чай, здоровый сон.</div>
-      </div>
-      <div class="bg-white p-5 rounded-xl border border-[#E5E0D6]">
-        <div class="text-xl mb-2">🔥</div>
-        <div class="font-bold text-sm text-cedar-900">6. Баня и простуда</div>
-        <div class="text-xs text-[#6B6661] mt-1">Малиновый лист, чабрец, правила мягкого алтайского пара без угара.</div>
-      </div>
+    <div id="privacy-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 text-left relative max-h-[80vh] overflow-y-auto text-xs space-y-3">
+            <button onclick="closeModal('privacy-modal')" class="absolute top-4 right-4 text-gray-400 text-xl font-bold">&times;</button>
+            <h3 class="font-bold text-base text-gray-900 mb-2">Политика конфиденциальности</h3>
+            <p>Обработка персональных данных (email, номер телефона) осуществляется строго в рамках Федерального закона № 152-ФЗ исключительно для исполнения договора оферты и доставки чека покупателю.</p>
+        </div>
     </div>
-  </section>
 
-  <!-- ================= СЕКЦИЯ 4: ИНТЕРАКТИВНЫЙ БЛОК КНИГИ (ОТКРЫВАЕТСЯ ПО КНОПКЕ) ================= -->
-  <section id="book-reader-section" class="max-w-4xl mx-auto px-5 py-12 hidden">
-    <div class="bg-[#FFFDF9] rounded-2xl border-2 border-bark p-6 sm:p-10 shadow-2xl relative">
-      
-      <!-- Панель статуса доступа -->
-      <div class="flex flex-wrap justify-between items-center pb-6 border-b border-[#EADFCB] gap-4">
-        <div>
-          <span class="inline-block px-2.5 py-0.5 bg-green-100 text-green-800 text-xs font-bold rounded-full uppercase">
-            ✓ Оплачено • Полный доступ
-          </span>
-          <h3 class="text-2xl font-serif font-bold text-cedar-900 mt-1">Электронный Лечебник Мирона</h3>
+    <div id="disclaimer-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 text-left relative max-h-[80vh] overflow-y-auto text-xs space-y-3">
+            <button onclick="closeModal('disclaimer-modal')" class="absolute top-4 right-4 text-gray-400 text-xl font-bold">&times;</button>
+            <h3 class="font-bold text-base text-gray-900 mb-2">Отказ от медицинской ответственности</h3>
+            <p>Материалы книги носят исключительно просветительский характер народных традиций. Информация не является медицинской консультацией, диагнозом или планом лечения. При наличии хронических заболеваний проконсультируйтесь со своим лечащим врачом.</p>
         </div>
-        <button onclick="window.print()" class="px-4 py-2 bg-[#EFE9DF] hover:bg-[#E3DC CE] text-xs font-semibold rounded-lg border border-[#D5CBBB] flex items-center gap-1.5 transition">
-          <span>🖨️ Сохранить в PDF / Распечатать</span>
-        </button>
-      </div>
-
-      <!-- Страница 1: Золотой корень -->
-      <div class="py-8 border-b border-[#EADFCB] space-y-4">
-        <div class="text-xs font-bold tracking-widest uppercase text-moss">Раздел I • Рецепт №1</div>
-        <h4 class="text-2xl font-serif font-bold text-cedar-900">Золотой корень (Родиола розовая)</h4>
-        <p class="text-sm italic text-[#6B6661]">Главная опора тела при упадке сил, слабости и после тяжелой хвори.</p>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-[#FBF9F4] p-4 rounded-xl border border-[#EBE3D3]">
-          <div><b>Где искать:</b> Курумники, каменистые осыпи у ледяных ручьев.</div>
-          <div><b>Когда брать:</b> Конец августа — сентябрь, когда опали семена.</div>
-        </div>
-
-        <div class="text-sm space-y-2">
-          <b>Приготовление:</b>
-          <p class="text-[#4A4743]">Пластинку сухого корня величиной с ноготь залить 250 мл горячей воды (85°C). Настоять 15 минут под холстом. Пить строго в первой половине дня.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-          <div class="p-3 bg-white rounded-lg border-l-3 border-bark shadow-sm">
-            <b>Дед Мирон:</b> «Один глоток поутру — и день на ногах отшагаешь. К ночи не пей, спать не будешь».
-          </div>
-          <div class="p-3 bg-white rounded-lg border-l-3 border-moss shadow-sm">
-            <b>Ариша:</b> «Не сыпьте много! Корень мощный, одной пластинки на заварник хватает за глаза».
-          </div>
-        </div>
-
-        <div class="p-3 bg-[#FDF2F0] rounded-lg border border-[#F6D6D0] text-xs text-[#8F3929]">
-          <b>Кому нельзя:</b> При высоком давлении, бессоннице, гипертонических кризах и беременности.
-        </div>
-      </div>
-
-      <!-- Страница 2: Бадан толстолистный -->
-      <div class="py-8 border-b border-[#EADFCB] space-y-4">
-        <div class="text-xs font-bold tracking-widest uppercase text-moss">Раздел I • Рецепт №2</div>
-        <h4 class="text-2xl font-serif font-bold text-cedar-900">Бадан толстолистный (Чигирский чай)</h4>
-        <p class="text-sm italic text-[#6B6661]">Крепость живота и очищение от жара.</p>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-[#FBF9F4] p-4 rounded-xl border border-[#EBE3D3]">
-          <div><b>Где искать:</b> Высокогорные скалы, крутые каменистые склоны.</div>
-          <div><b>Что брать:</b> Строго старый перезимовавший черный лист. Зеленый лист ядовит.</div>
-        </div>
-
-        <div class="text-sm space-y-2">
-          <b>Приготовление:</b>
-          <p class="text-[#4A4743]">Один сухой лист промыть в ледяной воде, поломать руками в глиняный чайник, залить кипятком и укутать на 20 минут. Чай выходит смолянистый, с хвойным духом.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-          <div class="p-3 bg-white rounded-lg border-l-3 border-bark shadow-sm">
-            <b>Дед Мирон:</b> «Бадан три зимы под сугробами лежал, силу копил. Желудок крепит накрепко».
-          </div>
-          <div class="p-3 bg-white rounded-lg border-l-3 border-moss shadow-sm">
-            <b>Ариша:</b> «Если вкус покажется слишком вяжущим, добавьте ложку алтайского меда».
-          </div>
-        </div>
-
-        <div class="p-3 bg-[#FDF2F0] rounded-lg border border-[#F6D6D0] text-xs text-[#8F3929]">
-          <b>Кому нельзя:</b> При склонности к тромбозам и запорах (бадан сильно вяжет).
-        </div>
-      </div>
-
-      <!-- Страница 3: Курильский чай -->
-      <div class="py-8 space-y-4">
-        <div class="text-xs font-bold tracking-widest uppercase text-moss">Раздел I • Рецепт №3</div>
-        <h4 class="text-2xl font-serif font-bold text-cedar-900">Курильский чай (Лапчатка кустарниковая)</h4>
-        <p class="text-sm italic text-[#6B6661]">Покой в животе при расстройствах и дорожной усталости.</p>
-
-        <div class="text-sm space-y-2">
-          <b>Приготовление:</b>
-          <p class="text-[#4A4743]">Столовую ложку цветущих верхушек залить 300 мл горячей воды (85°C), настоять 15 минут. Пить тёплым небольшими глотками.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-          <div class="p-3 bg-white rounded-lg border-l-3 border-bark shadow-sm">
-            <b>Дед Мирон:</b> «Если путник с перевала спустился, а нутро крутит — котелок курильского чая ставим сразу».
-          </div>
-          <div class="p-3 bg-white rounded-lg border-l-3 border-moss shadow-sm">
-            <b>Ариша:</b> «Пьётся приятно, как мягкий зелёный чай без горечи».
-          </div>
-        </div>
-
-        <div class="p-3 bg-[#FDF2F0] rounded-lg border border-[#F6D6D0] text-xs text-[#8F3929]">
-          <b>Кому нельзя:</b> При пониженном давлении (гипотонии) и тяжелых болезнях почек.
-        </div>
-      </div>
-
-      <div class="text-center pt-8 border-t border-[#EADFCB]">
-        <p class="text-xs text-[#736E67]">Книга дополняется новыми рецептами прямо в этом окне.</p>
-      </div>
     </div>
-  </section>
 
-  <!-- ================= ПОДВАЛ ================= -->
-  <footer class="bg-cedar-900 text-[#A6A097] text-center py-10 px-4 border-t border-bark text-xs">
-    <p>© Лечебник Травника Мирона и внучки Ариши. Алтайский край.</p>
-    <p class="mt-1 text-[#6F6A63]">Все рецепты носят оздоровительный характер и не заменяют консультацию врача.</p>
-  </footer>
+    <!-- Скрипты интерактива -->
+    <script>
+        const symptomsData = {
+            swelling: {
+                tag: "Раздел 03 • Очищение лимфы",
+                num: "Рецепт № 42",
+                title: "Алтайский лимфодренажный взвар",
+                desc: "Помогает вывести лишнюю межтканевую воду, расправляет овал лица и убирает застои на бёдрах и пояснице за счёт мягкого оттока желчи и лимфы.",
+                recipe: "Имбирный корень (1 ч.л.), курильский чай (лапчатка), щепотка черного перца, лимонный сок. Заваривать 10 минут, пить тёплым натощак."
+            },
+            joints: {
+                tag: "Раздел 05 • Кости и связки",
+                num: "Рецепт № 67",
+                title: "Сабельник и корень лопуха",
+                desc: "Глубокое питание хрящевой ткани, вымывание солей мочевой кислоты, снятие утренней скованности в коленях и пояснице.",
+                recipe: "1 ст.л. измельченного сабельника болотного + 1 ч.л. корня лопуха на 400 мл воды. Томить на водяной бане 15 минут. Курс 21 день."
+            },
+            sleep: {
+                tag: "Раздел 01 • Нервы и безмятежность",
+                num: "Рецепт № 14",
+                title: "Таёжный синеголовник с кипреем",
+                desc: "Мягко гасит очаги вечерней тревоги, снижает уровень кортизола перед сном, дарит глубокую восстанавливающую фазу без утренней вялости.",
+                recipe: "Цветки кипрея ферментированного (иван-чай), трава синеголовника и щепотка мяты перечной. Настоять 20 мин под полотенцем перед сном."
+            },
+            gastro: {
+                tag: "Раздел 02 • Пищеварение и лёгкость",
+                num: "Рецепт № 29",
+                title: "Золотарник с семенем льна",
+                desc: "Снимает спазмы кишечника, убирает чувство распирания и вздутия после еды, заживляет микровоспаления слизистой оболочки.",
+                recipe: "Семя льна (1 ст.л.) замочить в 200 мл теплой воды, добавить настой золотарника. Принимать за 20 минут до обеда."
+            }
+        };
 
-  <!-- СКРИПТ: РАСКРЫТИЕ КНИГИ И СКРОЛЛ ПО КЛИКУ НА КНОПКУ -->
-  <script>
-    function unlockBook() {
-      const bookSection = document.getElementById('book-reader-section');
-      bookSection.classList.remove('hidden');
-      bookSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  </script>
+        function showSymptom(key) {
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('bg-cedar-800', 'text-white');
+                b.classList.add('bg-white', 'text-gray-700');
+            });
+            const activeBtn = document.getElementById('btn-' + key);
+            activeBtn.classList.remove('bg-white', 'text-gray-700');
+            activeBtn.classList.add('bg-cedar-800', 'text-white');
+
+            const data = symptomsData[key];
+            document.getElementById('symptom-tag').innerText = data.tag;
+            document.getElementById('symptom-num').innerText = data.num;
+            document.getElementById('symptom-title').innerText = data.title;
+            document.getElementById('symptom-desc').innerText = data.desc;
+            document.getElementById('symptom-recipe').innerText = data.recipe;
+        }
+
+        function openPaymentModal() {
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function handlePaymentSubmit(e) {
+            e.preventDefault();
+            document.getElementById('order-form').classList.add('hidden');
+            document.getElementById('payment-success').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
