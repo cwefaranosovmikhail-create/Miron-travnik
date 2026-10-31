@@ -106,12 +106,12 @@
             <!-- Цена и главная кнопка -->
             <div class="text-center pt-2">
                 <div class="flex items-baseline justify-center gap-3 mb-3">
-                    <span class="text-3xl font-extrabold text-white">1 390 ₽</span>
-                    <span class="text-sm text-gray-400 line-through">3 200 ₽</span>
-                    <span class="bg-amberWood-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full">-57%</span>
+                    <span class="text-3xl font-extrabold text-white">10 ₽</span>
+                    <span class="text-sm text-gray-400 line-through">1 390 ₽</span>
+                    <span class="bg-amberWood-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full">ТЕСТ</span>
                 </div>
                 <button onclick="openPaymentModal()" class="w-full bg-gradient-to-r from-amberWood-500 to-amberWood-600 hover:from-amberWood-600 hover:to-amber-600 text-white font-bold py-4 px-6 rounded-2xl text-base shadow-lg shadow-amberWood-500/30 transform active:scale-[0.98] transition">
-                    📖 Забрать Лечебник за 1 390 ₽
+                    📖 Забрать Лечебник за 10 ₽
                 </button>
                 <p class="text-[11px] text-gray-300 mt-2">Мгновенная ссылка на скачивание на вашу почту сразу после оплаты</p>
             </div>
@@ -238,20 +238,20 @@
     <section class="max-w-xl mx-auto px-5 mb-14">
         <div class="bg-cedar-900 rounded-3xl p-6 sm:p-8 text-white text-center border border-cedar-700 shadow-2xl">
             <span class="inline-block bg-amberWood-500/20 text-amberWood-500 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
-                Специальная цена для читателей блога
+                Специальная цена для читателей блога (Тестовый режим)
             </span>
             <h2 class="font-serif text-3xl font-bold mb-3">Получить Лечебник Травника Мирона</h2>
             <p class="text-xs text-gray-300 mb-6 max-w-sm mx-auto">
                 Электронная книга в формате PDF (172 стр.). Моментальный доступ навсегда сразу после оплаты.
             </p>
             <div class="flex items-baseline justify-center gap-3 mb-6">
-                <span class="text-4xl font-extrabold text-white">1 390 ₽</span>
-                <span class="text-base text-gray-400 line-through">3 200 ₽</span>
+                <span class="text-4xl font-extrabold text-white">10 ₽</span>
+                <span class="text-base text-gray-400 line-through">1 390 ₽</span>
             </div>
             <button onclick="openPaymentModal()" class="w-full bg-gradient-to-r from-amberWood-500 to-amberWood-600 text-white font-bold py-4 px-6 rounded-2xl text-base shadow-lg shadow-amberWood-500/30 transform active:scale-[0.98] transition">
-                🌿 Получить книгу за 1 390 ₽
+                🌿 Получить книгу за 10 ₽
             </button>
-            <p class="text-[11px] text-gray-400 mt-3">Безопасная оплата через СБП, картами РФ и зарубежными картами</p>
+            <p class="text-[11px] text-gray-400 mt-3">Безопасная тестовая оплата через СБП и банковские карты</p>
         </div>
     </section>
 
@@ -292,7 +292,7 @@
                 <div class="w-12 h-12 rounded-xl bg-cedar-800 text-white flex items-center justify-center text-xl font-bold">📖</div>
                 <div>
                     <h3 class="font-bold text-sm text-gray-900">Лечебник Травника Мирона</h3>
-                    <p class="text-xs text-amberWood-600 font-semibold">Сумма к оплате: 1 390 ₽</p>
+                    <p class="text-xs text-amberWood-600 font-semibold">Сумма к оплате: 10 ₽ (Тест)</p>
                 </div>
             </div>
 
@@ -325,7 +325,7 @@
                 </div>
 
                 <button type="submit" class="w-full bg-amberWood-500 hover:bg-amberWood-600 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition">
-                    Перейти к оплате 1 390 ₽
+                    Перейти к оплате 10 ₽
                 </button>
             </form>
 
@@ -432,6 +432,15 @@
             document.getElementById(id).classList.add('hidden');
         }
 
+        // Параметры оплаты Robokassa
+        const PAYMENT_CONFIG = {
+            merchantLogin: "Ваш_Логин_В_Робокассе", // Замените на логин вашего магазина
+            testPrice: "10.00",
+            prodPrice: "1390.00",
+            isTest: true,
+            description: "Тестовая оплата: Лечебник Травника Мирона"
+        };
+
         function handlePaymentSubmit(e) {
             e.preventDefault();
             const email = e.target.querySelector('input[type="email"]').value;
@@ -442,15 +451,13 @@
                 return;
             }
 
-            // Интеграция с Робокассой (после завершения настройки в кабинете замените login и параметры при необходимости)
-            const merchantLogin = "Ваш_Логин_В_Робокассе";
-            const sum = "1390";
-            const desc = "Lechebnik_Mirona";
+            const currentSum = PAYMENT_CONFIG.isTest ? PAYMENT_CONFIG.testPrice : PAYMENT_CONFIG.prodPrice;
+            const invId = Date.now().toString().slice(-6); // Уникальный номер заказа для тестов
+
+            // Формирование ссылки оплаты Robokassa
+            // При подключении в тестовом режиме в кабинете Робокассы переключатель "Тестовый режим" должен быть включен
+            const paymentUrl = `https://pay.robokassa.ru/Form/Index.aspx?MerchantLogin=${encodeURIComponent(PAYMENT_CONFIG.merchantLogin)}&OutSum=${currentSum}&InvId=${invId}&Description=${encodeURIComponent(PAYMENT_CONFIG.description)}&Email=${encodeURIComponent(email)}`;
             
-            // Ссылка на платежную форму Робокассы
-            const paymentUrl = `https://pay.robokassa.ru/Form/Index.aspx?MerchantLogin=${merchantLogin}&OutSum=${sum}&Description=${encodeURIComponent(desc)}&Email=${encodeURIComponent(email)}`;
-            
-            // Перенаправление на оплату
             window.location.href = paymentUrl;
         }
     </script>
