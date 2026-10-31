@@ -251,7 +251,7 @@
             <button onclick="openPaymentModal()" class="w-full bg-gradient-to-r from-amberWood-500 to-amberWood-600 text-white font-bold py-4 px-6 rounded-2xl text-base shadow-lg shadow-amberWood-500/30 transform active:scale-[0.98] transition">
                 🌿 Получить книгу за 1 390 ₽
             </button>
-            <p class="text-[11px] text-gray-400 mt-3">Безопасная оплата через СБП, картами РФ и рассрочкой Сплит</p>
+            <p class="text-[11px] text-gray-400 mt-3">Безопасная оплата через СБП, картами РФ и зарубежными картами</p>
         </div>
     </section>
 
@@ -265,8 +265,8 @@
             
             <div class="bg-white/5 p-4 rounded-xl text-[11px] leading-relaxed text-gray-300">
                 <p class="font-bold text-white mb-1">Реквизиты продавца:</p>
-                <p>Индивидуальный предприниматель [ФИО Отца]</p>
-                <p>ОГРНИП: [Указать ОГРНИП] • ИНН: [Указать ИНН]</p>
+                <p>ИП Фараносов Александр Михайлович</p>
+                <p>ОГРНИП: 326700000035511 • ИНН: 701711852684</p>
                 <p>ОКВЭД: 47.91 (Торговля розничная по сети Интернет)</p>
                 <p>Служба заботы: miron.travnik.altai@gmail.com</p>
             </div>
@@ -311,11 +311,11 @@
                     <div class="grid grid-cols-2 gap-2 text-xs">
                         <label class="border rounded-xl p-3 flex items-center gap-2 cursor-pointer border-amberWood-500 bg-amberWood-100/30">
                             <input type="radio" name="pay_method" checked class="accent-amberWood-600">
-                            <span class="font-bold">⚡ СБП / Карта РФ</span>
+                            <span class="font-bold">⚡ СБП / Карты РФ</span>
                         </label>
                         <label class="border rounded-xl p-3 flex items-center gap-2 cursor-pointer border-gray-200">
                             <input type="radio" name="pay_method" class="accent-amberWood-600">
-                            <span>🍏 SberPay / Я.Пэй</span>
+                            <span>🌍 Зарубежные карты</span>
                         </label>
                     </div>
                 </div>
@@ -348,7 +348,7 @@
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 text-left relative max-h-[80vh] overflow-y-auto text-xs space-y-3">
             <button onclick="closeModal('oferta-modal')" class="absolute top-4 right-4 text-gray-400 text-xl font-bold">&times;</button>
             <h3 class="font-bold text-base text-gray-900 mb-2">Публичная оферта</h3>
-            <p>Настоящий документ является публичной офертой ИП [ФИО Отца] на приобретение цифрового произведения «Лечебник Травника Мирона».</p>
+            <p>Настоящий документ является публичной офертой ИП Фараносов Александр Михайлович (ОГРНИП: 326700000035511, ИНН: 701711852684) на приобретение цифрового произведения «Лечебник Травника Мирона».</p>
             <p>1. Товар представляет собой электронный файл формата PDF.</p>
             <p>2. Согласно ст. 26.1 Закона РФ «О защите прав потребителей», электронные издания надлежащего качества возврату и обмену не подлежат с момента предоставления ссылки на скачивание.</p>
         </div>
@@ -370,7 +370,7 @@
         </div>
     </div>
 
-    <!-- Скрипты интерактива -->
+    <!-- Скрипты интерактива и оплаты -->
     <script>
         const symptomsData = {
             swelling: {
@@ -399,7 +399,7 @@
                 num: "Рецепт № 29",
                 title: "Золотарник с семенем льна",
                 desc: "Снимает спазмы кишечника, убирает чувство распирания и вздутия после еды, заживляет микровоспаления слизистой оболочки.",
-                recipe: "Семя льна (1 ст.л.) замочить в 200 мл теплой воды, добавить настой золотарника. Принимать за 20 минут до обеда."
+                recipe: "Семя льна (1 ст.л.) замочить в 200 мл теплой воды, добавить настой золотарник. Принимать за 20 минут до обеда."
             }
         };
 
@@ -434,8 +434,24 @@
 
         function handlePaymentSubmit(e) {
             e.preventDefault();
-            document.getElementById('order-form').classList.add('hidden');
-            document.getElementById('payment-success').classList.remove('hidden');
+            const email = e.target.querySelector('input[type="email"]').value;
+            const phone = e.target.querySelector('input[type="tel"]').value;
+            
+            if (!email || !phone) {
+                alert('Пожалуйста, заполните Email и телефон');
+                return;
+            }
+
+            // Интеграция с Робокассой (после завершения настройки в кабинете замените login и параметры при необходимости)
+            const merchantLogin = "Ваш_Логин_В_Робокассе";
+            const sum = "1390";
+            const desc = "Lechebnik_Mirona";
+            
+            // Ссылка на платежную форму Робокассы
+            const paymentUrl = `https://pay.robokassa.ru/Form/Index.aspx?MerchantLogin=${merchantLogin}&OutSum=${sum}&Description=${encodeURIComponent(desc)}&Email=${encodeURIComponent(email)}`;
+            
+            // Перенаправление на оплату
+            window.location.href = paymentUrl;
         }
     </script>
 </body>
