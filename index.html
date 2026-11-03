@@ -432,13 +432,13 @@
             document.getElementById(id).classList.add('hidden');
         }
 
-        // Параметры оплаты Robokassa
+        // Параметры оплаты Робокасса
         const PAYMENT_CONFIG = {
-            merchantLogin: "Ваш_Логин_В_Робокассе", // Замените на логин вашего магазина
+            merchantLogin: "MironTravnikAltai", // Логин успешно обновлен
             testPrice: "10.00",
             prodPrice: "1390.00",
-            isTest: true,
-            description: "Тестовая оплата: Лечебник Травника Мирона"
+            isTest: true, // Оставьте true для проверки тестового платежа на 10 рублей
+            description: "Лечебник Травника Мирона (Электронная книга)"
         };
 
         function handlePaymentSubmit(e) {
@@ -452,11 +452,16 @@
             }
 
             const currentSum = PAYMENT_CONFIG.isTest ? PAYMENT_CONFIG.testPrice : PAYMENT_CONFIG.prodPrice;
-            const invId = Date.now().toString().slice(-6); // Уникальный номер заказа для тестов
+            const invId = Math.floor(Math.random() * 1000000); // Уникальный номер заказа
 
-            // Формирование ссылки оплаты Robokassa
-            // При подключении в тестовом режиме в кабинете Робокассы переключатель "Тестовый режим" должен быть включен
-            const paymentUrl = `https://pay.robokassa.ru/Form/Index.aspx?MerchantLogin=${encodeURIComponent(PAYMENT_CONFIG.merchantLogin)}&OutSum=${currentSum}&InvId=${invId}&Description=${encodeURIComponent(PAYMENT_CONFIG.description)}&Email=${encodeURIComponent(email)}`;
+            // Формирование ссылки на оплату Робокассы
+            const paymentUrl = `https://auth.robokassa.ru/Merchant/Index.aspx?` +
+                `MerchantLogin=${encodeURIComponent(PAYMENT_CONFIG.merchantLogin)}&` +
+                `OutSum=${currentSum}&` +
+                `InvId=${invId}&` +
+                `Description=${encodeURIComponent(PAYMENT_CONFIG.description)}&` +
+                `Email=${encodeURIComponent(email)}&` +
+                `IsTest=${PAYMENT_CONFIG.isTest ? 1 : 0}`;
             
             window.location.href = paymentUrl;
         }
