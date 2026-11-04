@@ -437,7 +437,7 @@
             merchantLogin: "MironTravnikAltai",
             testPrice: "10.00",
             prodPrice: "1390.00",
-            isTest: true, // Оставьте true для проверки тестового платежа
+            isTest: true,
             description: "Лечебник Травника Мирона (Электронная книга)"
         };
 
@@ -452,9 +452,8 @@
             }
 
             const currentSum = PAYMENT_CONFIG.isTest ? PAYMENT_CONFIG.testPrice : PAYMENT_CONFIG.prodPrice;
-            const invId = Math.floor(Math.random() * 1000000); // Уникальный номер заказа
+            const invId = Math.floor(Math.random() * 1000000);
 
-            // Формирование ссылки на оплату Робокассы
             const paymentUrl = `https://auth.robokassa.ru/Merchant/Index.aspx?` +
                 `MerchantLogin=${encodeURIComponent(PAYMENT_CONFIG.merchantLogin)}&` +
                 `OutSum=${currentSum}&` +
@@ -466,10 +465,8 @@
             window.location.href = paymentUrl;
         }
 
-        // Автоматический показ окна успеха, если пользователь вернулся с Робокассы (Success URL)
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            // Если в ссылке есть параметры от Робокассы (например, OutSum или InvId), открываем окно успеха
             if (urlParams.has('OutSum') || urlParams.has('InvId')) {
                 openPaymentModal();
                 document.getElementById('order-form').classList.add('hidden');
