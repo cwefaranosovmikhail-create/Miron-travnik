@@ -113,7 +113,7 @@
                 <button onclick="openPaymentModal()" class="w-full bg-gradient-to-r from-amberWood-500 to-amberWood-600 hover:from-amberWood-600 hover:to-amber-600 text-white font-bold py-4 px-6 rounded-2xl text-base shadow-lg shadow-amberWood-500/30 transform active:scale-[0.98] transition">
                     📖 Забрать Лечебник за 10 ₽
                 </button>
-                <p class="text-[11px] text-gray-300 mt-2">Мгновенная ссылка на скачивание на вашу почту сразу после оплаты</p>
+                <p class="text-[11px] text-gray-300 mt-2">Мгновенная ссылка на скачивание сразу после оплаты</p>
             </div>
         </div>
     </header>
@@ -329,14 +329,14 @@
                 </button>
             </form>
 
-            <!-- Окно успеха -->
+            <!-- Окно успеха с вашей ссылкой из Google Диска -->
             <div id="payment-success" class="hidden text-center py-6">
                 <span class="text-5xl">✅</span>
                 <h4 class="font-serif text-2xl font-bold text-gray-900 mt-3 mb-2">Оплата прошла успешно!</h4>
                 <p class="text-xs text-gray-600 mb-5">
                     Копия Лечебника и фискальный чек отправлены на вашу электронную почту. Вы также можете скачать книгу прямо сейчас:
                 </p>
-                <a href="#" download class="inline-block bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-6 rounded-xl text-sm shadow">
+                <a href="https://drive.google.com/file/d/19Z2h9xNoC2FMMBqQkK-xX_iam_qmumBe/view?usp=drivesdk" target="_blank" download class="inline-block bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-6 rounded-xl text-sm shadow">
                     📥 Скачать Лечебник (PDF, 48 МБ)
                 </a>
             </div>
@@ -434,10 +434,10 @@
 
         // Параметры оплаты Робокасса
         const PAYMENT_CONFIG = {
-            merchantLogin: "MironTravnikAltai", // Логин успешно обновлен
+            merchantLogin: "MironTravnikAltai",
             testPrice: "10.00",
             prodPrice: "1390.00",
-            isTest: true, // Оставьте true для проверки тестового платежа на 10 рублей
+            isTest: true, // Оставьте true для проверки тестового платежа
             description: "Лечебник Травника Мирона (Электронная книга)"
         };
 
@@ -464,6 +464,17 @@
                 `IsTest=${PAYMENT_CONFIG.isTest ? 1 : 0}`;
             
             window.location.href = paymentUrl;
+        }
+
+        // Автоматический показ окна успеха, если пользователь вернулся с Робокассы (Success URL)
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Если в ссылке есть параметры от Робокассы (например, OutSum или InvId), открываем окно успеха
+            if (urlParams.has('OutSum') || urlParams.has('InvId')) {
+                openPaymentModal();
+                document.getElementById('order-form').classList.add('hidden');
+                document.getElementById('payment-success').classList.remove('hidden');
+            }
         }
     </script>
 </body>
