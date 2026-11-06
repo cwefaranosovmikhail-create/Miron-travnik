@@ -8,7 +8,7 @@
   <!-- Яндекс.Метрика (счётчик посетителей) -->
   <script type="text/javascript">
      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-     m[i].l=1*newDate();
+     m[i].l=1*new Date();
      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
@@ -68,7 +68,6 @@
       color: #1f3d20;
     }
     
-    /* Стили для фотографии */
     .photo-box {
       width: 100%;
       max-height: 320px;
@@ -84,7 +83,6 @@
       display: block;
     }
 
-    /* Блок истории */
     .story {
       text-align: left;
       background: #faf8f5;
@@ -150,6 +148,17 @@
       margin-top: 18px;
       line-height: 1.4;
     }
+
+    /* Юридический блок для Робокассы */
+    .legal-info {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+      font-size: 12px;
+      color: #777;
+      line-height: 1.5;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -181,7 +190,7 @@
       <div class="price">990 ₽</div>
     </div>
 
-    <!-- Форма отправки в Robokassa -->
+    <!-- Форма отправки в Робокассу -->
     <form action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
       <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
       <input type="hidden" name="OutSum" value="990.00">
@@ -196,6 +205,13 @@
     <div class="footer-note">
       Мгновенное скачивание сразу после оплаты.<br>
       Оплата картой любого банка РФ или через СБП (Robokassa).
+    </div>
+
+    <!-- Юридическая информация об ИП (требование Робокассы) -->
+    <div class="legal-info">
+      ИП Фараносов Александр Михайлович<br>
+      ИНН: 701711852684 | ОГРНИП: 326700000035511<br>
+      Все права защищены.
     </div>
   </div>
 
