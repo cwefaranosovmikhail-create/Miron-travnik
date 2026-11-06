@@ -4,6 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Алтайский травник деда Мирона</title>
+
+  <!-- Яндекс.Метрика (счётчик посетителей) -->
+  <script type="text/javascript">
+     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+     m[i].l=1*newDate();
+     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+     // ЗАМЕНИТЕ XXXXXXXX НА ВАШ НОМЕР СЧЁТЧИКА ИЗ ЯНДЕКС.МЕТРИКИ
+     ym(XXXXXXXX, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true
+     });
+  </script>
+  <!-- /Яндекс.Метрика -->
+
   <style>
     * {
       box-sizing: border-box;
@@ -18,16 +37,16 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 20px 10px;
     }
     .card {
       background: #ffffff;
-      max-width: 520px;
+      max-width: 580px;
       width: 100%;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       border: 1px solid #e8e2d8;
-      padding: 36px 28px;
+      padding: 36px 24px;
       text-align: center;
     }
     .badge {
@@ -45,27 +64,66 @@
     h1 {
       font-size: 26px;
       line-height: 1.3;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       color: #1f3d20;
     }
-    p.desc {
+    
+    /* Стили для фотографии */
+    .photo-box {
+      width: 100%;
+      max-height: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid #e0d8c8;
+    }
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Блок истории */
+    .story {
+      text-align: left;
+      background: #faf8f5;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #2e6930;
+      margin-bottom: 24px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #443e3c;
+    }
+    .story p {
+      margin-bottom: 12px;
+    }
+    .story p:last-child {
+      margin-bottom: 0;
+    }
+
+    .desc {
       font-size: 16px;
       line-height: 1.5;
-      color: #555;
+      color: #333;
       margin-bottom: 24px;
+      font-weight: 500;
     }
+
     .price-box {
-      background: #faf8f5;
-      border: 1px dashed #c9bfb0;
+      background: #eef5ea;
+      border: 1px dashed #2e6930;
       border-radius: 10px;
       padding: 16px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .price {
       font-size: 32px;
       font-weight: 800;
       color: #2e6930;
     }
+
     .btn-pay {
       display: block;
       width: 100%;
@@ -88,7 +146,7 @@
     }
     .footer-note {
       font-size: 13px;
-      color: #888;
+      color: #777;
       margin-top: 18px;
       line-height: 1.4;
     }
@@ -97,15 +155,29 @@
 <body>
 
   <div class="card">
-    <div class="badge">Электронная книга</div>
-    <h1>Алтайский травник деда Мирона</h1>
+    <div class="badge">Электронная книга (PDF)</div>
+    <h1>Алтайский лечебник деда Мирона</h1>
+
+    <!-- БЛОК ФОТОГРАФИИ: Замените "irishka.jpg" на имя файла вашего фото -->
+    <div class="photo-box">
+      <img src="irishka.jpg" alt="Иришка и дед Мирон">
+    </div>
+
+    <!-- ТРОГАТЕЛЬНАЯ ИСТОРИЯ -->
+    <div class="story">
+      <p>Каждое лето с самого детства маленькая Иришка приезжала в глухую алтайскую деревню к своему деду Мирону. Пока городские дети играли во дворах, они вдвоем на рассвете уходили глубоко в тайгу — туда, где воздух пахнет хвоей, росой и диким чабрецом.</p>
+      
+      <p>Дед Мирон знал тайгу как свои пять пальцев: знал, какую траву сорвать от боли в суставах, какой корень заварить для укрепления сердца, а какую чагу собрать, чтобы болезнь отступила насовсем. Иришка аккуратно записывала каждый рецепт и совет деда в свою старую тетрадь.</p>
+      
+      <p>Спустя годы эти бесценные знания, накопленные поколениями алтайских травников, были бережно собраны и оформлены в единую электронную книгу. В ней нет «химии» — только чистая сила природы и сотни проверенных рецептов на все случаи жизни.</p>
+    </div>
+
     <p class="desc">
-      Полное руководство по сибирским травам, чаге и таёжным рецептам. 
-      Проверенные сборы, правила заваривания и секреты долголетия.
+      Внутри — сотни проверенных рецептов сборов, правила заготовки таёжных трав, чаги и секреты сибирского долголетия. Забирайте книгу себе навсегда в один клик.
     </p>
 
     <div class="price-box">
-      <div style="font-size: 14px; color: #777; margin-bottom: 4px;">Стоимость доступа</div>
+      <div style="font-size: 14px; color: #555; margin-bottom: 4px;">Бессрочный доступ к книге</div>
       <div class="price">990 ₽</div>
     </div>
 
@@ -114,16 +186,16 @@
       <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
       <input type="hidden" name="OutSum" value="990.00">
       <input type="hidden" name="InvId" value="101">
-      <input type="hidden" name="Description" value="Книга Алтайский травник деда Мирона">
+      <input type="hidden" name="Description" value="Книга Алтайский лечебник деда Мирона">
 
       <button type="submit" class="btn-pay">
-        Перейти к оплате 990 ₽
+        Скачать книгу за 990 ₽
       </button>
     </form>
 
     <div class="footer-note">
-      Оплата картой любого банка РФ или через СБП.<br>
-      Безопасный платёжный шлюз Robokassa.
+      Мгновенное скачивание сразу после оплаты.<br>
+      Оплата картой любого банка РФ или через СБП (Robokassa).
     </div>
   </div>
 
