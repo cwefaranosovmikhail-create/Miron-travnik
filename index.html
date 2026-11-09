@@ -39,7 +39,6 @@
             gap: 16px;
         }
 
-        /* Карточки */
         .card {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -54,7 +53,6 @@
             padding: 24px;
         }
 
-        /* Тексты и заголовки */
         .badge {
             display: inline-block;
             background-color: #eee9dc;
@@ -90,7 +88,6 @@
             color: #d1d1d1;
         }
 
-        /* Списки преимуществ */
         .features-list {
             list-style: none;
             display: flex;
@@ -122,7 +119,6 @@
             font-size: 12px;
         }
 
-        /* Цены */
         .price-box {
             text-align: center;
             margin: 20px 0;
@@ -147,7 +143,6 @@
             margin-bottom: 16px;
         }
 
-        /* Кнопки */
         .btn-primary {
             display: block;
             width: 100%;
@@ -200,7 +195,6 @@
             margin-top: 10px;
         }
 
-        /* Блок ситуаций / аккордеон / FAQ */
         .situation-item {
             background: #ffffff;
             border: 1px solid #eee;
@@ -242,7 +236,6 @@
             color: #666;
         }
 
-        /* Подвал */
         .footer-links {
             display: flex;
             flex-direction: column;
@@ -265,6 +258,36 @@
         .copyright {
             font-size: 12px;
             color: #888;
+        }
+
+        /* Модальное окно под ввод Email перед переходом на Робокассу */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 24px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            color: #000;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
         }
     </style>
 </head>
@@ -289,16 +312,16 @@
 
         <div class="price-box">
             <div class="old-price">2 990 ₽</div>
-            <div class="new-price">1 290 ₽</div>
+            <div class="new-price">10 ₽</div>
         </div>
         <div class="payment-note" style="color: #aaa;">Оплата единоразово, без подписок</div>
 
-        <!-- Кнопка подключения вашей кассы / эквайринга -->
-        <a href="#payment" class="btn-primary" onclick="alert('Здесь срабатывает ваша платежная касса (Prodamus, Robokassa, CloudPayments и т.д.)'); return false;">Получить книгу</a>
+        <!-- Кнопка вызова формы оплаты через Робокассу -->
+        <button class="btn-primary" onclick="openPaymentModal('РФ Карта / СБП')">Получить книгу за 10 ₽</button>
         <div class="security-text" style="color: #aaa;">Ссылка на скачивание придет на вашу почту</div>
 
         <div class="divider">если карта не подошла</div>
-        <a href="#" class="btn-sub" style="color: #fff; border-color: rgba(255,255,255,0.2);">🌍 Оплатить зарубежной картой</a>
+        <button class="btn-sub" style="color: #fff; border-color: rgba(255,255,255,0.2);" onclick="openPaymentModal('Зарубежная карта')">🌍 Оплатить зарубежной картой (10 ₽)</button>
         <div class="security-text" style="color: #aaa; font-size: 11px; margin-top: 6px;">США, Украина, Европа и весь мир через Telegram</div>
     </div>
 
@@ -350,13 +373,13 @@
         <div style="color: #f28b1e; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">Служба заботы</div>
         <h3 style="font-size: 18px; margin-bottom: 10px;">Не пришло письмо или остались вопросы по оплате?</h3>
         <p style="font-size: 13px;">Ссылка доставляется за 1–2 минуты. Если письма нет во входящих и в папке «Спам», напишите нам.</p>
-        <a href="#" class="btn-primary" style="background-color: var(--primary-dark); margin-top: 16px;">Написать в поддержку</a>
+        <a href="https://t.me/" target="_blank" class="btn-primary" style="background-color: var(--primary-dark); margin-top: 16px;">Написать в поддержку</a>
     </div>
 
     <!-- Подвал (Footer) -->
     <div class="card-dark" style="font-size: 13px;">
         <div style="color: #f28b1e; font-weight: 600; margin-bottom: 4px;">Будьте здоровы</div>
-        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">Михаил Добрый</div>
+        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">Михаیل Добрый</div>
         
         <div class="footer-contacts">
             Фролова Елизавета Александровна<br>
@@ -378,6 +401,39 @@
     </div>
 
 </div>
+
+<!-- Форма оплаты / Перенаправления на Робокассу -->
+<div id="paymentModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3 style="margin-bottom: 8px;">Оформление заказа</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Укажите e-mail, куда отправить книгу после оплаты (10 ₽):</p>
+        
+        <!-- Форма, отправляющая данные напрямую в Robokassa -->
+        <form action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
+            <!-- Ваши параметры Robokassa -->
+            <input type="hidden" name="MerchantLogin" value="ИМЯ_ВАШЕГО_МАГАЗИНА">
+            <input type="hidden" name="OutSum" value="10.00">
+            <input type="hidden" name="InvId" value="0">
+            <input type="hidden" name="Desc" value="Книга 150 народных рецептов">
+
+            <label style="font-size: 12px; font-weight: 600;">Ваш Email:</label>
+            <input type="email" name="Email" required placeholder="example@mail.ru">
+
+            <button type="submit" class="btn-primary">Перейти к оплате 10 ₽</button>
+            <button type="button" onclick="closePaymentModal()" style="width: 100%; background: none; border: none; margin-top: 10px; color: #888; cursor: pointer;">Отмена</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openPaymentModal(method) {
+        document.getElementById('paymentModal').style.display = 'flex';
+    }
+
+    function closePaymentModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+    }
+</script>
 
 </body>
 </html>
