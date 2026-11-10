@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Михаил Добрый — 150 забытых народных рецептов</title>
-    <!-- Шаг 1: Подключаем библиотеку для расчета MD5-подписи -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- Шаг 1: Библиотека crypto-js БОЛЬШЕ НЕ НУЖНА, так как хеш считает сервер -->
     <style>
         :root {
             --bg-color: #f7f5f0;
@@ -165,29 +164,10 @@
         .btn-primary:hover {
             background-color: #e08216;
         }
-
-        .btn-sub {
-            display: block;
-            width: 100%;
-            background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 14px;
-            font-weight: 500;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
-            margin-top: 12px;
-        }
-
-        .divider {
-            text-align: center;
-            font-size: 12px;
-            color: #999;
-            margin: 16px 0;
-            position: relative;
+        
+        .btn-primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
         }
 
         .security-text {
@@ -218,37 +198,6 @@
             padding: 2px 8px;
             border-radius: 6px;
             font-size: 13px;
-        }
-
-        .faq-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #ffffff;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .faq-item span {
-            font-size: 18px;
-            color: #666;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            font-size: 14px;
-            margin: 16px 0;
-        }
-
-        .footer-links a {
-            color: #d1d1d1;
-            text-decoration: none;
         }
 
         .footer-contacts {
@@ -390,7 +339,7 @@
 
 </div>
 
-<!-- Шаг 2 & 3: Форма оплаты со строгим адресом .ru и генерацией подписи -->
+<!-- Модальное окно оплаты -->
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
@@ -408,17 +357,24 @@
             </div>
         </div>
         
-        <form action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST" onsubmit="preparePayment(this)">
+        <!-- Форма отправки в Робокассу (без onsubmit, мы перехватим её в JS) -->
+        <form id="paymentForm" action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
             <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
             <input type="hidden" name="OutSum" value="10.00">
-            <input type="hidden" id="invIdField" name="InvId" value="">
+            <input type="hidden" name="InvId" id="invIdField" value="">
             <input type="hidden" name="Desc" value="Книга 150 народных рецептов">
-            <input type="hidden" id="signatureField" name="SignatureValue" value="">
+            <input type="hidden" name="SignatureValue" id="signatureField" value="">
+            
+            <!-- ВАЖНО: Добавлены обязательные URL для корректной работы. 
+                 Замените их на ваши реальные адреса после настройки сервера на Amvera -->
+            <input type="hidden" name="ResultURL" value="https://ВАШ_САЙТ_НА_AMVERA.amvera.io/api/robokassa/result">
+            <input type="hidden" name="SuccessURL" value="https://miron-travnik.netlify.app/success.html">
+            <input type="hidden" name="FailURL" value="https://miron-travnik.netlify.app/fail.html">
 
             <label style="font-size: 12px; font-weight: 600; color: #374151;">Ваш Email:</label>
-            <input type="email" name="Email" required placeholder="example@mail.ru">
+            <input type="email" name="Email" id="emailField" required placeholder="example@mail.ru">
 
-            <button type="submit" class="btn-primary" style="font-size: 15px; padding: 14px;">Перейти к выбору способа оплаты</button>
+            <button type="submit" id="submitBtn" class="btn-primary" style="font-size: 15px; padding: 14px;">Перейти к выбору способа оплаты</button>
             <p style="font-size: 11px; color: #9ca3af; text-align: center; margin-top: 8px;">🔒 Защищено SSL-шифрованием Robokassa</p>
             <button type="button" onclick="closePaymentModal()" style="width: 100%; background: none; border: none; margin-top: 10px; color: #888; font-size: 13px; cursor: pointer;">Вернуться назад</button>
         </form>
@@ -434,27 +390,55 @@
         document.getElementById('paymentModal').style.display = 'none';
     }
 
-    // Автоматическая генерация уникального InvId и цифровой подписи SignatureValue перед отправкой
-    function preparePayment(form) {
-        const merchantLogin = "MironTravnikAltai";
-        const outSum = "10.00";
-        const invId = Math.floor(Math.random() * 1000000); // Уникальный номер заказа
-        
-        // ВНИМАНИЕ: Замените 'ваш_пароль_1' на ваш реальный Пароль №1 из личного кабинета Робокассы!
-        const merchantPass1 = "WA6nm7eyjb"; 
+    // Безопасная логика подготовки к оплате
+    document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+        e.preventDefault(); // Останавливаем отправку формы, чтобы сначала получить хеш
 
-        // Записываем уникальный InvId в форму
+        const submitBtn = document.getElementById('submitBtn');
+        const email = document.getElementById('emailField').value;
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Подготовка к оплате...';
+
+        // Генерируем уникальный номер заказа прямо здесь
+        const invId = Math.floor(Math.random() * 1000000);
         document.getElementById('invIdField').value = invId;
 
-        // Формула расчета подписи Робокассы: MD5(MerchantLogin:OutSum:InvId:MerchantPass1)
-        const signatureString = `${merchantLogin}:${outSum}:${invId}:${merchantPass1}`;
-        const hash = CryptoJS.MD5(signatureString).toString();
-        
-        // Записываем готовую подпись в скрытое поле
-        document.getElementById('signatureField').value = hash;
-    }
+        try {
+            // ОТПРАВЛЯЕМ ЗАПРОС НА ВАШ СЕРВЕР (Amvera) ДЛЯ ГЕНЕРАЦИИ БЕЗОПАСНОГО ХЕША
+            // ЗАМЕНИТЕ ЭТОТ URL на адрес вашей будущей функции на Amvera
+            const response = await fetch('https:/mirontravnik-mirontravnik.msk1.amvera.tech/api/get-signature', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    invId: invId,
+                    outSum: "10.00",
+                    email: email
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка сервера при создании подписи');
+            }
+
+            const data = await response.json();
+            
+            // Сервер возвращает готовую подпись
+            document.getElementById('signatureField').value = data.signature;
+
+            // Теперь, когда все поля заполнены, отправляем форму в Робокассу
+            this.submit();
+
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert('Не удалось подготовить оплату. Пожалуйста, попробуйте позже.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Перейти к выбору способа оплаты';
+        }
+    });
 </script>
 
 </body>
 </html>
-
