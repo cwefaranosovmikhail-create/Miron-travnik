@@ -260,7 +260,6 @@
             color: #888;
         }
 
-        /* Модальное окно под ввод Email перед переходом на Робокассу */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -295,7 +294,6 @@
 
 <div class="wrapper">
 
-    <!-- Блок 1: Главный экран -->
     <div class="card-dark">
         <p style="color: #f28b1e; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Специальная цена для читателей блога</p>
         <div class="badge">Электронный справочник</div>
@@ -316,7 +314,6 @@
         </div>
         <div class="payment-note" style="color: #aaa;">Оплата единоразово, без подписок</div>
 
-        <!-- Кнопка вызова формы оплаты через Робокассу -->
         <button class="btn-primary" onclick="openPaymentModal('РФ Карта / СБП')">Получить книгу за 10 ₽</button>
         <div class="security-text" style="color: #aaa;">Ссылка на скачивание придет на вашу почту</div>
 
@@ -325,7 +322,6 @@
         <div class="security-text" style="color: #aaa; font-size: 11px; margin-top: 6px;">США, Украина, Европа и весь мир через Telegram</div>
     </div>
 
-    <!-- Блок 2: Для кого эта книга -->
     <div class="card">
         <div class="badge">Для кого эта книга</div>
         <h2 style="font-size: 20px; margin-bottom: 16px;">Узнаете себя в этих ситуациях?</h2>
@@ -347,7 +343,6 @@
         </div>
     </div>
 
-    <!-- Блок 3: Отзыв -->
     <div class="card">
         <div style="color: #f28b1e; font-size: 18px; margin-bottom: 8px;">★★★★★</div>
         <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Давно слежу за блогом Михаила, книгу очень ждала. Поразило, насколько всё разложено по полочкам — без воды, без эзотерики и заумных терминов. Настоящая настольная книга для дома.»</p>
@@ -357,7 +352,6 @@
         </div>
     </div>
 
-    <!-- Блок 4: Частые вопросы -->
     <div class="card">
         <div class="badge">Частые вопросы</div>
         <h2 style="font-size: 20px; margin-bottom: 16px;">Ответы на популярные вопросы</h2>
@@ -368,7 +362,6 @@
         <div class="faq-item">Заменяют ли эти рецепты визит к врачу? <span>+</span></div>
     </div>
 
-    <!-- Блок 5: Поддержка -->
     <div class="card">
         <div style="color: #f28b1e; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">Служба заботы</div>
         <h3 style="font-size: 18px; margin-bottom: 10px;">Не пришло письмо или остались вопросы по оплате?</h3>
@@ -376,7 +369,6 @@
         <a href="https://t.me/" target="_blank" class="btn-primary" style="background-color: var(--primary-dark); margin-top: 16px;">Написать в поддержку</a>
     </div>
 
-    <!-- Подвал (Footer) -->
     <div class="card-dark" style="font-size: 13px;">
         <div style="color: #f28b1e; font-weight: 600; margin-bottom: 4px;">Будьте здоровы</div>
         <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">Михаил Добрый</div>
@@ -402,15 +394,12 @@
 
 </div>
 
-<!-- Форма оплаты / Перенаправления на Робокассу -->
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="margin-bottom: 8px;">Оформление заказа</h3>
         <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Укажите e-mail, куда отправить книгу после оплаты (10 ₽):</p>
         
-        <!-- Форма, отправляющая данные напрямую в Robokassa -->
         <form action="https://auth.robokassa.kz/Merchant/Index.aspx" method="POST">
-            <!-- Параметры Robokassa с обновленным логином магазина -->
             <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
             <input type="hidden" name="OutSum" value="10.00">
             <input type="hidden" name="InvId" value="0">
