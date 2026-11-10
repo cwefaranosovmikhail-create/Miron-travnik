@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Михаил Добрый — 150 забытых народных рецептов</title>
+    <!-- Подключаем библиотеку для расчета MD5-подписи, чтобы убрать ошибку 29 -->
+    <script src="https://cdnjs.cloudflare.com/ajax5/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         :root {
             --bg-color: #f7f5f0;
@@ -426,7 +428,7 @@
 
 </div>
 
-<!-- Плашка модального окна с переходом строго на auth.robokassa.ru и параметром IsTest=1 -->
+<!-- Плашка модального окна с автоматическим расчетом подписи SignatureValue и шлюзом .ru -->
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
@@ -444,12 +446,13 @@
             </div>
         </div>
         
-        <form action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
+        <form id="robokassaForm" action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
             <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
             <input type="hidden" name="OutSum" value="10.00">
             <input type="hidden" name="InvId" value="0">
             <input type="hidden" name="Desc" value="Книга 150 народных рецептов">
-            <input type="hidden" name="IsTest" value="1">
+            <!-- Сюда скрипт автоматически подставит правильную цифровую подпись -->
+            <input type="hidden" id="signatureValue" name="SignatureValue" value="">
 
             <label style="font-size: 12px; font-weight: 600; color: #374151;">Ваш Email:</label>
             <input type="email" name="Email" required placeholder="example@mail.ru">
@@ -464,6 +467,20 @@
 <script>
     function openPaymentModal(method) {
         document.getElementById('paymentModal').style.display = 'flex';
+        
+        // ВАЖНО: Замените 'ваш_пароль_1' на ваш реальный Пароль №1 из личного кабинета Робокассы
+        // Формула подписи Робокассы: MD5(MerchantLogin:OutSum:InvId:MerchantPass1)
+        const merchantLogin = "MironTravnikAltai";
+        const outSum = "10.00";
+        const invId = "0";
+        const merchantPass1 = "ваш_пароль_1"; // <--- Впишите сюда Ваш Пароль №1 из Робокассы
+
+        // Собираем строку для хэша
+        const signatureString = `${merchantLogin}:${outSum}:${invId}:${merchantPass1}`;
+        
+        // Генерируем MD5-хэш и подставляем в форму
+        const hash = CryptoJS.MD5(signatureString).toString();
+        document.getElementById('signatureValue').value = hash;
     }
 
     function closePaymentModal() {
@@ -473,3 +490,4 @@
 
 </body>
 </html>
+
