@@ -260,11 +260,13 @@
             color: #888;
         }
 
+        /* Стильная плашка модального окна оплаты */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(4px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -272,21 +274,52 @@
         }
 
         .modal-content {
-            background: #fff;
+            background: #ffffff;
             padding: 24px;
-            border-radius: 16px;
+            border-radius: 20px;
             width: 100%;
-            max-width: 400px;
-            color: #000;
+            max-width: 420px;
+            color: #1b1b1b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        .modal-content input {
-            width: 100%;
-            padding: 12px;
+        .payment-summary {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 14px;
             margin: 12px 0 16px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+        }
+
+        .payment-methods-badge {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .method-tag {
+            font-size: 11px;
+            background: #eef2ff;
+            color: #3b82f6;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .modal-content input[type="email"] {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
             font-size: 15px;
+            outline: none;
+        }
+
+        .modal-content input[type="email"]:focus {
+            border-color: #f7931e;
         }
     </style>
 </head>
@@ -294,6 +327,7 @@
 
 <div class="wrapper">
 
+    <!-- Блок 1: Главный экран -->
     <div class="card-dark">
         <p style="color: #f28b1e; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Специальная цена для читателей блога</p>
         <div class="badge">Электронный справочник</div>
@@ -322,6 +356,7 @@
         <div class="security-text" style="color: #aaa; font-size: 11px; margin-top: 6px;">США, Украина, Европа и весь мир через Telegram</div>
     </div>
 
+    <!-- Блок 2: Для кого эта книга -->
     <div class="card">
         <div class="badge">Для кого эта книга</div>
         <h2 style="font-size: 20px; margin-bottom: 16px;">Узнаете себя в этих ситуациях?</h2>
@@ -343,6 +378,7 @@
         </div>
     </div>
 
+    <!-- Блок 3: Отзыв -->
     <div class="card">
         <div style="color: #f28b1e; font-size: 18px; margin-bottom: 8px;">★★★★★</div>
         <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Давно слежу за блогом Михаила, книгу очень ждала. Поразило, насколько всё разложено по полочкам — без воды, без эзотерики и заумных терминов. Настоящая настольная книга для дома.»</p>
@@ -352,6 +388,7 @@
         </div>
     </div>
 
+    <!-- Блок 4: Частые вопросы -->
     <div class="card">
         <div class="badge">Частые вопросы</div>
         <h2 style="font-size: 20px; margin-bottom: 16px;">Ответы на популярные вопросы</h2>
@@ -362,6 +399,7 @@
         <div class="faq-item">Заменяют ли эти рецепты визит к врачу? <span>+</span></div>
     </div>
 
+    <!-- Блок 5: Поддержка -->
     <div class="card">
         <div style="color: #f28b1e; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">Служба заботы</div>
         <h3 style="font-size: 18px; margin-bottom: 10px;">Не пришло письмо или остались вопросы по оплате?</h3>
@@ -369,6 +407,7 @@
         <a href="https://t.me/" target="_blank" class="btn-primary" style="background-color: var(--primary-dark); margin-top: 16px;">Написать в поддержку</a>
     </div>
 
+    <!-- Подвал (Footer) -->
     <div class="card-dark" style="font-size: 13px;">
         <div style="color: #f28b1e; font-weight: 600; margin-bottom: 4px;">Будьте здоровы</div>
         <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">Михаил Добрый</div>
@@ -394,23 +433,38 @@
 
 </div>
 
-<!-- Форма оплаты с точным адресом auth.robokassa.ru -->
+<!-- Плашка модального окна с переходом строго на auth.robokassa.ru -->
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
-        <h3 style="margin-bottom: 8px;">Оформление заказа</h3>
-        <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Укажите e-mail, куда отправить книгу после оплаты (10 ₽):</p>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
+        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги:</p>
+
+        <!-- Информационная карточка с ценой и доступными методами -->
+        <div class="payment-summary">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 14px; font-weight: 600;">Книга «150 рецептов»</span>
+                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">10 ₽</span>
+            </div>
+            <div class="payment-methods-badge">
+                <span class="method-tag" style="background: #ecfdf5; color: #059669;">⚡ СБП</span>
+                <span class="method-tag">💳 Карта РФ</span>
+                <span class="method-tag" style="background: #fff7ed; color: #ea580c;">MIR Pay</span>
+            </div>
+        </div>
         
+        <!-- Форма, перенаправляющая строго на российский шлюз .ru -->
         <form action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
             <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
             <input type="hidden" name="OutSum" value="10.00">
             <input type="hidden" name="InvId" value="0">
             <input type="hidden" name="Desc" value="Книга 150 народных рецептов">
 
-            <label style="font-size: 12px; font-weight: 600;">Ваш Email:</label>
+            <label style="font-size: 12px; font-weight: 600; color: #374151;">Ваш Email:</label>
             <input type="email" name="Email" required placeholder="example@mail.ru">
 
-            <button type="submit" class="btn-primary">Перейти к оплате 10 ₽</button>
-            <button type="button" onclick="closePaymentModal()" style="width: 100%; background: none; border: none; margin-top: 10px; color: #888; cursor: pointer;">Отмена</button>
+            <button type="submit" class="btn-primary" style="font-size: 15px; padding: 14px;">Перейти к выбору способа оплаты</button>
+            <p style="font-size: 11px; color: #9ca3af; text-align: center; margin-top: 8px;">🔒 Защищено SSL-шифрованием Robokassa</p>
+            <button type="button" onclick="closePaymentModal()" style="width: 100%; background: none; border: none; margin-top: 10px; color: #888; font-size: 13px; cursor: pointer;">Вернуться назад</button>
         </form>
     </div>
 </div>
@@ -427,26 +481,3 @@
 
 </body>
 </html>
-<div id="paymentModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; padding: 16px;">
-    <div class="modal-content" style="background: #fff; padding: 24px; border-radius: 16px; width: 100%; max-width: 400px; color: #000;">
-        <h3 style="margin-bottom: 8px;">Оформление заказа</h3>
-        <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Укажите e-mail, куда отправить книгу после оплаты (10 ₽):</p>
-        
-        <form action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
-            <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
-            <input type="hidden" name="OutSum" value="10.00">
-            <input type="hidden" name="InvId" value="0">
-            <input type="hidden" name="Desc" value="Книга 150 народных рецептов">
-            
-            <!-- Параметр подписи, из-за которого вылетает ошибка 29, если он пустой или неверный -->
-            <!-- Если Робокасса требует подпись, её нужно генерировать через MD5(MerchantLogin:OutSum:InvId:MerchantPass1) -->
-            <input type="hidden" name="SignatureValue" value="">
-
-            <label style="font-size: 12px; font-weight: 600;">Ваш Email:</label>
-            <input type="email" name="Email" required placeholder="example@mail.ru" style="width: 100%; padding: 12px; margin: 12px 0 16px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 15px;">
-
-            <button type="submit" style="display: block; width: 100%; background-color: #f7931e; color: #ffffff; border: none; border-radius: 12px; padding: 16px; font-size: 16px; font-weight: 600; text-align: center; cursor: pointer;">Перейти к оплате 10 ₽</button>
-            <button type="button" onclick="closePaymentModal()" style="width: 100%; background: none; border: none; margin-top: 10px; color: #888; cursor: pointer;">Отмена</button>
-        </form>
-    </div>
-</div>
