@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer');
 const port = Number(process.env.PORT) || 3000;
 const root = __dirname;
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
-const productAmount = '10.00';
+const productAmount = '1.00';
 
 // Хранилище отправленных счетов (чтобы не дублировать письма при повторных запросах от Робокассы)
 const sentInvoices = new Set(); 
