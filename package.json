@@ -1,0 +1,13 @@
+{
+  "name": "miron-travnik",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static-site Node.js server for Miron Travnik",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
