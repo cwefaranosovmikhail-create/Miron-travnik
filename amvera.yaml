@@ -1,5 +1,9 @@
 meta:
-    environment: nodejs
-    toolchain:
-        name: npm
-        version: 22
+  environment: nodejs
+  toolchain:
+    name: npm
+    version: 22
+
+run:
+  scriptName: server.js
+  containerPort: 3000
