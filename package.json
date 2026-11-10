@@ -2,12 +2,15 @@
   "name": "miron-travnik",
   "version": "1.0.0",
   "private": true,
-  "description": "Static-site Node.js server for Miron Travnik",
+  "description": "Static-site Node.js server with Robokassa payment notifications",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "nodemailer": "^7.0.3"
   }
 }
