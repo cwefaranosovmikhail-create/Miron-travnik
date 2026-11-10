@@ -379,7 +379,7 @@
     <!-- Подвал (Footer) -->
     <div class="card-dark" style="font-size: 13px;">
         <div style="color: #f28b1e; font-weight: 600; margin-bottom: 4px;">Будьте здоровы</div>
-        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">Михаیل Добрый</div>
+        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">Михаил Добрый</div>
         
         <div class="footer-contacts">
             Фролова Елизавета Александровна<br>
@@ -409,9 +409,9 @@
         <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Укажите e-mail, куда отправить книгу после оплаты (10 ₽):</p>
         
         <!-- Форма, отправляющая данные напрямую в Robokassa -->
-        <form action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
-            <!-- Ваши параметры Robokassa -->
-            <input type="hidden" name="MerchantLogin" value="ИМЯ_ВАШЕГО_МАГАЗИНА">
+        <form action="https://auth.robokassa.kz/Merchant/Index.aspx" method="POST">
+            <!-- Параметры Robokassa с обновленным логином магазина -->
+            <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
             <input type="hidden" name="OutSum" value="10.00">
             <input type="hidden" name="InvId" value="0">
             <input type="hidden" name="Desc" value="Книга 150 народных рецептов">
