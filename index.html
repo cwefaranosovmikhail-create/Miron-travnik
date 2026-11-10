@@ -399,7 +399,8 @@
         <h3 style="margin-bottom: 8px;">Оформление заказа</h3>
         <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Укажите e-mail, куда отправить книгу после оплаты (10 ₽):</p>
         
-        <form action="https://auth.robokassa.kz/Merchant/Index.aspx" method="POST">
+        <!-- Ссылка исправлена на РФ (.ru), а идентификатор строго прописан -->
+        <form action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
             <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
             <input type="hidden" name="OutSum" value="10.00">
             <input type="hidden" name="InvId" value="0">
