@@ -360,7 +360,7 @@
         <!-- Форма отправки в Робокассу (без onsubmit, мы перехватим её в JS) -->
         <form id="paymentForm" action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
             <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
-            <input type="hidden" name="OutSum" value="10.00">
+            <input type="hidden" name="OutSum" value="1.00">
             <input type="hidden" name="InvId" id="invIdField" value="">
             <input type="hidden" name="Desc" value="Книга 150 народных рецептов">
             <input type="hidden" name="SignatureValue" id="signatureField" value="">
@@ -414,7 +414,7 @@
                 },
                 body: JSON.stringify({
                     invId: invId,
-                    outSum: "10.00",
+                    outSum: "1.00",
                     email: email
                 })
             });
