@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Михаил Добрый — 150 забытых народных рецептов</title>
-    <!-- Шаг 1: Библиотека crypto-js БОЛЬШЕ НЕ НУЖНА, так как хеш считает сервер -->
+    <title>Михаил Добрый — Алтайский травник</title>
     <style>
         :root {
             --bg-color: #f7f5f0;
@@ -168,6 +167,31 @@
         .btn-primary:disabled {
             background-color: #ccc;
             cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-sub {
+            display: block;
+            width: 100%;
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 12px;
+        }
+
+        .divider {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin: 16px 0;
+            position: relative;
         }
 
         .security-text {
@@ -200,6 +224,37 @@
             font-size: 13px;
         }
 
+        .faq-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .faq-item span {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 14px;
+            margin: 16px 0;
+        }
+
+        .footer-links a {
+            color: #d1d1d1;
+            text-decoration: none;
+        }
+
         .footer-contacts {
             font-size: 14px;
             color: #d1d1d1;
@@ -211,6 +266,7 @@
             color: #888;
         }
 
+        /* Модальное окно */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -280,12 +336,12 @@
     <div class="card-dark">
         <p style="color: #f28b1e; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Специальная цена для читателей блога</p>
         <div class="badge">Электронный справочник</div>
-        <h1>150 забытых народных рецептов, которые работают</h1>
+        <h1>Алтайский травник</h1>
         <p>Полная цифровая энциклопедия домашнего оздоровления без агрессивной химии.</p>
         
         <ul class="features-list">
-            <li>166 страниц в формате PDF — удобно читать со смартфона или распечатать</li>
-            <li>150 рецептов для 11 систем тела — от давления и суставов до сна и иммунитета</li>
+            <li>Удобный формат PDF — легко читать со смартфона или распечатать</li>
+            <li>Рецепты для 11 систем тела — от давления и суставов до сна и иммунитета</li>
             <li>Точные дозировки и предостережения к каждому рецепту</li>
             <li>Личные заметки Михаила с объяснением природного механизма</li>
             <li>Бессрочный доступ — файл сохраняется на ваших устройствах навсегда</li>
@@ -293,12 +349,15 @@
 
         <div class="price-box">
             <div class="old-price">2 990 ₽</div>
-            <div class="new-price">10 ₽</div>
+            <div class="new-price">1 ₽</div>
         </div>
         <div class="payment-note" style="color: #aaa;">Оплата единоразово, без подписок</div>
 
-        <button class="btn-primary" onclick="openPaymentModal()">Получить книгу за 10 ₽</button>
+        <button class="btn-primary" onclick="openPaymentModal()">Получить книгу за 1 ₽</button>
         <div class="security-text" style="color: #aaa;">Ссылка на скачивание придет на вашу почту</div>
+
+        <div class="divider">если карта не подошла</div>
+        <button class="btn-sub" style="color: #fff; border-color: rgba(255,255,255,0.2);" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (1 ₽)</button>
     </div>
 
     <div class="card">
@@ -315,15 +374,37 @@
             <h3><span>02</span> Тревога, бессонница и хроническая усталость</h3>
             <p style="font-size: 13px; margin-bottom: 0;">Постоянный стресс мешает глубокому сну. Нужны мягкие успокаивающие настои и вечерние практики.</p>
         </div>
+
+        <div class="situation-item">
+            <h3><span>03</span> Хотите знать, что дать ребенку при простуде</h3>
+            <p style="font-size: 13px; margin-bottom: 0;">Когда поднимается температура или начинается кашель, важно иметь под рукой безопасные домашние средства.</p>
+        </div>
     </div>
 
     <div class="card">
         <div style="color: #f28b1e; font-size: 18px; margin-bottom: 8px;">★★★★★</div>
-        <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Давно слежу за блогом Михаила, книгу очень ждала. Поразило, насколько всё разложено по полочкам — без воды и заумных терминов.»</p>
+        <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Давно слежу за блогом Михаила, книгу очень ждала. Поразило, насколько всё разложено по полочкам — без воды, без эзотерики и заумных терминов.»</p>
         <div style="display: flex; align-items: center; gap: 10px; margin-top: 12px;">
             <div style="background: #e6ede8; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">НК</div>
             <div style="font-size: 14px; font-weight: 600;">Наталья Кузнецова</div>
         </div>
+    </div>
+
+    <div class="card">
+        <div class="badge">Частые вопросы</div>
+        <h2 style="font-size: 20px; margin-bottom: 16px;">Ответы на популярные вопросы</h2>
+        
+        <div class="faq-item">В каком формате я получу книгу и как быстро? <span>+</span></div>
+        <div class="faq-item">Нужно ли искать редкие или дорогие травы? <span>+</span></div>
+        <div class="faq-item">Смогу ли я приготовить рецепты без специальных навыков? <span>+</span></div>
+        <div class="faq-item">Заменяют ли эти рецепты визит к врачу? <span>+</span></div>
+    </div>
+
+    <div class="card">
+        <div style="color: #f28b1e; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">Служба заботы</div>
+        <h3 style="font-size: 18px; margin-bottom: 10px;">Не пришло письмо или остались вопросы по оплате?</h3>
+        <p style="font-size: 13px;">Ссылка доставляется за 1–2 минуты. Если письма нет во входящих и в папке «Спам», напишите нам.</p>
+        <a href="https://t.me/" target="_blank" class="btn-primary" style="background-color: var(--primary-dark); margin-top: 16px;">Написать в поддержку</a>
     </div>
 
     <div class="card-dark" style="font-size: 13px;">
@@ -334,6 +415,18 @@
             Фролова Елизавета Александровна<br>
             ИНН 730208831852
         </div>
+
+        <div class="footer-links">
+            <a href="#">Политика конфиденциальности</a>
+            <a href="#">Публичная оферта</a>
+            <a href="#">Написать в поддержку</a>
+        </div>
+
+        <div style="margin-top: 16px; color: #aaa;">
+            +7 (995) 681-58-36<br>
+            mihail.dobry88@gmail.com
+        </div>
+
         <div class="copyright" style="margin-top: 20px;">© 2026 Все права защищены.</div>
     </div>
 
@@ -343,12 +436,12 @@
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
-        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги:</p>
+        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги (1 ₽):</p>
 
         <div class="payment-summary">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 14px; font-weight: 600;">Книга «150 рецептов»</span>
-                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">10 ₽</span>
+                <span style="font-size: 14px; font-weight: 600;">Книга «Алтайский травник»</span>
+                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">1 ₽</span>
             </div>
             <div class="payment-methods-badge">
                 <span class="method-tag" style="background: #ecfdf5; color: #059669;">⚡ СБП</span>
@@ -357,25 +450,13 @@
             </div>
         </div>
         
-        <!-- Форма отправки в Робокассу (без onsubmit, мы перехватим её в JS) -->
-        <form id="paymentForm" action="https://auth.robokassa.ru/Merchant/Index.aspx" method="POST">
-            <input type="hidden" name="MerchantLogin" value="MironTravnikAltai">
-            <input type="hidden" name="OutSum" value="1.00">
-            <input type="hidden" name="InvId" id="invIdField" value="">
-            <input type="hidden" name="Desc" value="Книга 150 народных рецептов">
-            <input type="hidden" name="SignatureValue" id="signatureField" value="">
-            
-            <!-- ВАЖНО: Добавлены обязательные URL для корректной работы. 
-                 Замените их на ваши реальные адреса после настройки сервера на Amvera -->
-            <input type="hidden" name="ResultURL" value="https://ВАШ_САЙТ_НА_AMVERA.amvera.io/api/robokassa/result">
-            <input type="hidden" name="SuccessURL" value="https://miron-travnik.netlify.app/success.html">
-            <input type="hidden" name="FailURL" value="https://miron-travnik.netlify.app/fail.html">
-
+        <!-- Форма больше не содержит скрытых полей Робокассы, их генерирует сервер -->
+        <form id="paymentForm">
             <label style="font-size: 12px; font-weight: 600; color: #374151;">Ваш Email:</label>
-            <input type="email" name="Email" id="emailField" required placeholder="example@mail.ru">
+            <input type="email" id="emailField" required placeholder="example@mail.ru">
 
             <button type="submit" id="submitBtn" class="btn-primary" style="font-size: 15px; padding: 14px;">Перейти к выбору способа оплаты</button>
-            <p style="font-size: 11px; color: #9ca3af; text-align: center; margin-top: 8px;">🔒 Защищено SSL-шифрованием Robokassa</p>
+            <p style="font-size: 11px; color: #9ca3af; text-align: center; margin-top: 8px;">🔒 Защищено SSL-шифрованием</p>
             <button type="button" onclick="closePaymentModal()" style="width: 100%; background: none; border: none; margin-top: 10px; color: #888; font-size: 13px; cursor: pointer;">Вернуться назад</button>
         </form>
     </div>
@@ -390,9 +471,9 @@
         document.getElementById('paymentModal').style.display = 'none';
     }
 
-    // Безопасная логика подготовки к оплате
+    // Отправка формы на сервер для получения ссылки на оплату
     document.getElementById('paymentForm').addEventListener('submit', async function(e) {
-        e.preventDefault(); // Останавливаем отправку формы, чтобы сначала получить хеш
+        e.preventDefault(); 
 
         const submitBtn = document.getElementById('submitBtn');
         const email = document.getElementById('emailField').value;
@@ -400,40 +481,29 @@
         submitBtn.disabled = true;
         submitBtn.textContent = 'Подготовка к оплате...';
 
-        // Генерируем уникальный номер заказа прямо здесь
-        const invId = Math.floor(Math.random() * 1000000);
-        document.getElementById('invIdField').value = invId;
-
         try {
-            // ОТПРАВЛЯЕМ ЗАПРОС НА ВАШ СЕРВЕР (Amvera) ДЛЯ ГЕНЕРАЦИИ БЕЗОПАСНОГО ХЕША
-            // ЗАМЕНИТЕ ЭТОТ URL на адрес вашей будущей функции на Amvera
-            const response = await fetch('https:/mirontravnik-mirontravnik.msk1.amvera.tech/api/get-signature', {
+            // Отправляем email на наш сервер (относительный путь, без домена)
+            const response = await fetch('/create-payment', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    invId: invId,
-                    outSum: "1.00",
-                    email: email
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
             });
 
+            // Если сервер вернул ошибку (400, 500 и т.д.), пытаемся прочитать её текст
             if (!response.ok) {
-                throw new Error('Ошибка сервера при создании подписи');
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || `Ошибка сервера: ${response.status}`);
             }
 
             const data = await response.json();
             
-            // Сервер возвращает готовую подпись
-            document.getElementById('signatureField').value = data.signature;
-
-            // Теперь, когда все поля заполнены, отправляем форму в Робокассу
-            this.submit();
+            // Перенаправляем на Робокассу по ссылке, которую вернул сервер
+            window.location.href = data.paymentUrl;
 
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Не удалось подготовить оплату. Пожалуйста, попробуйте позже.');
+            // Показываем реальную причину
+            alert('Ошибка: ' + error.message);
             submitBtn.disabled = false;
             submitBtn.textContent = 'Перейти к выбору способа оплаты';
         }
