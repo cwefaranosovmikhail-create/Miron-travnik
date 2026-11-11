@@ -4,7 +4,6 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const nodemailer = require('nodemailer');
 
-// ЭТА СТРОКА ПОКАЖЕТ, ЧТО ЗАГРУЗИЛСЯ НОВЫЙ КОД
 console.log("=========================================");
 console.log("=== ЗАПУЩЕНА НОВАЯ ВЕРСИЯ СЕРВЕРА! ===");
 console.log("=========================================");
@@ -86,6 +85,7 @@ function md5(value) {
   return crypto.createHash('md5').update(value).digest('hex').toUpperCase();
 }
 
+// Подпись для СОЗДАНИЯ платежа (Пароль #1)
 function buildSignature1(outSum, invId, password, extra = {}) {
   const extras = Object.entries(extra)
     .filter(([key]) => key.toLowerCase().startsWith('shp_'))
@@ -95,6 +95,7 @@ function buildSignature1(outSum, invId, password, extra = {}) {
   return md5([merchantLogin, outSum, invId, password, ...extras].join(':'));
 }
 
+// Подпись для ПРОВЕРКИ Webhook (Пароль #2)
 function buildSignature2(outSum, invId, password, extra = {}) {
   const extras = Object.entries(extra)
     .filter(([key]) => key.toLowerCase().startsWith('shp_'))
@@ -104,9 +105,19 @@ function buildSignature2(outSum, invId, password, extra = {}) {
   return md5([outSum, invId, password, ...extras].join(':'));
 }
 
+// Проверка подписи от Робокассы (С ЯРКИМ ДЕБАГОМ)
 function verifyRobokassaSignature(data) {
   const password2 = (process.env.ROBOKASSA_PASSWORD2 || '').trim();
-  if (!password2 || !data.OutSum || !data.InvId || !data.SignatureValue) return false;
+  
+  if (!password2) {
+    console.log('\n!!! ОШИБКА: Переменная ROBOKASSA_PASSWORD2 не задана в Amvera !!!\n');
+    return false;
+  }
+
+  if (!data.OutSum || !data.InvId || !data.SignatureValue) {
+    console.log('\n!!! ОШИБКА: В запросе от Робокассы нет OutSum, InvId или SignatureValue !!!\n');
+    return false;
+  }
 
   const extras = {};
   for (const [key, value] of Object.entries(data)) {
@@ -116,11 +127,20 @@ function verifyRobokassaSignature(data) {
   const expected = buildSignature2(String(data.OutSum), String(data.InvId), password2, extras);
   const received = String(data.SignatureValue).trim().toUpperCase();
 
-  // Отладка
-  console.log('--- Signature Debug ---');
-  console.log('String for hash:', [String(data.OutSum), String(data.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':'));
-  console.log('Expected:', expected);
-  console.log('Received:', received);
+  // ==========================================
+  // БЛОК ОТЛАДКИ (ИЩИТЕ ЭТО В ЛОГАХ AMVERA)
+  // ==========================================
+  console.log('\n\n==================================================');
+  console.log('🛑 ДЕБАГ ПОДПИСИ РОБОКАССЫ 🛑');
+  console.log('1. Полученные данные от Робокассы:', data);
+  console.log('2. Пароль #2 (первые 3 символа):', password2.substring(0, 3) + '***');
+  
+  const baseStringForDebug = [String(data.OutSum), String(data.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
+  console.log('3. Строка для хеширования:', baseStringForDebug);
+  console.log('4. Хеш, который посчитал сервер:', expected);
+  console.log('5. Хеш, который прислала Робокасса:', received);
+  console.log('==================================================\n\n');
+  // ==========================================
 
   if (received.length !== expected.length) return false;
   return crypto.timingSafeEqual(Buffer.from(received), Buffer.from(expected));
@@ -213,7 +233,6 @@ async function handleCreatePayment(req, res) {
     json(res, 200, { paymentUrl: paymentUrl.toString() });
   } catch (error) {
     console.error('create-payment error:', error);
-    // Показываем точную ошибку, если что-то сломалось
     json(res, 500, { error: 'Ошибка на сервере: ' + error.message });
   }
 }
