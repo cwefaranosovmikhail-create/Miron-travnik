@@ -64,7 +64,7 @@ function readJsonBody(req) {
   });
 }
 
-// Чтение сырых данных из тела запроса (для Webhook Робокассы, т.к. она шлет form-urlencoded)
+// Чтение сырых данных из тела запроса (для Webhook Робокассы)
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
@@ -86,7 +86,6 @@ function md5(value) {
 }
 
 // Подпись для СОЗДАНИЯ платежа (Пароль #1)
-// Формула: MD5(MerchantLogin:OutSum:InvId:Пароль1:Shp_...)
 function buildSignature1(outSum, invId, password, extra = {}) {
   const extras = Object.entries(extra)
     .filter(([key]) => key.toLowerCase().startsWith('shp_'))
@@ -97,7 +96,6 @@ function buildSignature1(outSum, invId, password, extra = {}) {
 }
 
 // Подпись для ПРОВЕРКИ Webhook (Пароль #2)
-// Формула: MD5(OutSum:InvId:Пароль2:Shp_...)
 function buildSignature2(outSum, invId, password, extra = {}) {
   const extras = Object.entries(extra)
     .filter(([key]) => key.toLowerCase().startsWith('shp_'))
@@ -107,7 +105,7 @@ function buildSignature2(outSum, invId, password, extra = {}) {
   return md5([outSum, invId, password, ...extras].join(':'));
 }
 
-// Проверка подписи от Робокассы
+// Проверка подписи от Робокассы (С ДОБАВЛЕННЫМ ЛОГИРОВАНИЕМ)
 function verifyRobokassaSignature(data) {
   const password2 = (process.env.ROBOKASSA_PASSWORD2 || '').trim();
   if (!password2 || !data.OutSum || !data.InvId || !data.SignatureValue) return false;
@@ -119,6 +117,18 @@ function verifyRobokassaSignature(data) {
 
   const expected = buildSignature2(String(data.OutSum), String(data.InvId), password2, extras);
   const received = String(data.SignatureValue).trim().toUpperCase();
+
+  // ==========================================
+  // БЛОК ОТЛАДКИ: Смотрим в логи Amvera, если ошибка
+  // ==========================================
+  const baseStringForDebug = [String(data.OutSum), String(data.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
+  console.log('--- Signature Debug ---');
+  console.log('1. Полученные данные от Robokassa:', JSON.stringify(data, null, 2));
+  console.log('2. Строка для хеширования (что видит сервер):', baseStringForDebug);
+  console.log('3. Ожидаемый хеш сервером:', expected);
+  console.log('4. Хеш, полученный от Robokassa:', received);
+  console.log('------------------------');
+  // ==========================================
 
   if (received.length !== expected.length) return false;
   return crypto.timingSafeEqual(Buffer.from(received), Buffer.from(expected));
@@ -172,8 +182,8 @@ async function sendOrderEmail(email, invId) {
     `,
     attachments: [
       {
-        filename: 'Алтайский травник.pdf', // Имя файла, которое увидит пользователь
-        path: filePath // Путь к файлу на сервере
+        filename: 'Алтайский травник.pdf',
+        path: filePath
       }
     ]
   });
@@ -197,14 +207,10 @@ async function handleCreatePayment(req, res) {
       return;
     }
 
-    // Генерируем уникальный номер заказа
     const invId = String(Date.now() + Math.floor(Math.random() * 1000));
     const extra = { Shp_email: email };
-    
-    // Считаем подпись
     const signature = buildSignature1(productAmount, invId, password1, extra);
 
-    // Формируем URL для перенаправления пользователя
     const paymentUrl = new URL('https://auth.robokassa.ru/Merchant/Index.aspx');
     paymentUrl.searchParams.set('MerchantLogin', merchantLogin);
     paymentUrl.searchParams.set('OutSum', productAmount);
@@ -214,7 +220,6 @@ async function handleCreatePayment(req, res) {
     paymentUrl.searchParams.set('SignatureValue', signature);
     paymentUrl.searchParams.set('Shp_email', email);
     
-    // URL для возврата пользователя после оплаты (замените на свои, если нужно)
     paymentUrl.searchParams.set('SuccessUrl', process.env.SUCCESS_URL || 'https://miron-travnik.netlify.app/');
     paymentUrl.searchParams.set('FailUrl', process.env.FAIL_URL || 'https://miron-travnik.netlify.app/');
 
@@ -228,12 +233,11 @@ async function handleCreatePayment(req, res) {
 // Обработчик Webhook от Робокассы (ResultURL)
 async function handleRobokassaResult(req, res) {
   try {
-    // Читаем как сырую строку, так как Робокасса шлет form-urlencoded
     const rawBody = await readRawBody(req);
     const data = Object.fromEntries(new URLSearchParams(rawBody));
 
     if (!verifyRobokassaSignature(data)) {
-      console.warn('Bad signature in webhook');
+      console.warn('Bad signature in webhook. Проверьте логи выше.');
       res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Bad signature');
       return;
@@ -304,7 +308,6 @@ const server = http.createServer(async (req, res) => {
     }
 
     // Обработка статических файлов
-    // decodeURIComponent нужен для корректной обработки кириллицы и пробелов в URL
     const decodedPath = decodeURIComponent(url.pathname);
     const relativePath = decodedPath === '/' ? '/index.html' : decodedPath;
     
