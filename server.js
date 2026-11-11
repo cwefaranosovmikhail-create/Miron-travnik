@@ -226,7 +226,7 @@ async function handleCreatePayment(req, res) {
     json(res, 200, { paymentUrl: paymentUrl.toString() });
   } catch (error) {
     console.error('create-payment error:', error);
-    json(res, 500, { error: 'Не удалось создать оплату' });
+    json(res, 500, { error: 'Ошибка на сервере: ' + error.message });
   }
 }
 
