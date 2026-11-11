@@ -44,9 +44,8 @@ function json(res, status, payload) {
 function readJsonBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
-    req.setEncoding('utf8'); // Явная кодировка
     req.on('data', chunk => {
-      body += chunk;
+      body += chunk.toString('utf8');
       if (body.length > 32 * 1024) {
         reject(new Error('Request body too large'));
         req.destroy();
@@ -65,14 +64,13 @@ function readJsonBody(req) {
 
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
+    if (req.readableEnded) {
+      resolve('');
+      return;
+    }
     let body = '';
-    req.setEncoding('utf8'); // Явная кодировка для корректного чтения
     req.on('data', chunk => {
-      body += chunk;
-      if (body.length > 1024 * 1024) { 
-        reject(new Error('Request body too large'));
-        req.destroy();
-      }
+      body += chunk.toString('utf8');
     });
     req.on('end', () => resolve(body));
     req.on('error', reject);
@@ -92,15 +90,6 @@ function buildSignature1(outSum, invId, password, extra = {}) {
   return md5([merchantLogin, outSum, invId, password, ...extras].join(':'));
 }
 
-function buildSignature2(outSum, invId, password, extra = {}) {
-  const extras = Object.entries(extra)
-    .filter(([key]) => key.toLowerCase().startsWith('shp_'))
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([key, value]) => `${key}=${value}`);
-
-  return md5([outSum, invId, password, ...extras].join(':'));
-}
-
 function verifyRobokassaSignature(data) {
   const password2 = (process.env.ROBOKASSA_PASSWORD2 || '').trim();
   
@@ -109,32 +98,58 @@ function verifyRobokassaSignature(data) {
     return false;
   }
 
-  if (!data.OutSum || !data.InvId || !data.SignatureValue) {
+  // Приводим ключи к стандартному виду (на случай нижнего регистра)
+  const normalizedData = { ...data };
+  if (!normalizedData.OutSum && normalizedData.out_summ) normalizedData.OutSum = normalizedData.out_summ;
+  if (!normalizedData.InvId && normalizedData.inv_id) normalizedData.InvId = normalizedData.inv_id;
+  if (!normalizedData.SignatureValue && normalizedData.crc) normalizedData.SignatureValue = normalizedData.crc;
+
+  if (!normalizedData.OutSum || !normalizedData.InvId || !normalizedData.SignatureValue) {
     console.log('\n!!! ОШИБКА: Данные OutSum, InvId или SignatureValue не найдены в запросе !!!');
-    console.log('Данные, которые мы получили:', data);
+    console.log('Данные, которые мы получили:', normalizedData);
     return false;
   }
 
   const extras = {};
-  for (const [key, value] of Object.entries(data)) {
+  for (const [key, value] of Object.entries(normalizedData)) {
     if (key.toLowerCase().startsWith('shp_')) extras[key] = value;
   }
 
-  const expected = buildSignature2(String(data.OutSum), String(data.InvId), password2, extras);
-  const received = String(data.SignatureValue).trim().toUpperCase();
+  const received = String(normalizedData.SignatureValue).trim().toUpperCase();
+
+  // Вариант 1: Декодированные значения (стандарт)
+  const str1 = [String(normalizedData.OutSum), String(normalizedData.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
+  const hash1 = md5(str1);
+
+  // Вариант 2: Закодированные значения (на случай если @ передан как %40)
+  const str2 = [String(normalizedData.OutSum), String(normalizedData.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${encodeURIComponent(v)}`)].join(':');
+  const hash2 = md5(str2);
 
   console.log('\n\n==================================================');
   console.log('🛑 ДЕБАГ ПОДПИСИ РОБОКАССЫ 🛑');
-  console.log('1. Полученные данные:', data);
-  console.log('2. Пароль #2 (первые 3 символа):', password2.substring(0, 3) + '***');
-  const baseStringForDebug = [String(data.OutSum), String(data.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
-  console.log('3. Строка для хеширования:', baseStringForDebug);
-  console.log('4. Хеш, который посчитал сервер:', expected);
-  console.log('5. Хеш, который прислала Робокасса:', received);
-  console.log('==================================================\n\n');
+  console.log('1. Данные:', normalizedData);
+  console.log('2. Пароль #2 (первые 3):', password2.substring(0, 3) + '***');
+  console.log('3. Строка 1 (декод):', str1);
+  console.log('4. Хеш 1:', hash1);
+  console.log('5. Строка 2 (код):', str2);
+  console.log('6. Хеш 2:', hash2);
+  console.log('7. Хеш от Робокассы:', received);
+  
+  if (received === hash1) {
+    console.log('✅ СОВПАЛО ПО ВАРИАНТУ 1');
+    console.log('==================================================\n\n');
+    return true;
+  }
+  
+  if (received === hash2) {
+    console.log('✅ СОВПАЛО ПО ВАРИАНТУ 2');
+    console.log('==================================================\n\n');
+    return true;
+  }
 
-  if (received.length !== expected.length) return false;
-  return crypto.timingSafeEqual(Buffer.from(received), Buffer.from(expected));
+  console.log('❌ НЕ СОВПАЛО');
+  console.log('==================================================\n\n');
+  return false;
 }
 
 function validEmail(value) {
@@ -230,20 +245,22 @@ async function handleCreatePayment(req, res) {
 
 async function handleRobokassaResult(req, res) {
   try {
-    // Читаем тело запроса
-    const rawBody = await readRawBody(req);
-    
-    // Извлекаем параметры из URL (на случай, если пришел GET-запрос)
-    const urlParams = Object.fromEntries(new URL(req.url, `http://${req.headers.host || 'localhost'}`).searchParams);
-    
-    // Извлекаем параметры из тела (для POST-запроса)
+    console.log(`\n[WEBHOOK] Метод: ${req.method}, URL: ${req.url}`);
+    console.log(`[WEBHOOK] Content-Type: ${req.headers['content-type']}`);
+
+    let rawBody = '';
+    if (req.method === 'POST' || req.method === 'PUT') {
+      rawBody = await readRawBody(req);
+    }
+    console.log(`[WEBHOOK] RAW BODY: "${rawBody}"`);
+
+    const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    const urlParams = Object.fromEntries(urlObj.searchParams);
     const bodyParams = Object.fromEntries(new URLSearchParams(rawBody));
     
-    // Объединяем данные
+    // Объединяем данные из URL и из тела
     const data = { ...urlParams, ...bodyParams };
-
-    console.log('RAW BODY:', rawBody);
-    console.log('PARSED DATA:', data);
+    console.log('[WEBHOOK] Итоговые данные:', data);
 
     if (!verifyRobokassaSignature(data)) {
       console.warn('Bad signature in webhook.');
@@ -252,8 +269,8 @@ async function handleRobokassaResult(req, res) {
       return;
     }
 
-    const invId = String(data.InvId || '');
-    const email = String(data.Shp_email || data.EMail || data.Email || '').trim();
+    const invId = String(data.InvId || data.inv_id || '');
+    const email = String(data.Shp_email || data.shp_email || data.EMail || data.Email || '').trim();
 
     if (!invId || !validEmail(email)) {
       res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
