@@ -8,16 +8,13 @@ console.log("=========================================");
 console.log("=== ЗАПУЩЕНА НОВАЯ ВЕРСИЯ СЕРВЕРА! ===");
 console.log("=========================================");
 
-// Настройки сервера
 const port = Number(process.env.PORT) || 3000;
 const root = __dirname;
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
 const productAmount = '1.00';
 
-// Хранилище отправленных счетов
 const sentInvoices = new Set(); 
 
-// MIME-типы
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -31,7 +28,6 @@ const mimeTypes = {
   '.pdf': 'application/pdf'
 };
 
-// Защищенные файлы
 const restrictedFiles = [
   'Алтайский травник.pdf', 
   '.env', 
@@ -48,6 +44,7 @@ function json(res, status, payload) {
 function readJsonBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
+    req.setEncoding('utf8'); // Явная кодировка
     req.on('data', chunk => {
       body += chunk;
       if (body.length > 32 * 1024) {
@@ -69,6 +66,7 @@ function readJsonBody(req) {
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
+    req.setEncoding('utf8'); // Явная кодировка для корректного чтения
     req.on('data', chunk => {
       body += chunk;
       if (body.length > 1024 * 1024) { 
@@ -85,7 +83,6 @@ function md5(value) {
   return crypto.createHash('md5').update(value).digest('hex').toUpperCase();
 }
 
-// Подпись для СОЗДАНИЯ платежа (Пароль #1)
 function buildSignature1(outSum, invId, password, extra = {}) {
   const extras = Object.entries(extra)
     .filter(([key]) => key.toLowerCase().startsWith('shp_'))
@@ -95,7 +92,6 @@ function buildSignature1(outSum, invId, password, extra = {}) {
   return md5([merchantLogin, outSum, invId, password, ...extras].join(':'));
 }
 
-// Подпись для ПРОВЕРКИ Webhook (Пароль #2)
 function buildSignature2(outSum, invId, password, extra = {}) {
   const extras = Object.entries(extra)
     .filter(([key]) => key.toLowerCase().startsWith('shp_'))
@@ -105,7 +101,6 @@ function buildSignature2(outSum, invId, password, extra = {}) {
   return md5([outSum, invId, password, ...extras].join(':'));
 }
 
-// Проверка подписи от Робокассы (С ЯРКИМ ДЕБАГОМ)
 function verifyRobokassaSignature(data) {
   const password2 = (process.env.ROBOKASSA_PASSWORD2 || '').trim();
   
@@ -115,7 +110,8 @@ function verifyRobokassaSignature(data) {
   }
 
   if (!data.OutSum || !data.InvId || !data.SignatureValue) {
-    console.log('\n!!! ОШИБКА: В запросе от Робокассы нет OutSum, InvId или SignatureValue !!!\n');
+    console.log('\n!!! ОШИБКА: Данные OutSum, InvId или SignatureValue не найдены в запросе !!!');
+    console.log('Данные, которые мы получили:', data);
     return false;
   }
 
@@ -127,20 +123,15 @@ function verifyRobokassaSignature(data) {
   const expected = buildSignature2(String(data.OutSum), String(data.InvId), password2, extras);
   const received = String(data.SignatureValue).trim().toUpperCase();
 
-  // ==========================================
-  // БЛОК ОТЛАДКИ (ИЩИТЕ ЭТО В ЛОГАХ AMVERA)
-  // ==========================================
   console.log('\n\n==================================================');
   console.log('🛑 ДЕБАГ ПОДПИСИ РОБОКАССЫ 🛑');
-  console.log('1. Полученные данные от Робокассы:', data);
+  console.log('1. Полученные данные:', data);
   console.log('2. Пароль #2 (первые 3 символа):', password2.substring(0, 3) + '***');
-  
   const baseStringForDebug = [String(data.OutSum), String(data.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
   console.log('3. Строка для хеширования:', baseStringForDebug);
   console.log('4. Хеш, который посчитал сервер:', expected);
   console.log('5. Хеш, который прислала Робокасса:', received);
   console.log('==================================================\n\n');
-  // ==========================================
 
   if (received.length !== expected.length) return false;
   return crypto.timingSafeEqual(Buffer.from(received), Buffer.from(expected));
@@ -210,7 +201,7 @@ async function handleCreatePayment(req, res) {
 
     if (!password1) {
       console.error('ОШИБКА: Переменная ROBOKASSA_PASSWORD1 не задана!');
-      json(res, 503, { error: 'Платёжная система временно недоступна (не задан пароль)' });
+      json(res, 503, { error: 'Платёжная система временно недоступна' });
       return;
     }
 
@@ -239,8 +230,20 @@ async function handleCreatePayment(req, res) {
 
 async function handleRobokassaResult(req, res) {
   try {
+    // Читаем тело запроса
     const rawBody = await readRawBody(req);
-    const data = Object.fromEntries(new URLSearchParams(rawBody));
+    
+    // Извлекаем параметры из URL (на случай, если пришел GET-запрос)
+    const urlParams = Object.fromEntries(new URL(req.url, `http://${req.headers.host || 'localhost'}`).searchParams);
+    
+    // Извлекаем параметры из тела (для POST-запроса)
+    const bodyParams = Object.fromEntries(new URLSearchParams(rawBody));
+    
+    // Объединяем данные
+    const data = { ...urlParams, ...bodyParams };
+
+    console.log('RAW BODY:', rawBody);
+    console.log('PARSED DATA:', data);
 
     if (!verifyRobokassaSignature(data)) {
       console.warn('Bad signature in webhook.');
@@ -250,7 +253,7 @@ async function handleRobokassaResult(req, res) {
     }
 
     const invId = String(data.InvId || '');
-    const email = String(data.Shp_email || data.Email || '').trim();
+    const email = String(data.Shp_email || data.EMail || data.Email || '').trim();
 
     if (!invId || !validEmail(email)) {
       res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
