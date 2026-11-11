@@ -10,10 +10,10 @@ const root = __dirname;
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
 const productAmount = '1.00';
 
-// Хранилище отправленных счетов (чтобы не дублировать письма при повторных запросах от Робокассы)
+// Хранилище отправленных счетов
 const sentInvoices = new Set(); 
 
-// MIME-типы для отдачи статики
+// MIME-типы
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -27,7 +27,7 @@ const mimeTypes = {
   '.pdf': 'application/pdf'
 };
 
-// Файлы, которые НЕЛЬЗЯ скачивать напрямую через браузер (защита контента)
+// Защищенные файлы
 const restrictedFiles = [
   'Алтайский травник.pdf', 
   '.env', 
@@ -36,13 +36,11 @@ const restrictedFiles = [
   'package-lock.json'
 ];
 
-// Вспомогательная функция для отправки JSON-ответа
 function json(res, status, payload) {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
   res.end(JSON.stringify(payload));
 }
 
-// Чтение JSON из тела запроса (для API)
 function readJsonBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
@@ -64,13 +62,12 @@ function readJsonBody(req) {
   });
 }
 
-// Чтение сырых данных из тела запроса (для Webhook Робокассы)
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
     req.on('data', chunk => {
       body += chunk;
-      if (body.length > 1024 * 1024) { // 1MB limit
+      if (body.length > 1024 * 1024) { 
         reject(new Error('Request body too large'));
         req.destroy();
       }
@@ -80,12 +77,10 @@ function readRawBody(req) {
   });
 }
 
-// Вычисление MD5-хеша
 function md5(value) {
   return crypto.createHash('md5').update(value).digest('hex').toUpperCase();
 }
 
-// Подпись для СОЗДАНИЯ платежа (Пароль #1)
 function buildSignature1(outSum, invId, password, extra = {}) {
   const extras = Object.entries(extra)
     .filter(([key]) => key.toLowerCase().startsWith('shp_'))
@@ -95,7 +90,6 @@ function buildSignature1(outSum, invId, password, extra = {}) {
   return md5([merchantLogin, outSum, invId, password, ...extras].join(':'));
 }
 
-// Подпись для ПРОВЕРКИ Webhook (Пароль #2)
 function buildSignature2(outSum, invId, password, extra = {}) {
   const extras = Object.entries(extra)
     .filter(([key]) => key.toLowerCase().startsWith('shp_'))
@@ -105,7 +99,6 @@ function buildSignature2(outSum, invId, password, extra = {}) {
   return md5([outSum, invId, password, ...extras].join(':'));
 }
 
-// Проверка подписи от Робокассы (С ДОБАВЛЕННЫМ ЛОГИРОВАНИЕМ)
 function verifyRobokassaSignature(data) {
   const password2 = (process.env.ROBOKASSA_PASSWORD2 || '').trim();
   if (!password2 || !data.OutSum || !data.InvId || !data.SignatureValue) return false;
@@ -118,28 +111,20 @@ function verifyRobokassaSignature(data) {
   const expected = buildSignature2(String(data.OutSum), String(data.InvId), password2, extras);
   const received = String(data.SignatureValue).trim().toUpperCase();
 
-  // ==========================================
-  // БЛОК ОТЛАДКИ: Смотрим в логи Amvera, если ошибка
-  // ==========================================
-  const baseStringForDebug = [String(data.OutSum), String(data.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
+  // Отладка
   console.log('--- Signature Debug ---');
-  console.log('1. Полученные данные от Robokassa:', JSON.stringify(data, null, 2));
-  console.log('2. Строка для хеширования (что видит сервер):', baseStringForDebug);
-  console.log('3. Ожидаемый хеш сервером:', expected);
-  console.log('4. Хеш, полученный от Robokassa:', received);
-  console.log('------------------------');
-  // ==========================================
+  console.log('String for hash:', [String(data.OutSum), String(data.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':'));
+  console.log('Expected:', expected);
+  console.log('Received:', received);
 
   if (received.length !== expected.length) return false;
   return crypto.timingSafeEqual(Buffer.from(received), Buffer.from(expected));
 }
 
-// Валидация Email
 function validEmail(value) {
   return typeof value === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) && value.trim().length <= 254;
 }
 
-// Отправка письма с вложением
 async function sendOrderEmail(email, invId) {
   const host = process.env.SMTP_HOST;
   const port = Number(process.env.SMTP_PORT || 465);
@@ -147,7 +132,6 @@ async function sendOrderEmail(email, invId) {
   const pass = process.env.SMTP_PASS;
   const from = process.env.SMTP_FROM || user;
   
-  // Путь к файлу книги (он должен лежать в корне репозитория)
   const filePath = path.join(root, 'Алтайский травник.pdf');
 
   if (!host || !user || !pass || !from) {
@@ -163,7 +147,7 @@ async function sendOrderEmail(email, invId) {
   const transporter = nodemailer.createTransport({
     host,
     port,
-    secure: port === 465, // true для 465, false для 587
+    secure: port === 465,
     auth: { user, pass }
   });
 
@@ -177,7 +161,6 @@ async function sendOrderEmail(email, invId) {
         <h2 style="color: #1b3022;">Оплата подтверждена</h2>
         <p>Спасибо! Ваш заказ №${invId} успешно оплачен.</p>
         <p>Файл с книгой <b>Алтайский травник.pdf</b> прикреплен к этому письму.</p>
-        <p style="color: #666; font-size: 12px; margin-top: 30px;">Если у вас возникли проблемы со скачиванием, напишите нам в поддержку.</p>
       </div>
     `,
     attachments: [
@@ -189,7 +172,6 @@ async function sendOrderEmail(email, invId) {
   });
 }
 
-// Обработчик API для создания платежа
 async function handleCreatePayment(req, res) {
   try {
     const body = await readJsonBody(req);
@@ -203,7 +185,7 @@ async function handleCreatePayment(req, res) {
 
     if (!password1) {
       console.error('ОШИБКА: Переменная ROBOKASSA_PASSWORD1 не задана!');
-      json(res, 503, { error: 'Платёжная система временно недоступна' });
+      json(res, 503, { error: 'Платёжная система временно недоступна (не задан пароль)' });
       return;
     }
 
@@ -226,18 +208,18 @@ async function handleCreatePayment(req, res) {
     json(res, 200, { paymentUrl: paymentUrl.toString() });
   } catch (error) {
     console.error('create-payment error:', error);
+    // Показываем точную ошибку, если что-то сломалось
     json(res, 500, { error: 'Ошибка на сервере: ' + error.message });
   }
 }
 
-// Обработчик Webhook от Робокассы (ResultURL)
 async function handleRobokassaResult(req, res) {
   try {
     const rawBody = await readRawBody(req);
     const data = Object.fromEntries(new URLSearchParams(rawBody));
 
     if (!verifyRobokassaSignature(data)) {
-      console.warn('Bad signature in webhook. Проверьте логи выше.');
+      console.warn('Bad signature in webhook.');
       res.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Bad signature');
       return;
@@ -252,14 +234,12 @@ async function handleRobokassaResult(req, res) {
       return;
     }
 
-    // Защита от дублирования писем
     if (!sentInvoices.has(invId)) {
       await sendOrderEmail(email, invId);
       sentInvoices.add(invId);
       console.log(`Оплата ${invId} обработана, письмо отправлено на ${email}`);
     }
 
-    // Важно: Робокасса ждет строго "OK" и номер заказа без пробела
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
     res.end(`OK${invId}`);
   } catch (error) {
@@ -269,7 +249,6 @@ async function handleRobokassaResult(req, res) {
   }
 }
 
-// Функция для отдачи статических файлов
 function serveStaticFile(filePath, res) {
   fs.readFile(filePath, (error, data) => {
     if (error) {
@@ -284,34 +263,28 @@ function serveStaticFile(filePath, res) {
   });
 }
 
-// Главный сервер
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
 
-    // API для создания платежа
     if (req.method === 'POST' && url.pathname === '/create-payment') {
       await handleCreatePayment(req, res);
       return;
     }
 
-    // Webhook от Робокассы
     if ((req.method === 'POST' || req.method === 'GET') && url.pathname === '/robokassa/result') {
       await handleRobokassaResult(req, res);
       return;
     }
 
-    // Проверка статуса сервера
     if (req.method === 'GET' && url.pathname === '/health') {
       json(res, 200, { status: 'ok' });
       return;
     }
 
-    // Обработка статических файлов
     const decodedPath = decodeURIComponent(url.pathname);
     const relativePath = decodedPath === '/' ? '/index.html' : decodedPath;
     
-    // Блокируем доступ к файлу книги и служебным файлам
     if (restrictedFiles.includes(path.basename(relativePath))) {
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Forbidden: Access denied');
@@ -320,7 +293,6 @@ const server = http.createServer(async (req, res) => {
 
     const filePath = path.resolve(root, `.${relativePath}`);
     
-    // Защита от выхода за пределы директории (Path Traversal)
     if (filePath !== root && !filePath.startsWith(root + path.sep)) {
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Forbidden');
@@ -335,7 +307,6 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-// Запуск сервера
 server.listen(port, '0.0.0.0', () => {
   console.log(`Server running on 0.0.0.0:${port}`);
 });
