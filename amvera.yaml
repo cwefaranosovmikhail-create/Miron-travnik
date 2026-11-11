@@ -1,9 +1,11 @@
 meta:
-  environment: nodejs
+  environment: node
   toolchain:
     name: npm
-    version: 22
+    version: 18
 
 run:
-  scriptName: server.js
+  # Явно указываем команду для запуска, минуя npm
+  command: node server.js
+  # Указываем порт, который слушает ваш server.js
   containerPort: 3000
