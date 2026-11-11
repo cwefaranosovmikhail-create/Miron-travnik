@@ -57,7 +57,6 @@ function readJsonBody(req) {
   });
 }
 
-// Надежное чтение тела запроса
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
@@ -109,9 +108,11 @@ function verifyRobokassaSignature(data) {
 
   const received = String(normalizedData.SignatureValue).trim().toUpperCase();
 
+  // Вариант 1: Декодированные значения
   const str1 = [String(normalizedData.OutSum), String(normalizedData.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
   const hash1 = md5(str1);
 
+  // Вариант 2: Закодированные значения (на случай %40)
   const str2 = [String(normalizedData.OutSum), String(normalizedData.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${encodeURIComponent(v)}`)].join(':');
   const hash2 = md5(str2);
 
@@ -227,27 +228,26 @@ async function handleCreatePayment(req, res) {
 
 async function handleRobokassaResult(req, res) {
   try {
-    // 1. Показываем ВСЕ входящие данные о запросе
-    console.log(`\n[WEBHOOK] ПОЛНЫЙ URL: ${req.url}`);
-    console.log(`[WEBHOOK] МЕТОД: ${req.method}`);
-    console.log(`[WEBHOOK] ЗАГОЛОВКИ:`, JSON.stringify(req.headers, null, 2));
+    console.log(`\n[WEBHOOK] МЕТОД: ${req.method}`);
+    console.log(`[WEBHOOK] ПОЛНЫЙ URL: ${req.url}`);
 
-    // 2. Читаем тело (независимо от Content-Type)
+    // 1. ПЫТАЕМСЯ ПРОЧИТАТЬ ТЕЛО (вдруг это POST)
     let rawBody = '';
     if (req.method === 'POST' || req.method === 'PUT') {
       rawBody = await readRawBody(req);
     }
     console.log(`[WEBHOOK] ТЕЛО ЗАПРОСА (RAW): "${rawBody}"`);
 
-    // 3. Извлекаем параметры из URL
+    // 2. ПРИНУДИТЕЛЬНО ПАРСИМ URL (GET-запрос)
     const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const urlParams = Object.fromEntries(urlObj.searchParams);
     
-    // 4. Извлекаем параметры из тела (даже если Content-Type не form-urlencoded)
+    // 3. ПАРСИМ ТЕЛО (если оно было)
     const bodyParams = Object.fromEntries(new URLSearchParams(rawBody));
     
-    // 5. Объединяем
-    const data = { ...urlParams, ...bodyParams };
+    // 4. СКЛЕИВАЕМ ДАННЫЕ (URL имеет приоритет, если вдруг тело пустое)
+    const data = { ...bodyParams, ...urlParams };
+    
     console.log('[WEBHOOK] ИТОГОВЫЕ ДАННЫЕ:', data);
 
     if (!verifyRobokassaSignature(data)) {
@@ -304,7 +304,8 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    if ((req.method === 'POST' || req.method === 'GET') && url.pathname === '/robokassa/result') {
+    // Теперь принимаем и GET, и POST на этот адрес
+    if (url.pathname === '/robokassa/result') {
       await handleRobokassaResult(req, res);
       return;
     }
