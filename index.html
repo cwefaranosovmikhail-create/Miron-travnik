@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дед Мирон и внучка Орешка — Алтайские Традиции Здоровья</title>
+    <title>Дед Мирон и внучка Аришка — Алтайские Традиции Здоровья</title>
     <style>
         :root {
             --bg-color: #f7f5f0;
@@ -53,6 +53,14 @@
             padding: 24px;
         }
 
+        /* Делаем текст внутри темной карточки ярким и читабельным */
+        .card-dark p, 
+        .card-dark .features-list li, 
+        .card-dark .payment-note, 
+        .card-dark .security-text {
+            color: #f3f4f6 !important;
+        }
+
         .badge {
             display: inline-block;
             background-color: #eee9dc;
@@ -67,8 +75,8 @@
         }
 
         .card-dark .badge {
-            background-color: rgba(255,255,255,0.1);
-            color: #f28b1e;
+            background-color: rgba(255,255,255,0.15);
+            color: #fcd34d;
         }
 
         h1 {
@@ -76,6 +84,7 @@
             font-weight: 700;
             margin-bottom: 12px;
             line-height: 1.2;
+            color: #ffffff;
         }
 
         p {
@@ -84,11 +93,6 @@
             margin-bottom: 16px;
         }
 
-        .card-dark p {
-            color: #d1d1d1;
-        }
-
-        /* Стиль для картинок-иллюстраций в карточках */
         .img-container {
             width: 100%;
             height: 200px;
@@ -117,7 +121,11 @@
             align-items: flex-start;
             gap: 10px;
             font-size: 14px;
-            color: var(--text-main);
+        }
+
+        .card-dark .features-list li::before {
+            background: rgba(255,255,255,0.2);
+            color: #fcd34d;
         }
 
         .features-list li::before {
@@ -142,21 +150,18 @@
 
         .old-price {
             font-size: 18px;
-            color: #999;
+            color: #cbd5e1;
             text-decoration: line-through;
         }
 
         .new-price {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 800;
-            color: var(--text-main);
+            color: #ffffff;
         }
 
-        .payment-note {
-            font-size: 13px;
-            color: var(--text-muted);
-            text-align: center;
-            margin-bottom: 16px;
+        .card-dark .payment-note, .card-dark .security-text {
+            color: #e2e8f0 !important;
         }
 
         .btn-primary {
@@ -190,8 +195,8 @@
             display: block;
             width: 100%;
             background-color: transparent;
-            color: var(--text-main);
-            border: 1px solid #ddd;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.4);
             border-radius: 12px;
             padding: 12px;
             font-size: 14px;
@@ -205,16 +210,9 @@
         .divider {
             text-align: center;
             font-size: 12px;
-            color: #999;
+            color: #cbd5e1;
             margin: 16px 0;
             position: relative;
-        }
-
-        .security-text {
-            font-size: 12px;
-            color: #777;
-            text-align: center;
-            margin-top: 10px;
         }
 
         .situation-item {
@@ -262,27 +260,27 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            font-size: 14px;
+            font-size: 13px;
             margin: 16px 0;
         }
 
         .footer-links a {
-            color: #d1d1d1;
+            color: #cbd5e1;
             text-decoration: none;
         }
 
         .footer-contacts {
-            font-size: 14px;
-            color: #d1d1d1;
+            font-size: 13px;
+            color: #cbd5e1;
             margin-bottom: 12px;
+            line-height: 1.6;
         }
 
         .copyright {
             font-size: 12px;
-            color: #888;
+            color: #94a3b8;
         }
 
-        /* Модальное окно */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -350,12 +348,11 @@
 <div class="wrapper">
 
     <div class="card-dark">
-        <p style="color: #f28b1e; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Алтайская сокровищница рецептов</p>
+        <p style="color: #fcd34d !important; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Алтайская сокровищница рецептов</p>
         <div class="badge">Энциклопедия деда Мирона</div>
         <h1>Алтайский травник</h1>
-        <p>Издание от деда Мирона и внучки Орешки: живая мудрость тайги, проверенная веками.</p>
+        <p>Издание от деда Мирона и внучки Аришки: живая мудрость тайги, проверенная веками.</p>
         
-        <!-- Картинка: Алтайская природа / сбор трав -->
         <div class="img-container">
             <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?q=80&w=800&auto=format&fit=crop" alt="Алтайские горы и травы">
         </div>
@@ -364,24 +361,23 @@
             <li>Удобный формат PDF — легко читать со смартфона или распечатать дома</li>
             <li>Секреты для 11 систем тела: суставы, давление, крепкий сон и иммунитет</li>
             <li>Точные таежные дозировки и природные предостережения</li>
-            <li>Душевные заметки деда Мирона и подсказки внучки Орешки</li>
+            <li>Душевные заметки деда Мирона и подсказки внучки Аришки</li>
             <li>Бессрочный доступ — книга остается на ваших устройствах навсегда</li>
         </ul>
 
         <div class="price-box">
             <div class="old-price">2 990 ₽</div>
-            <div class="new-price">1 ₽</div>
+            <div class="new-price">499 ₽</div>
         </div>
-        <div class="payment-note" style="color: #aaa;">Оплата единоразово, без подписок</div>
+        <div class="payment-note">Оплата единоразово, без подписок</div>
 
-        <button class="btn-primary" onclick="openPaymentModal()">Получить книгу за 1 ₽</button>
-        <div class="security-text" style="color: #aaa;">Ссылка на скачивание придет на вашу почту</div>
+        <button class="btn-primary" onclick="openPaymentModal()">Получить книгу за 499 ₽</button>
+        <div class="security-text">Ссылка на скачивание придет на вашу почту</div>
 
         <div class="divider">если карта не подошла</div>
-        <button class="btn-sub" style="color: #fff; border-color: rgba(255,255,255,0.2);" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (1 ₽)</button>
+        <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (499 ₽)</button>
     </div>
 
-    <!-- Блок истории деда Мирона и Орешки -->
     <div class="card">
         <div class="badge">Из таежной избы</div>
         <h2 style="font-size: 20px; margin-bottom: 16px;">Как мы живем на Алтае</h2>
@@ -390,8 +386,8 @@
             <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=800&auto=format&fit=crop" alt="Таежный домик и травы">
         </div>
 
-        <p style="font-size: 14px; margin-bottom: 14px;">Здравствуйте, дорогие люди! Мы с внучкой Орешкой живем в глухом таежном уголке Алтая. Здесь чистейший воздух, звенящие родники и травы такой силы, каких больше нигде на земле не сыскать.</p>
-        <p style="font-size: 14px; margin-bottom: 0;">Орешка помогает мне собирать коренья, сушить листочки в тени нашей избы, варить целебные настои на чистой ключевой воде и томить мази на кедровой живице. Все эти рецепты собирались веками нашими предками, а теперь мы собрали их под одной обложкой, чтобы помочь каждой семье.</p>
+        <p style="font-size: 14px; margin-bottom: 14px;">Здравствуйте, дорогие люди! Мы с внучкой Аришкой живем в глухом таежном уголке Алтая. Здесь чистейший воздух, звенящие родники и травы такой силы, каких больше нигде на земле не сыскать.</p>
+        <p style="font-size: 14px; margin-bottom: 0;">Аришка помогает мне собирать коренья, сушить листочки в тени нашей избы, варить целебные настои на чистой ключевой воде и томить мази на кедровой живице. Все эти рецепты собирались веками нашими предками, а теперь мы собрали их под одной обложкой, чтобы помочь каждой семье.</p>
     </div>
 
     <div class="card">
@@ -411,17 +407,16 @@
 
         <div class="situation-item">
             <h3><span>03</span> Простуды и хвори у детей</h3>
-            <p style="font-size: 13px; margin-bottom: 0;">Орешка всегда заваривает малиновый корень и таежный чай, когда кто-то начинает шмыгать носом — без лишних аптечных сиропов.</p>
+            <p style="font-size: 13px; margin-bottom: 0;">Аришка всегда заваривает малиновый корень и таежный чай, когда кто-то начинает шмыгать носом — без лишних аптечных сиропов.</p>
         </div>
     </div>
 
-    <!-- Блок с картинкой баночек/трав -->
     <div class="card">
         <div class="img-container" style="height: 180px;">
             <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800&auto=format&fit=crop" alt="Травы и сборы">
         </div>
         <div style="color: #f28b1e; font-size: 18px; margin-bottom: 8px;">★★★★★</div>
-        <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Заказала книгу деда Мирона из чистого любопытства. Какая же она уютная! Описано всё так просто, по-домашнему, с любовью. Орешке отдельное спасибо за подсказки по детским простудам — уже опробовали!»</p>
+        <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Заказала книгу деда Мирона из чистого любопытства. Какая же она уютная! Описано всё так просто, по-домашнему, с любовью. Аришке отдельное спасибо за подсказки по детским простудам — уже опробовали!»</p>
         <div style="display: flex; align-items: center; gap: 10px; margin-top: 12px;">
             <div style="background: #e6ede8; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">ОК</div>
             <div style="font-size: 14px; font-weight: 600;">Ольга Круглова</div>
@@ -446,12 +441,12 @@
     </div>
 
     <div class="card-dark" style="font-size: 13px;">
-        <div style="color: #f28b1e; font-weight: 600; margin-bottom: 4px;">С добром и заботой</div>
-        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">Дед Мирон и внучка Орешка</div>
+        <div style="color: #fcd34d; font-weight: 600; margin-bottom: 4px;">С добром и заботой</div>
+        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px; color: #ffffff;">Дед Мирон и внучка Аришка</div>
         
         <div class="footer-contacts">
-            Фролова Елизавета Александровна<br>
-            ИНН 730208831852
+            ИП Фараносов Александр Михайлович<br>
+            ИНН 701711852684
         </div>
 
         <div class="footer-links">
@@ -460,9 +455,8 @@
             <a href="#">Написать в поддержку</a>
         </div>
 
-        <div style="margin-top: 16px; color: #aaa;">
-            +7 (995) 681-58-36<br>
-            mihail.dobry88@gmail.com
+        <div style="margin-top: 16px; color: #cbd5e1;">
+            cwe.FaranosovMikhail@gmail.com
         </div>
 
         <div class="copyright" style="margin-top: 20px;">© 2026 Все права защищены.</div>
@@ -470,16 +464,16 @@
 
 </div>
 
-<!-- Модальное окно оплаты (технически не менялось) -->
+<!-- Модальное окно оплаты -->
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
-        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги (1 ₽):</p>
+        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги (499 ₽):</p>
 
         <div class="payment-summary">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                 <span style="font-size: 14px; font-weight: 600;">Книга «Алтайский травник»</span>
-                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">1 ₽</span>
+                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">499 ₽</span>
             </div>
             <div class="payment-methods-badge">
                 <span class="method-tag" style="background: #ecfdf5; color: #059669;">⚡ СБП</span>
@@ -508,7 +502,6 @@
         document.getElementById('paymentModal').style.display = 'none';
     }
 
-    // Отправка формы на сервер для получения ссылки на оплату
     document.getElementById('paymentForm').addEventListener('submit', async function(e) {
         e.preventDefault(); 
 
