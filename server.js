@@ -43,16 +43,11 @@ function json(res, status, payload) {
 
 function readJsonBody(req) {
   return new Promise((resolve, reject) => {
-    let body = '';
-    req.on('data', chunk => {
-      body += chunk.toString('utf8');
-      if (body.length > 32 * 1024) {
-        reject(new Error('Request body too large'));
-        req.destroy();
-      }
-    });
+    const chunks = [];
+    req.on('data', chunk => chunks.push(chunk));
     req.on('end', () => {
       try {
+        const body = Buffer.concat(chunks).toString('utf8');
         resolve(JSON.parse(body || '{}'));
       } catch {
         resolve({});
@@ -62,17 +57,15 @@ function readJsonBody(req) {
   });
 }
 
+// Надежное чтение тела запроса
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
-    if (req.readableEnded) {
-      resolve('');
-      return;
-    }
-    let body = '';
-    req.on('data', chunk => {
-      body += chunk.toString('utf8');
+    const chunks = [];
+    req.on('data', chunk => chunks.push(chunk));
+    req.on('end', () => {
+      const body = Buffer.concat(chunks).toString('utf8');
+      resolve(body);
     });
-    req.on('end', () => resolve(body));
     req.on('error', reject);
   });
 }
@@ -98,7 +91,6 @@ function verifyRobokassaSignature(data) {
     return false;
   }
 
-  // Приводим ключи к стандартному виду (на случай нижнего регистра)
   const normalizedData = { ...data };
   if (!normalizedData.OutSum && normalizedData.out_summ) normalizedData.OutSum = normalizedData.out_summ;
   if (!normalizedData.InvId && normalizedData.inv_id) normalizedData.InvId = normalizedData.inv_id;
@@ -117,11 +109,9 @@ function verifyRobokassaSignature(data) {
 
   const received = String(normalizedData.SignatureValue).trim().toUpperCase();
 
-  // Вариант 1: Декодированные значения (стандарт)
   const str1 = [String(normalizedData.OutSum), String(normalizedData.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
   const hash1 = md5(str1);
 
-  // Вариант 2: Закодированные значения (на случай если @ передан как %40)
   const str2 = [String(normalizedData.OutSum), String(normalizedData.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${encodeURIComponent(v)}`)].join(':');
   const hash2 = md5(str2);
 
@@ -131,18 +121,10 @@ function verifyRobokassaSignature(data) {
   console.log('2. Пароль #2 (первые 3):', password2.substring(0, 3) + '***');
   console.log('3. Строка 1 (декод):', str1);
   console.log('4. Хеш 1:', hash1);
-  console.log('5. Строка 2 (код):', str2);
-  console.log('6. Хеш 2:', hash2);
   console.log('7. Хеш от Робокассы:', received);
   
-  if (received === hash1) {
-    console.log('✅ СОВПАЛО ПО ВАРИАНТУ 1');
-    console.log('==================================================\n\n');
-    return true;
-  }
-  
-  if (received === hash2) {
-    console.log('✅ СОВПАЛО ПО ВАРИАНТУ 2');
+  if (received === hash1 || received === hash2) {
+    console.log('✅ ПОДПИСЬ СОВПАЛА!');
     console.log('==================================================\n\n');
     return true;
   }
@@ -245,22 +227,28 @@ async function handleCreatePayment(req, res) {
 
 async function handleRobokassaResult(req, res) {
   try {
-    console.log(`\n[WEBHOOK] Метод: ${req.method}, URL: ${req.url}`);
-    console.log(`[WEBHOOK] Content-Type: ${req.headers['content-type']}`);
+    // 1. Показываем ВСЕ входящие данные о запросе
+    console.log(`\n[WEBHOOK] ПОЛНЫЙ URL: ${req.url}`);
+    console.log(`[WEBHOOK] МЕТОД: ${req.method}`);
+    console.log(`[WEBHOOK] ЗАГОЛОВКИ:`, JSON.stringify(req.headers, null, 2));
 
+    // 2. Читаем тело (независимо от Content-Type)
     let rawBody = '';
     if (req.method === 'POST' || req.method === 'PUT') {
       rawBody = await readRawBody(req);
     }
-    console.log(`[WEBHOOK] RAW BODY: "${rawBody}"`);
+    console.log(`[WEBHOOK] ТЕЛО ЗАПРОСА (RAW): "${rawBody}"`);
 
+    // 3. Извлекаем параметры из URL
     const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const urlParams = Object.fromEntries(urlObj.searchParams);
+    
+    // 4. Извлекаем параметры из тела (даже если Content-Type не form-urlencoded)
     const bodyParams = Object.fromEntries(new URLSearchParams(rawBody));
     
-    // Объединяем данные из URL и из тела
+    // 5. Объединяем
     const data = { ...urlParams, ...bodyParams };
-    console.log('[WEBHOOK] Итоговые данные:', data);
+    console.log('[WEBHOOK] ИТОГОВЫЕ ДАННЫЕ:', data);
 
     if (!verifyRobokassaSignature(data)) {
       console.warn('Bad signature in webhook.');
