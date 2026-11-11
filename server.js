@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Дед Мирон и внучка Аришка — Алтайские Традиции Здоровья</title>
+    <title>Михаил Добрый — Алтайский травник</title>
     <style>
         :root {
             --bg-color: #f7f5f0;
@@ -53,14 +53,6 @@
             padding: 24px;
         }
 
-        /* Делаем текст внутри темной карточки ярким и читабельным */
-        .card-dark p, 
-        .card-dark .features-list li, 
-        .card-dark .payment-note, 
-        .card-dark .security-text {
-            color: #f3f4f6 !important;
-        }
-
         .badge {
             display: inline-block;
             background-color: #eee9dc;
@@ -75,8 +67,8 @@
         }
 
         .card-dark .badge {
-            background-color: rgba(255,255,255,0.15);
-            color: #fcd34d;
+            background-color: rgba(255,255,255,0.1);
+            color: #f28b1e;
         }
 
         h1 {
@@ -84,7 +76,6 @@
             font-weight: 700;
             margin-bottom: 12px;
             line-height: 1.2;
-            color: #ffffff;
         }
 
         p {
@@ -93,19 +84,8 @@
             margin-bottom: 16px;
         }
 
-        .img-container {
-            width: 100%;
-            height: 200px;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 16px;
-            background: #e6ede8;
-        }
-
-        .img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .card-dark p {
+            color: #d1d1d1;
         }
 
         .features-list {
@@ -121,11 +101,7 @@
             align-items: flex-start;
             gap: 10px;
             font-size: 14px;
-        }
-
-        .card-dark .features-list li::before {
-            background: rgba(255,255,255,0.2);
-            color: #fcd34d;
+            color: var(--text-main);
         }
 
         .features-list li::before {
@@ -150,18 +126,21 @@
 
         .old-price {
             font-size: 18px;
-            color: #cbd5e1;
+            color: #999;
             text-decoration: line-through;
         }
 
         .new-price {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--text-main);
         }
 
-        .card-dark .payment-note, .card-dark .security-text {
-            color: #e2e8f0 !important;
+        .payment-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 16px;
         }
 
         .btn-primary {
@@ -195,8 +174,8 @@
             display: block;
             width: 100%;
             background-color: transparent;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--text-main);
+            border: 1px solid #ddd;
             border-radius: 12px;
             padding: 12px;
             font-size: 14px;
@@ -210,9 +189,16 @@
         .divider {
             text-align: center;
             font-size: 12px;
-            color: #cbd5e1;
+            color: #999;
             margin: 16px 0;
             position: relative;
+        }
+
+        .security-text {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            margin-top: 10px;
         }
 
         .situation-item {
@@ -260,27 +246,27 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            font-size: 13px;
+            font-size: 14px;
             margin: 16px 0;
         }
 
         .footer-links a {
-            color: #cbd5e1;
+            color: #d1d1d1;
             text-decoration: none;
         }
 
         .footer-contacts {
-            font-size: 13px;
-            color: #cbd5e1;
+            font-size: 14px;
+            color: #d1d1d1;
             margin-bottom: 12px;
-            line-height: 1.6;
         }
 
         .copyright {
             font-size: 12px;
-            color: #94a3b8;
+            color: #888;
         }
 
+        /* Модальное окно */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -348,78 +334,59 @@
 <div class="wrapper">
 
     <div class="card-dark">
-        <p style="color: #fcd34d !important; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Алтайская сокровищница рецептов</p>
-        <div class="badge">Энциклопедия деда Мирона</div>
+        <p style="color: #f28b1e; font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Специальная цена для читателей блога</p>
+        <div class="badge">Электронный справочник</div>
         <h1>Алтайский травник</h1>
-        <p>Издание от деда Мирона и внучки Аришки: живая мудрость тайги, проверенная веками.</p>
+        <p>Полная цифровая энциклопедия домашнего оздоровления без агрессивной химии.</p>
         
-        <div class="img-container">
-            <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?q=80&w=800&auto=format&fit=crop" alt="Алтайские горы и травы">
-        </div>
-
         <ul class="features-list">
-            <li>Удобный формат PDF — легко читать со смартфона или распечатать дома</li>
-            <li>Секреты для 11 систем тела: суставы, давление, крепкий сон и иммунитет</li>
-            <li>Точные таежные дозировки и природные предостережения</li>
-            <li>Душевные заметки деда Мирона и подсказки внучки Аришки</li>
-            <li>Бессрочный доступ — книга остается на ваших устройствах навсегда</li>
+            <li>Удобный формат PDF — легко читать со смартфона или распечатать</li>
+            <li>Рецепты для 11 систем тела — от давления и суставов до сна и иммунитета</li>
+            <li>Точные дозировки и предостережения к каждому рецепту</li>
+            <li>Личные заметки Михаила с объяснением природного механизма</li>
+            <li>Бессрочный доступ — файл сохраняется на ваших устройствах навсегда</li>
         </ul>
 
         <div class="price-box">
             <div class="old-price">2 990 ₽</div>
-            <div class="new-price">499 ₽</div>
+            <div class="new-price">1 ₽</div>
         </div>
-        <div class="payment-note">Оплата единоразово, без подписок</div>
+        <div class="payment-note" style="color: #aaa;">Оплата единоразово, без подписок</div>
 
-        <button class="btn-primary" onclick="openPaymentModal()">Получить книгу за 499 ₽</button>
-        <div class="security-text">Ссылка на скачивание придет на вашу почту</div>
+        <button class="btn-primary" onclick="openPaymentModal()">Получить книгу за 1 ₽</button>
+        <div class="security-text" style="color: #aaa;">Ссылка на скачивание придет на вашу почту</div>
 
         <div class="divider">если карта не подошла</div>
-        <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (499 ₽)</button>
-    </div>
-
-    <div class="card">
-        <div class="badge">Из таежной избы</div>
-        <h2 style="font-size: 20px; margin-bottom: 16px;">Как мы живем на Алтае</h2>
-        
-        <div class="img-container" style="height: 160px;">
-            <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=800&auto=format&fit=crop" alt="Таежный домик и травы">
-        </div>
-
-        <p style="font-size: 14px; margin-bottom: 14px;">Здравствуйте, дорогие люди! Мы с внучкой Аришкой живем в глухом таежном уголке Алтая. Здесь чистейший воздух, звенящие родники и травы такой силы, каких больше нигде на земле не сыскать.</p>
-        <p style="font-size: 14px; margin-bottom: 0;">Аришка помогает мне собирать коренья, сушить листочки в тени нашей избы, варить целебные настои на чистой ключевой воде и томить мази на кедровой живице. Все эти рецепты собирались веками нашими предками, а теперь мы собрали их под одной обложкой, чтобы помочь каждой семье.</p>
+        <button class="btn-sub" style="color: #fff; border-color: rgba(255,255,255,0.2);" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (1 ₽)</button>
     </div>
 
     <div class="card">
         <div class="badge">Для кого эта книга</div>
         <h2 style="font-size: 20px; margin-bottom: 16px;">Узнаете себя в этих ситуациях?</h2>
-        <p style="font-size: 14px; margin-bottom: 20px;">Книга создана для тех, кто устал от химии и хочет лечиться дарами родной природы.</p>
+        <p style="font-size: 14px; margin-bottom: 20px;">Книга создана для тех, кто ищет проверенные и бережные решения для здоровья без лишних таблеток.</p>
 
         <div class="situation-item">
-            <h3><span>01</span> Ноют суставы, спина или скачет давление</h3>
-            <p style="font-size: 13px; margin-bottom: 0;">Таблетки дают лишь временную помощь, а наши таежные настои и растирки мягко поддерживают тело изо дня в день.</p>
+            <h3><span>01</span> Болят суставы, спина или скачет давление</h3>
+            <p style="font-size: 13px; margin-bottom: 0;">Таблетки дают только временный эффект или раздражают желудок, а хочется найти природные рецепты для регулярной поддержки тела.</p>
         </div>
 
         <div class="situation-item">
-            <h3><span>02</span> Тревога, бессонница и усталость</h3>
-            <p style="font-size: 13px; margin-bottom: 0;">Когда нервы на пределе и сон не приносит отдыха, вечерний сбор с душицей и чабрецом возвращает мир в душу.</p>
+            <h3><span>02</span> Тревога, бессонница и хроническая усталость</h3>
+            <p style="font-size: 13px; margin-bottom: 0;">Постоянный стресс мешает глубокому сну. Нужны мягкие успокаивающие настои и вечерние практики.</p>
         </div>
 
         <div class="situation-item">
-            <h3><span>03</span> Простуды и хвори у детей</h3>
-            <p style="font-size: 13px; margin-bottom: 0;">Аришка всегда заваривает малиновый корень и таежный чай, когда кто-то начинает шмыгать носом — без лишних аптечных сиропов.</p>
+            <h3><span>03</span> Хотите знать, что дать ребенку при простуде</h3>
+            <p style="font-size: 13px; margin-bottom: 0;">Когда поднимается температура или начинается кашель, важно иметь под рукой безопасные домашние средства.</p>
         </div>
     </div>
 
     <div class="card">
-        <div class="img-container" style="height: 180px;">
-            <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800&auto=format&fit=crop" alt="Травы и сборы">
-        </div>
         <div style="color: #f28b1e; font-size: 18px; margin-bottom: 8px;">★★★★★</div>
-        <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Заказала книгу деда Мирона из чистого любопытства. Какая же она уютная! Описано всё так просто, по-домашнему, с любовью. Аришке отдельное спасибо за подсказки по детским простудам — уже опробовали!»</p>
+        <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Давно слежу за блогом Михаила, книгу очень ждала. Поразило, насколько всё разложено по полочкам — без воды, без эзотерики и заумных терминов.»</p>
         <div style="display: flex; align-items: center; gap: 10px; margin-top: 12px;">
-            <div style="background: #e6ede8; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">ОК</div>
-            <div style="font-size: 14px; font-weight: 600;">Ольга Круглова</div>
+            <div style="background: #e6ede8; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">НК</div>
+            <div style="font-size: 14px; font-weight: 600;">Наталья Кузнецова</div>
         </div>
     </div>
 
@@ -434,19 +401,19 @@
     </div>
 
     <div class="card">
-        <div style="color: #f28b1e; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">Таежная забота</div>
-        <h3 style="font-size: 18px; margin-bottom: 10px;">Не пришло письмо или остались вопросы?</h3>
-        <p style="font-size: 13px;">Книга доставляется на почту за 1–2 минуты. Если письма нет во входящих, проверьте папку «Спам» или напишите нам.</p>
+        <div style="color: #f28b1e; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">Служба заботы</div>
+        <h3 style="font-size: 18px; margin-bottom: 10px;">Не пришло письмо или остались вопросы по оплате?</h3>
+        <p style="font-size: 13px;">Ссылка доставляется за 1–2 минуты. Если письма нет во входящих и в папке «Спам», напишите нам.</p>
         <a href="https://t.me/" target="_blank" class="btn-primary" style="background-color: var(--primary-dark); margin-top: 16px;">Написать в поддержку</a>
     </div>
 
     <div class="card-dark" style="font-size: 13px;">
-        <div style="color: #fcd34d; font-weight: 600; margin-bottom: 4px;">С добром и заботой</div>
-        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px; color: #ffffff;">Дед Мирон и внучка Аришка</div>
+        <div style="color: #f28b1e; font-weight: 600; margin-bottom: 4px;">Будьте здоровы</div>
+        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px;">Михаил Добрый</div>
         
         <div class="footer-contacts">
-            ИП Фараносов Александр Михайлович<br>
-            ИНН 701711852684
+            Фролова Елизавета Александровна<br>
+            ИНН 730208831852
         </div>
 
         <div class="footer-links">
@@ -455,8 +422,9 @@
             <a href="#">Написать в поддержку</a>
         </div>
 
-        <div style="margin-top: 16px; color: #cbd5e1;">
-            cwe.FaranosovMikhail@gmail.com
+        <div style="margin-top: 16px; color: #aaa;">
+            +7 (995) 681-58-36<br>
+            mihail.dobry88@gmail.com
         </div>
 
         <div class="copyright" style="margin-top: 20px;">© 2026 Все права защищены.</div>
@@ -468,12 +436,12 @@
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
-        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги (499 ₽):</p>
+        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги (1 ₽):</p>
 
         <div class="payment-summary">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                 <span style="font-size: 14px; font-weight: 600;">Книга «Алтайский травник»</span>
-                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">499 ₽</span>
+                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">1 ₽</span>
             </div>
             <div class="payment-methods-badge">
                 <span class="method-tag" style="background: #ecfdf5; color: #059669;">⚡ СБП</span>
@@ -482,6 +450,7 @@
             </div>
         </div>
         
+        <!-- Форма больше не содержит скрытых полей Робокассы, их генерирует сервер -->
         <form id="paymentForm">
             <label style="font-size: 12px; font-weight: 600; color: #374151;">Ваш Email:</label>
             <input type="email" id="emailField" required placeholder="example@mail.ru">
@@ -502,6 +471,7 @@
         document.getElementById('paymentModal').style.display = 'none';
     }
 
+    // Отправка формы на сервер для получения ссылки на оплату
     document.getElementById('paymentForm').addEventListener('submit', async function(e) {
         e.preventDefault(); 
 
@@ -512,22 +482,27 @@
         submitBtn.textContent = 'Подготовка к оплате...';
 
         try {
+            // Отправляем email на наш сервер (относительный путь, без домена)
             const response = await fetch('/create-payment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: email })
             });
 
+            // Если сервер вернул ошибку (400, 500 и т.д.), пытаемся прочитать её текст
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.error || `Ошибка сервера: ${response.status}`);
             }
 
             const data = await response.json();
+            
+            // Перенаправляем на Робокассу по ссылке, которую вернул сервер
             window.location.href = data.paymentUrl;
 
         } catch (error) {
             console.error('Ошибка:', error);
+            // Показываем реальную причину
             alert('Ошибка: ' + error.message);
             submitBtn.disabled = false;
             submitBtn.textContent = 'Перейти к выбору способа оплаты';
@@ -537,3 +512,4 @@
 
 </body>
 </html>
+Смотри это готовый это готовый код на мой сайт котором мы с тобой делали теперь измени там убери все упоминания о Михаиле добром и оставь упоминание о деда Мироне травники и о внучки орешке и напиши прям они никакие текст вот вот как в книге написали там вот мы там живём в UB там варим там вот это все жарим для здоровья и сидел и вот красиво все сделаю и технически задания вообще никакой не трогай не меняет там все настроен только текстом чтоб было всё изменено и картинки добавь
