@@ -4,6 +4,11 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const nodemailer = require('nodemailer');
 
+// ЭТА СТРОКА ПОКАЖЕТ, ЧТО ЗАГРУЗИЛСЯ НОВЫЙ КОД
+console.log("=========================================");
+console.log("=== ЗАПУЩЕНА НОВАЯ ВЕРСИЯ СЕРВЕРА! ===");
+console.log("=========================================");
+
 // Настройки сервера
 const port = Number(process.env.PORT) || 3000;
 const root = __dirname;
