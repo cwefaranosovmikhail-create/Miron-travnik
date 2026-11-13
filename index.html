@@ -448,22 +448,20 @@
 
 <div class="wrapper">
 
-    <!-- ПЕРВЫЙ ЭКРАН: РЕЦЕПТЫ ДОЛГОЛЕТИЯ И НОВАЯ ФОТОГРАФИЯ -->
+    <!-- ПЕРВЫЙ ЭКРАН -->
     <div class="card">
         <div class="badge" style="background: #eee9dc; color: var(--text-main);">Авторский сборник Деда Мирона</div>
         <h2 style="font-size: 22px; margin-bottom: 12px;">Рецепты долголетия на травах без химии</h2>
         <p style="font-size: 14px; margin-bottom: 16px;">Проверенная система домашнего оздоровления: доступные ингредиенты с кухни и травяной аптеки, народные рецепты, точные дозировки и понятное объяснение, как они помогают организму.</p>
 
-        <!-- ПЛАШКА «ПОСМОТРЕТЬ СОДЕРЖАНИЕ» -->
         <a href="#contents-section" class="btn-primary" style="text-align: center; text-decoration: none; margin-bottom: 16px; background-color: #f7931e;">Посмотреть содержание</a>
 
-        <!-- НОВАЯ ФОТОГРАФИЯ -->
         <div style="border-radius: 12px; overflow: hidden; margin-top: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
             <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop" alt="Таёжный лечебник Деда Мирона и Ариши" style="width: 100%; display: block; object-fit: cover;">
         </div>
     </div>
 
-    <!-- РАЗДЕЛ СОДЕРЖАНИЯ КНИГИ (11 СИСТЕМ ТЕЛА) -->
+    <!-- СОДЕРЖАНИЕ -->
     <div class="card" id="contents-section">
         <div class="badge">Что внутри книги</div>
         <h2>Средства для 11 систем тела</h2>
@@ -479,11 +477,10 @@
             <li>Где и когда собирают травы, как правильно сушить и хранить.</li>
         </ul>
 
-        <!-- ПЛАШКА «ПОЛУЧИТЬ ДОСТУП» ИЗ СОДЕРЖАНИЯ ВЕДЕТ К ОПИСАНИЮ И КУПИТЬ КНИГУ -->
         <a href="#book-description" class="btn-primary" style="text-align: center; text-decoration: none; margin-top: 20px; background-color: #f7931e;">Получить доступ</a>
     </div>
 
-    <!-- РАЗДЕЛ С ОПИСАНИЕМ КНИГИ И ПЛАШКОЙ КУПИТЬ КНИГУ -->
+    <!-- ОПИСАНИЕ И КУПИТЬ -->
     <div class="card-dark" id="book-description">
         <p style="color: var(--accent-orange); font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Специальная цена для читателей блога</p>
         <div class="badge">Электронный справочник</div>
@@ -501,19 +498,18 @@
 
         <div class="price-box">
             <div class="old-price">2 990 ₽</div>
-            <div class="new-price">1 ₽</div>
+            <div class="new-price">499 ₽</div>
         </div>
         <div class="payment-note">Оплата единовременно, без подписок.</div>
 
-        <!-- КНОПКА «КУПИТЬ КНИГУ» (ВЕДЕТ НА ОПЛАТУ) -->
-        <button class="btn-primary" onclick="openPaymentModal()">Купить книгу за 1 ₽</button>
+        <button class="btn-primary" onclick="openPaymentModal()">Купить книгу за 499 ₽</button>
         <div class="security-text">Ссылка на скачивание придёт на вашу электронную почту.</div>
 
         <div class="divider">если карта не подошла</div>
-        <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (1 ₽)</button>
+        <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (499 ₽)</button>
     </div>
 
-    <!-- ДЛЯ КОГО ЭТА КНИГА -->
+    <!-- ДЛЯ КОГО -->
     <div class="card">
         <div class="badge">Для кого эта книга</div>
         <h2>Хотите лучше разобраться в мире природного оздоровления?</h2>
@@ -545,7 +541,7 @@
         </div>
     </div>
 
-    <!-- ИСТОРИЯ ДЕДА МИРОНА И АРИШКИ -->
+    <!-- ИСТОРИЯ -->
     <div class="card">
         <div class="badge">История</div>
         <h2>Знакомьтесь: Дед Мирон и его внучка Аришка</h2>
@@ -628,12 +624,12 @@
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
-        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги (1 ₽):</p>
+        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги (499 ₽):</p>
 
         <div class="payment-summary">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                 <span style="font-size: 14px; font-weight: 600;">Книга «Алтайский травник Деда Мирона»</span>
-                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">1 ₽</span>
+                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">499 ₽</span>
             </div>
             <div class="payment-methods-badge">
                 <span class="method-tag" style="background: #ecfdf5; color: #059669;">⚡ СБП</span>
