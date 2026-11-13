@@ -50,16 +50,6 @@
             justify-content: center;
         }
 
-        .screen-card-dark {
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            background-color: var(--primary-dark);
-            color: #ffffff;
-            justify-content: center;
-        }
-
         .card {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -149,15 +139,14 @@
             object-fit: cover;
         }
 
-        /* Второй экран */
         .contents-screen {
             min-height: 100dvh;
             display: flex;
             flex-direction: column;
             padding: 24px;
+            padding-top: 48px;
             background-color: var(--card-bg);
             justify-content: flex-start;
-            padding-top: 48px;
         }
 
         .contents-screen .badge {
@@ -656,7 +645,7 @@
 
 <div class="wrapper">
 
-    <!-- ПЕРВЫЙ ЭКРАН (НА ВЕСЬ ЭКРАН) -->
+    <!-- ПЕРВЫЙ ЭКРАН -->
     <div class="screen-card">
         <h2 style="font-size: 22px; margin-bottom: 12px;">Рецепты долголетия на травах без химии</h2>
         <p style="margin-bottom: 16px;">Проверенная система домашнего оздоровления: доступные ингредиенты с кухни и травяной аптеки, народные рецепты, точные дозировки и понятное объяснение, как они помогают организму.</p>
@@ -668,13 +657,12 @@
         </div>
     </div>
 
-    <!-- ВТОРОЙ ЭКРАН: СОДЕРЖАНИЕ (НА ВЕСЬ ЭКРАН) -->
+    <!-- ВТОРОЙ ЭКРАН: СОДЕРЖАНИЕ -->
     <div class="contents-screen" id="contents-section">
         <div class="badge">Что внутри книги</div>
         <h2>Средства для 11 систем тела</h2>
         <p>Удобная система: находите нужную задачу за секунды и получаете пошаговый рецепт с точными пропорциями. Листайте карточки, чтобы посмотреть разделы.</p>
 
-        <!-- Карусель -->
         <div class="contents-carousel-wrapper">
             <button class="carousel-btn prev" onclick="scrollCarousel(-1)" aria-label="Назад">‹</button>
             <div class="contents-carousel" id="contentsCarousel">
@@ -710,7 +698,6 @@
             <button class="carousel-btn next" onclick="scrollCarousel(1)" aria-label="Вперёд">›</button>
         </div>
 
-        <!-- Мини-блок "Что вы получите" -->
         <div class="benefits-mini">
             <div class="benefit-mini-item">Пошаговые рецепты с точными дозировками</div>
             <div class="benefit-mini-item">Описание растений и их свойств</div>
@@ -718,7 +705,6 @@
             <div class="benefit-mini-item">Личные заметки Деда Мирона</div>
         </div>
 
-        <!-- Аккордеон-подсказки -->
         <div class="accordion-item">
             <div class="accordion-header" onclick="toggleAccordion(this)">
                 Для чего эта книга? <span>+</span>
@@ -907,10 +893,27 @@
 </div>
 
 <script>
-    // Открытие/закрытие модального окна оплаты
+    // Модальное окно оплаты
     function openPaymentModal() {
         document.getElementById('paymentModal').style.display = 'flex';
     }
 
     function closePaymentModal() {
-        document.getElementById('paymentModal').
+        document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    // Прокрутка карусели
+    function scrollCarousel(direction) {
+        const carousel = document.getElementById('contentsCarousel');
+        if (!carousel) return;
+        const card = carousel.querySelector('.content-card');
+        const cardWidth = card ? card.offsetWidth : 240;
+        const gap = 12;
+        carousel.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
+    }
+
+    // Аккордеон
+    function toggleAccordion(header) {
+        const body = header.nextElementSibling;
+        const icon = header.querySelector('span');
+        const isOpen = body.classList.contains('
