@@ -188,12 +188,6 @@
             background-color: #e08216;
         }
 
-        .btn-primary:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
         .btn-sub {
             display: block;
             width: 100%;
@@ -454,25 +448,25 @@
 
 <div class="wrapper">
 
-    <!-- ПЕРВЫЙ ЭКРАН (С ПЛАШКОЙ ПОСМОТРЕТЬ СОДЕРЖАНИЕ СВЕРХУ) -->
+    <!-- ПЕРВЫЙ ЭКРАН: РЕЦЕПТЫ ДОЛГОЛЕТИЯ И НОВАЯ ФОТОГРАФИЯ -->
     <div class="card">
         <div class="badge" style="background: #eee9dc; color: var(--text-main);">Авторский сборник Деда Мирона</div>
-        <h2 style="font-size: 22px; margin-bottom: 12px;">150 забытых природных рецептов, которые работают</h2>
-        <p style="font-size: 14px; margin-bottom: 16px;">Проверенная система домашнего оздоровления без агрессивной химии: доступные ингредиенты с кухни и травяной аптеки, точные дозировки и понятное объяснение, как они помогают организму.</p>
+        <h2 style="font-size: 22px; margin-bottom: 12px;">Рецепты долголетия на травах без химии</h2>
+        <p style="font-size: 14px; margin-bottom: 16px;">Проверенная система домашнего оздоровления: доступные ингредиенты с кухни и травяной аптеки, народные рецепты, точные дозировки и понятное объяснение, как они помогают организму.</p>
 
-        <!-- ПЛАШКА «ПОСМОТРЕТЬ СОДЕРЖАНИЕ» ПОДНЯТА НАВЕРХ -->
+        <!-- ПЛАШКА «ПОСМОТРЕТЬ СОДЕРЖАНИЕ» -->
         <a href="#contents-section" class="btn-primary" style="text-align: center; text-decoration: none; margin-bottom: 16px; background-color: #f7931e;">Посмотреть содержание</a>
 
-        <!-- ФОТО ДЕДА МИРОНА И АРИШКИ -->
+        <!-- НОВАЯ ФОТОГРАФИЯ -->
         <div style="border-radius: 12px; overflow: hidden; margin-top: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop" alt="Дед Мирон и Аришка" style="width: 100%; display: block; object-fit: cover;">
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop" alt="Таёжный лечебник Деда Мирона и Ариши" style="width: 100%; display: block; object-fit: cover;">
         </div>
     </div>
 
-    <!-- ЧТО ВНУТРИ КНИГИ (БЛОК, КУДА ПЕРЕХОДИТ ПОЛЬЗОВАТЕЛЬ ПО ПЛАШКЕ) -->
+    <!-- РАЗДЕЛ СОДЕРЖАНИЯ КНИГИ (11 СИСТЕМ ТЕЛА) -->
     <div class="card" id="contents-section">
         <div class="badge">Что внутри книги</div>
-        <h2>150 средств для 11 систем тела</h2>
+        <h2>Средства для 11 систем тела</h2>
         <p>Удобная система: находите нужную задачу за секунды и получаете пошаговый рецепт с точными пропорциями. Вы можете просматривать и проматывать все разделы.</p>
 
         <ul class="book-contents">
@@ -484,10 +478,13 @@
             <li>Описание растений и их полезных свойств.</li>
             <li>Где и когда собирают травы, как правильно сушить и хранить.</li>
         </ul>
+
+        <!-- ПЛАШКА «ПОЛУЧИТЬ ДОСТУП» ИЗ СОДЕРЖАНИЯ ВЕДЕТ К ОПИСАНИЮ И КУПИТЬ КНИГУ -->
+        <a href="#book-description" class="btn-primary" style="text-align: center; text-decoration: none; margin-top: 20px; background-color: #f7931e;">Получить доступ</a>
     </div>
 
-    <!-- ИНФОРМАЦИЯ О КНИГЕ, ЦЕНА И КНОПКА ПОЛУЧИТЬ ДОСТУП -->
-    <div class="card-dark">
+    <!-- РАЗДЕЛ С ОПИСАНИЕМ КНИГИ И ПЛАШКОЙ КУПИТЬ КНИГУ -->
+    <div class="card-dark" id="book-description">
         <p style="color: var(--accent-orange); font-size: 13px; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Специальная цена для читателей блога</p>
         <div class="badge">Электронный справочник</div>
         <h1>Алтайский травник Деда Мирона</h1>
@@ -508,7 +505,8 @@
         </div>
         <div class="payment-note">Оплата единовременно, без подписок.</div>
 
-        <button class="btn-primary" onclick="openPaymentModal()">Получить доступ</button>
+        <!-- КНОПКА «КУПИТЬ КНИГУ» (ВЕДЕТ НА ОПЛАТУ) -->
+        <button class="btn-primary" onclick="openPaymentModal()">Купить книгу за 1 ₽</button>
         <div class="security-text">Ссылка на скачивание придёт на вашу электронную почту.</div>
 
         <div class="divider">если карта не подошла</div>
