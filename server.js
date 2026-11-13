@@ -4,7 +4,6 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const nodemailer = require('nodemailer');
 
-
 console.log("=========================================");
 console.log("=== ЗАПУЩЕНА НОВАЯ ВЕРСИЯ СЕРВЕРА! ===");
 console.log("=========================================");
@@ -30,7 +29,7 @@ const mimeTypes = {
 };
 
 const restrictedFiles = [
-  'travnik.pdf', 
+  'Алтайский травник.pdf', 
   '.env', 
   'server.js', 
   'package.json', 
@@ -155,7 +154,7 @@ async function sendOrderEmail(email, invId) {
   }
 
   if (!fs.existsSync(filePath)) {
-    console.error('ОШИБКА: Файл "travnik.pdf" не найден в корне проекта!');
+    console.error('ОШИБКА: Файл "Алтайский травник.pdf" не найден в корне проекта!');
     return;
   }
 
@@ -175,12 +174,12 @@ async function sendOrderEmail(email, invId) {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
         <h2 style="color: #1b3022;">Оплата подтверждена</h2>
         <p>Спасибо! Ваш заказ №${invId} успешно оплачен.</p>
-        <p>Файл с книгой <b>travnik.pdf</b> прикреплен к этому письму.</p>
+        <p>Файл с книгой <b>Алтайский травник.pdf</b> прикреплен к этому письму.</p>
       </div>
     `,
     attachments: [
       {
-        filename: 'travnik.pdf',
+        filename: 'Алтайский травник.pdf',
         path: filePath
       }
     ]
