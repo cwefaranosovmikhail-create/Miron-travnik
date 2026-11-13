@@ -893,7 +893,6 @@
 </div>
 
 <script>
-    // Модальное окно оплаты
     function openPaymentModal() {
         document.getElementById('paymentModal').style.display = 'flex';
     }
@@ -902,7 +901,6 @@
         document.getElementById('paymentModal').style.display = 'none';
     }
 
-    // Прокрутка карусели
     function scrollCarousel(direction) {
         const carousel = document.getElementById('contentsCarousel');
         if (!carousel) return;
@@ -912,8 +910,7 @@
         carousel.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
     }
 
-    // Аккордеон
     function toggleAccordion(header) {
         const body = header.nextElementSibling;
         const icon = header.querySelector('span');
-       
+        const
