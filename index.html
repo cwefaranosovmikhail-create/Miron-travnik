@@ -41,7 +41,6 @@
             flex-direction: column;
         }
 
-        /* --- Первый блок: на весь экран --- */
         .screen-card {
             min-height: 100dvh;
             display: flex;
@@ -61,7 +60,6 @@
             justify-content: center;
         }
 
-        /* --- Обычные карточки (для остальных блоков) --- */
         .card {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
@@ -137,7 +135,6 @@
             color: var(--text-on-dark-muted);
         }
 
-        /* --- Первый экран: фото + текст --- */
         .hero-img-wrap {
             border-radius: 12px;
             overflow: hidden;
@@ -152,7 +149,7 @@
             object-fit: cover;
         }
 
-        /* --- Второй экран: содержание --- */
+        /* Второй экран */
         .contents-screen {
             min-height: 100dvh;
             display: flex;
@@ -177,7 +174,6 @@
             margin-bottom: 16px;
         }
 
-        /* Карусель */
         .contents-carousel-wrapper {
             position: relative;
             margin: 8px 0 16px;
@@ -278,7 +274,6 @@
             right: -10px;
         }
 
-        /* Мини-блок "Что вы получите" */
         .benefits-mini {
             display: flex;
             flex-direction: column;
@@ -311,7 +306,6 @@
             margin-top: 1px;
         }
 
-        /* Аккордеон-подсказки */
         .accordion-item {
             border: 1px solid #eee;
             border-radius: 12px;
@@ -350,7 +344,6 @@
             display: block;
         }
 
-        /* Кнопки */
         .btn-primary {
             display: block;
             width: 100%;
@@ -906,4 +899,18 @@
             <label style="font-size: 12px; font-weight: 600; color: #374151;">Ваш Email:</label>
             <input type="email" id="emailField" required placeholder="example@mail.ru">
 
-            <button
+            <button type="submit" id="submitBtn" class="btn-primary" style="font-size: 15px; padding: 14px;">Перейти к выбору способа оплаты</button>
+            <p style="font-size: 11px; color: #9ca3af; text-align: center; margin-top: 8px;">🔒 Защищено SSL-шифрованием</p>
+            <button type="button" onclick="closePaymentModal()" style="width: 100%; background: none; border: none; margin-top: 10px; color: #888; font-size: 13px; cursor: pointer;">Вернуться назад</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Открытие/закрытие модального окна оплаты
+    function openPaymentModal() {
+        document.getElementById('paymentModal').style.display = 'flex';
+    }
+
+    function closePaymentModal() {
+        document.getElementById('paymentModal').
