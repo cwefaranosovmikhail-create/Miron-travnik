@@ -144,7 +144,7 @@ async function sendOrderEmail(email, invId) {
   const port = Number(process.env.SMTP_PORT || 465);
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM || user;
+  const from = process.env.SMTP_FROM || 'miron.travnik.altay@gmail.com';
 
   const filePath = path.join(root, 'travnik.pdf');
 
@@ -166,7 +166,7 @@ async function sendOrderEmail(email, invId) {
   });
 
   await transporter.sendMail({
-    from: `"Михаил Добрый" <${from}>`,
+    from: `"Мирон Травник" <${from}>`,
     to: email,
     subject: 'Оплата подтверждена — Алтайский травник',
     text: `Спасибо за покупку! Заказ №${invId} оплачен. Книга "travnik.pdf" прикреплена к этому письму.`,
@@ -175,6 +175,7 @@ async function sendOrderEmail(email, invId) {
         <h2 style="color: #1b3022;">Оплата подтверждена</h2>
         <p>Спасибо! Ваш заказ №${invId} успешно оплачен.</p>
         <p>Файл с книгой <b>travnik.pdf</b> прикреплен к этому письму.</p>
+        <p style="color: #666; font-size: 14px;">С уважением, Мирон Травник</p>
       </div>
     `,
     attachments: [
