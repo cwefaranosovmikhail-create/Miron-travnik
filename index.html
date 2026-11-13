@@ -163,174 +163,30 @@
             margin-bottom: 16px;
         }
 
-        .contents-carousel-wrapper {
-            position: relative;
-            margin: 8px 0 16px;
-        }
-
-        .contents-carousel {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 8px;
-            scrollbar-width: thin;
-        }
-
-        .contents-carousel::-webkit-scrollbar {
-            height: 5px;
-        }
-
-        .contents-carousel::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 4px;
-        }
-
-        .contents-carousel::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .content-card {
-            flex: 0 0 240px;
-            scroll-snap-align: start;
-            background: #ffffff;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 14px;
-        }
-
-        .content-card h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .content-card h4 .icon {
-            background: #eee9dc;
-            color: var(--primary-dark);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .content-card p {
-            font-size: 12.5px;
-            color: var(--text-muted);
-            margin-bottom: 0;
-            line-height: 1.4;
-        }
-
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 50%;
-            width: 34px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            z-index: 2;
-            font-size: 16px;
-            color: #1b3022;
-            user-select: none;
-        }
-
-        .carousel-btn:hover {
-            background: #f3f4f6;
-        }
-
-        .carousel-btn.prev {
-            left: -10px;
-        }
-
-        .carousel-btn.next {
-            right: -10px;
-        }
-
-        .benefits-mini {
+        .contents-list {
+            list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin: 0 0 16px;
+            gap: 10px;
+            margin: 16px 0;
         }
 
-        .benefit-mini-item {
+        .contents-list li {
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            font-size: 13.5px;
+            font-size: 14px;
             color: var(--text-main);
-            line-height: 1.45;
-        }
-
-        .benefit-mini-item::before {
-            content: "✓";
-            color: var(--primary-dark);
-            font-weight: bold;
-            background: #e6ede8;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 11px;
-            margin-top: 1px;
-        }
-
-        .accordion-item {
-            border: 1px solid #eee;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            overflow: hidden;
-        }
-
-        .accordion-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 14px;
-            font-size: 13.5px;
-            font-weight: 600;
-            color: var(--text-main);
-            cursor: pointer;
-            background: #fafaf8;
-            gap: 10px;
-        }
-
-        .accordion-header span {
-            font-size: 16px;
-            color: #666;
-            flex-shrink: 0;
-        }
-
-        .accordion-body {
-            display: none;
-            padding: 0 14px 12px;
-            font-size: 13px;
-            color: var(--text-muted);
             line-height: 1.5;
         }
 
-        .accordion-body.open {
-            display: block;
+        .contents-list li::before {
+            content: "•";
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 1.2;
+            flex-shrink: 0;
         }
 
         .btn-primary {
@@ -657,70 +513,21 @@
         </div>
     </div>
 
-    <!-- ВТОРОЙ ЭКРАН: СОДЕРЖАНИЕ -->
+    <!-- ВТОРОЙ ЭКРАН: СОДЕРЖАНИЕ (без карусели) -->
     <div class="contents-screen" id="contents-section">
         <div class="badge">Что внутри книги</div>
         <h2>Средства для 11 систем тела</h2>
-        <p>Удобная система: находите нужную задачу за секунды и получаете пошаговый рецепт с точными пропорциями. Листайте карточки, чтобы посмотреть разделы.</p>
+        <p>Удобная система: находите нужную задачу за секунды и получаете пошаговый рецепт с точными пропорциями.</p>
 
-        <div class="contents-carousel-wrapper">
-            <button class="carousel-btn prev" onclick="scrollCarousel(-1)" aria-label="Назад">‹</button>
-            <div class="contents-carousel" id="contentsCarousel">
-                <div class="content-card">
-                    <h4><span class="icon">01</span> Иммунитет и простуды</h4>
-                    <p>Остановка болезни в первые часы, затяжной насморк, прогрев лимфоузлов.</p>
-                </div>
-                <div class="content-card">
-                    <h4><span class="icon">02</span> Суставы и спина</h4>
-                    <p>Снятие воспалений, домашние растирки и компрессы.</p>
-                </div>
-                <div class="content-card">
-                    <h4><span class="icon">03</span> Нервная система и сон</h4>
-                    <p>Успокаивающие сборы, борьба с бессонницей и тревогой.</p>
-                </div>
-                <div class="content-card">
-                    <h4><span class="icon">04</span> ЖКТ и пищеварение</h4>
-                    <p>Поддержка желудка, мягкое очищение и восстановление.</p>
-                </div>
-                <div class="content-card">
-                    <h4><span class="icon">05</span> Сердце и сосуды</h4>
-                    <p>Укрепление стенок сосудов, контроль давления.</p>
-                </div>
-                <div class="content-card">
-                    <h4><span class="icon">06</span> Описание растений</h4>
-                    <p>Полезные свойства трав и способы их использования.</p>
-                </div>
-                <div class="content-card">
-                    <h4><span class="icon">07</span> Сбор, сушка, хранение</h4>
-                    <p>Где и когда собирают травы, как правильно сушить и хранить.</p>
-                </div>
-            </div>
-            <button class="carousel-btn next" onclick="scrollCarousel(1)" aria-label="Вперёд">›</button>
-        </div>
-
-        <div class="benefits-mini">
-            <div class="benefit-mini-item">Пошаговые рецепты с точными дозировками</div>
-            <div class="benefit-mini-item">Описание растений и их свойств</div>
-            <div class="benefit-mini-item">Способы применения и предостережения</div>
-            <div class="benefit-mini-item">Личные заметки Деда Мирона</div>
-        </div>
-
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                Для чего эта книга? <span>+</span>
-            </div>
-            <div class="accordion-body">
-                Чтобы иметь под рукой понятный справочник по травам и домашним рецептам, к которому можно возвращаться в любое время.
-            </div>
-        </div>
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">
-                Нужны ли специальные навыки? <span>+</span>
-            </div>
-            <div class="accordion-body">
-                Нет. Все рецепты изложены простым языком, с пошаговыми инструкциями и точными пропорциями.
-            </div>
-        </div>
+        <ul class="contents-list">
+            <li><strong>Иммунитет и простуды:</strong> остановка болезни в первые часы, затяжной насморк, прогрев лимфоузлов.</li>
+            <li><strong>Суставы и спина:</strong> снятие воспалений, домашние растирки и компрессы.</li>
+            <li><strong>Нервная система и сон:</strong> успокаивающие сборы, борьба с бессонницей и тревогой.</li>
+            <li><strong>ЖКТ и пищеварение:</strong> поддержка желудка, мягкое очищение и восстановление.</li>
+            <li><strong>Сердце и сосуды:</strong> укрепление стенок сосудов, контроль давления.</li>
+            <li>Описание растений и их полезных свойств.</li>
+            <li>Где и когда собирают травы, как правильно сушить и хранить.</li>
+        </ul>
 
         <a href="#book-description" class="btn-primary" style="text-align: center; text-decoration: none; margin-top: 16px; background-color: #f7931e;">Получить доступ</a>
     </div>
@@ -901,16 +708,38 @@
         document.getElementById('paymentModal').style.display = 'none';
     }
 
-    function scrollCarousel(direction) {
-        const carousel = document.getElementById('contentsCarousel');
-        if (!carousel) return;
-        const card = carousel.querySelector('.content-card');
-        const cardWidth = card ? card.offsetWidth : 240;
-        const gap = 12;
-        carousel.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
-    }
+    document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-    function toggleAccordion(header) {
-        const body = header.nextElementSibling;
-        const icon = header.querySelector('span');
-        const
+        const submitBtn = document.getElementById('submitBtn');
+        const email = document.getElementById('emailField').value;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Подготовка к оплате...';
+
+        try {
+            const response = await fetch('/create-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || `Ошибка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+            window.location.href = data.paymentUrl;
+
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert('Ошибка: ' + error.message);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Перейти к выбору способа оплаты';
+        }
+    });
+</script>
+
+</body>
+</html>
