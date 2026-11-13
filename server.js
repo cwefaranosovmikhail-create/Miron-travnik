@@ -11,7 +11,7 @@ console.log("=========================================");
 const port = Number(process.env.PORT) || 3000;
 const root = __dirname;
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
-const productAmount = '1.00';
+const productAmount = '499.00';
 
 const sentInvoices = new Set();
 
