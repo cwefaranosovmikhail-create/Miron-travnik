@@ -232,21 +232,17 @@ async function handleRobokassaResult(req, res) {
     console.log(`\n[WEBHOOK] МЕТОД: ${req.method}`);
     console.log(`[WEBHOOK] ПОЛНЫЙ URL: ${req.url}`);
 
-    // 1. ПЫТАЕМСЯ ПРОЧИТАТЬ ТЕЛО (вдруг это POST)
     let rawBody = '';
     if (req.method === 'POST' || req.method === 'PUT') {
       rawBody = await readRawBody(req);
     }
     console.log(`[WEBHOOK] ТЕЛО ЗАПРОСА (RAW): "${rawBody}"`);
 
-    // 2. ПРИНУДИТЕЛЬНО ПАРСИМ URL (GET-запрос)
     const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const urlParams = Object.fromEntries(urlObj.searchParams);
 
-    // 3. ПАРСИМ ТЕЛО (если оно было)
     const bodyParams = Object.fromEntries(new URLSearchParams(rawBody));
 
-    // 4. СКЛЕИВАЕМ ДАННЫЕ (URL имеет приоритет, если вдруг тело пустое)
     const data = { ...bodyParams, ...urlParams };
 
     console.log('[WEBHOOK] ИТОГОВЫЕ ДАННЫЕ:', data);
@@ -305,7 +301,6 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // Теперь принимаем и GET, и POST на этот адрес
     if (url.pathname === '/robokassa/result') {
       await handleRobokassaResult(req, res);
       return;
