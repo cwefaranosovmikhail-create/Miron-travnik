@@ -28,7 +28,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.55;
-            padding: 16px;
+            padding: 0;
             display: flex;
             justify-content: center;
             scroll-behavior: smooth;
@@ -39,14 +39,35 @@
             max-width: 480px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
         }
 
+        /* --- Первый блок: на весь экран --- */
+        .screen-card {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            background-color: var(--card-bg);
+            justify-content: center;
+        }
+
+        .screen-card-dark {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            background-color: var(--primary-dark);
+            color: #ffffff;
+            justify-content: center;
+        }
+
+        /* --- Обычные карточки (для остальных блоков) --- */
         .card {
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 24px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            margin: 16px;
         }
 
         .card-dark {
@@ -54,7 +75,7 @@
             color: #ffffff;
             border-radius: var(--border-radius);
             padding: 24px;
-            scroll-margin-top: 20px;
+            margin: 16px;
         }
 
         .badge {
@@ -103,6 +124,11 @@
             margin-bottom: 16px;
         }
 
+        .screen-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
         .card-dark p {
             color: var(--text-on-dark);
         }
@@ -111,63 +137,220 @@
             color: var(--text-on-dark-muted);
         }
 
-        .features-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 20px 0;
+        /* --- Первый экран: фото + текст --- */
+        .hero-img-wrap {
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            flex-shrink: 0;
         }
 
-        .features-list li {
+        .hero-img-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* --- Второй экран: содержание --- */
+        .contents-screen {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            background-color: var(--card-bg);
+            justify-content: flex-start;
+            padding-top: 48px;
+        }
+
+        .contents-screen .badge {
+            margin-bottom: 12px;
+        }
+
+        .contents-screen h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .contents-screen > p {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        /* Карусель */
+        .contents-carousel-wrapper {
+            position: relative;
+            margin: 8px 0 16px;
+        }
+
+        .contents-carousel {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+            scrollbar-width: thin;
+        }
+
+        .contents-carousel::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .contents-carousel::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+
+        .contents-carousel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .content-card {
+            flex: 0 0 240px;
+            scroll-snap-align: start;
+            background: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .content-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-card h4 .icon {
+            background: #eee9dc;
+            color: var(--primary-dark);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .content-card p {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            z-index: 2;
+            font-size: 16px;
+            color: #1b3022;
+            user-select: none;
+        }
+
+        .carousel-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .carousel-btn.prev {
+            left: -10px;
+        }
+
+        .carousel-btn.next {
+            right: -10px;
+        }
+
+        /* Мини-блок "Что вы получите" */
+        .benefits-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 0 0 16px;
+        }
+
+        .benefit-mini-item {
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            font-size: 14px;
-            color: #ffffff;
-            line-height: 1.5;
+            font-size: 13.5px;
+            color: var(--text-main);
+            line-height: 1.45;
         }
 
-        .features-list li::before {
+        .benefit-mini-item::before {
             content: "✓";
             color: var(--primary-dark);
             font-weight: bold;
             background: #e6ede8;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            font-size: 12px;
+            font-size: 11px;
             margin-top: 1px;
         }
 
-        .price-box {
-            text-align: center;
-            margin: 16px 0;
+        /* Аккордеон-подсказки */
+        .accordion-item {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            overflow: hidden;
         }
 
-        .old-price {
-            font-size: 18px;
-            color: #b0b0b0;
-            text-decoration: line-through;
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            background: #fafaf8;
+            gap: 10px;
         }
 
-        .new-price {
-            font-size: 32px;
-            font-weight: 800;
-            color: #ffffff;
+        .accordion-header span {
+            font-size: 16px;
+            color: #666;
+            flex-shrink: 0;
         }
 
-        .payment-note {
+        .accordion-body {
+            display: none;
+            padding: 0 14px 12px;
             font-size: 13px;
-            color: var(--text-on-dark-muted);
-            text-align: center;
-            margin-bottom: 16px;
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
+        .accordion-body.open {
+            display: block;
+        }
+
+        /* Кнопки */
         .btn-primary {
             display: block;
             width: 100%;
@@ -224,6 +407,63 @@
             margin-top: 10px;
         }
 
+        .price-box {
+            text-align: center;
+            margin: 16px 0;
+        }
+
+        .old-price {
+            font-size: 18px;
+            color: #b0b0b0;
+            text-decoration: line-through;
+        }
+
+        .new-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .payment-note {
+            font-size: 13px;
+            color: var(--text-on-dark-muted);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            color: var(--primary-dark);
+            font-weight: bold;
+            background: #e6ede8;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+            margin-top: 1px;
+        }
+
         .situation-item {
             background: #ffffff;
             border: 1px solid #eee;
@@ -277,114 +517,6 @@
             color: var(--primary-dark);
             font-weight: 600;
             font-size: 14px;
-        }
-
-        /* КАРУСЕЛЬ СОДЕРЖАНИЯ */
-        .contents-carousel-wrapper {
-            position: relative;
-            margin: 16px 0;
-        }
-
-        .contents-carousel {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 8px;
-            scrollbar-width: thin;
-        }
-
-        .contents-carousel::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .contents-carousel::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 4px;
-        }
-
-        .contents-carousel::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .content-card {
-            flex: 0 0 260px;
-            scroll-snap-align: start;
-            background: #ffffff;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 16px;
-        }
-
-        .content-card h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .content-card h4 .icon {
-            background: #eee9dc;
-            color: var(--primary-dark);
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .content-card p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 0;
-            line-height: 1.45;
-        }
-
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            z-index: 2;
-            font-size: 16px;
-            color: #1b3022;
-            user-select: none;
-        }
-
-        .carousel-btn:hover {
-            background: #f3f4f6;
-        }
-
-        .carousel-btn.prev {
-            left: -12px;
-        }
-
-        .carousel-btn.next {
-            right: -12px;
-        }
-
-        .carousel-hint {
-            text-align: center;
-            font-size: 12px;
-            color: #999;
-            margin-top: 4px;
         }
 
         .faq-item {
@@ -531,25 +663,25 @@
 
 <div class="wrapper">
 
-    <!-- ПЕРВЫЙ ЭКРАН -->
-    <div class="card">
-        <div class="badge" style="background: #eee9dc; color: var(--text-main);">Авторский сборник Деда Мирона</div>
+    <!-- ПЕРВЫЙ ЭКРАН (НА ВЕСЬ ЭКРАН) -->
+    <div class="screen-card">
         <h2 style="font-size: 22px; margin-bottom: 12px;">Рецепты долголетия на травах без химии</h2>
-        <p style="font-size: 14px; margin-bottom: 16px;">Проверенная система домашнего оздоровления: доступные ингредиенты с кухни и травяной аптеки, народные рецепты, точные дозировки и понятное объяснение, как они помогают организму.</p>
+        <p style="margin-bottom: 16px;">Проверенная система домашнего оздоровления: доступные ингредиенты с кухни и травяной аптеки, народные рецепты, точные дозировки и понятное объяснение, как они помогают организму.</p>
 
         <a href="#contents-section" class="btn-primary" style="text-align: center; text-decoration: none; margin-bottom: 16px; background-color: #f7931e;">Посмотреть содержание</a>
 
-        <div style="border-radius: 12px; overflow: hidden; margin-top: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+        <div class="hero-img-wrap">
             <img src="image_c9d3b8.jpg" alt="Таёжный лечебник Деда Мирона и Ариши" style="width: 100%; display: block; object-fit: cover;">
         </div>
     </div>
 
-    <!-- СОДЕРЖАНИЕ (КАРУСЕЛЬ) -->
-    <div class="card" id="contents-section">
+    <!-- ВТОРОЙ ЭКРАН: СОДЕРЖАНИЕ (НА ВЕСЬ ЭКРАН) -->
+    <div class="contents-screen" id="contents-section">
         <div class="badge">Что внутри книги</div>
         <h2>Средства для 11 систем тела</h2>
         <p>Удобная система: находите нужную задачу за секунды и получаете пошаговый рецепт с точными пропорциями. Листайте карточки, чтобы посмотреть разделы.</p>
 
+        <!-- Карусель -->
         <div class="contents-carousel-wrapper">
             <button class="carousel-btn prev" onclick="scrollCarousel(-1)" aria-label="Назад">‹</button>
             <div class="contents-carousel" id="contentsCarousel">
@@ -584,12 +716,37 @@
             </div>
             <button class="carousel-btn next" onclick="scrollCarousel(1)" aria-label="Вперёд">›</button>
         </div>
-        <div class="carousel-hint">← листайте карточки →</div>
 
-        <a href="#book-description" class="btn-primary" style="text-align: center; text-decoration: none; margin-top: 20px; background-color: #f7931e;">Получить доступ</a>
+        <!-- Мини-блок "Что вы получите" -->
+        <div class="benefits-mini">
+            <div class="benefit-mini-item">Пошаговые рецепты с точными дозировками</div>
+            <div class="benefit-mini-item">Описание растений и их свойств</div>
+            <div class="benefit-mini-item">Способы применения и предостережения</div>
+            <div class="benefit-mini-item">Личные заметки Деда Мирона</div>
+        </div>
+
+        <!-- Аккордеон-подсказки -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                Для чего эта книга? <span>+</span>
+            </div>
+            <div class="accordion-body">
+                Чтобы иметь под рукой понятный справочник по травам и домашним рецептам, к которому можно возвращаться в любое время.
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                Нужны ли специальные навыки? <span>+</span>
+            </div>
+            <div class="accordion-body">
+                Нет. Все рецепты изложены простым языком, с пошаговыми инструкциями и точными пропорциями.
+            </div>
+        </div>
+
+        <a href="#book-description" class="btn-primary" style="text-align: center; text-decoration: none; margin-top: 16px; background-color: #f7931e;">Получить доступ</a>
     </div>
 
-    <!-- ОПИСАНИЕ И КУПИТЬ -->
+    <!-- ТРЕТИЙ БЛОК: ПОКУПКА -->
     <div class="card-dark" id="book-description">
         <h1>Алтайский травник Деда Мирона</h1>
         <p class="muted">Семейная энциклопедия трав, природных рецептов и традиций домашнего оздоровления.</p>
@@ -749,61 +906,4 @@
             <label style="font-size: 12px; font-weight: 600; color: #374151;">Ваш Email:</label>
             <input type="email" id="emailField" required placeholder="example@mail.ru">
 
-            <button type="submit" id="submitBtn" class="btn-primary" style="font-size: 15px; padding: 14px;">Перейти к выбору способа оплаты</button>
-            <p style="font-size: 11px; color: #9ca3af; text-align: center; margin-top: 8px;">🔒 Защищено SSL-шифрованием</p>
-            <button type="button" onclick="closePaymentModal()" style="width: 100%; background: none; border: none; margin-top: 10px; color: #888; font-size: 13px; cursor: pointer;">Вернуться назад</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    function openPaymentModal() {
-        document.getElementById('paymentModal').style.display = 'flex';
-    }
-
-    function closePaymentModal() {
-        document.getElementById('paymentModal').style.display = 'none';
-    }
-
-    // Прокрутка карусели содержания
-    function scrollCarousel(direction) {
-        const carousel = document.getElementById('contentsCarousel');
-        const cardWidth = 260 + 12; // ширина карточки + gap
-        carousel.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-    }
-
-    document.getElementById('paymentForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        const submitBtn = document.getElementById('submitBtn');
-        const email = document.getElementById('emailField').value;
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Подготовка к оплате...';
-
-        try {
-            const response = await fetch('/create-payment', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error || `Ошибка сервера: ${response.status}`);
-            }
-
-            const data = await response.json();
-            window.location.href = data.paymentUrl;
-
-        } catch (error) {
-            console.error('Ошибка:', error);
-            alert('Ошибка: ' + error.message);
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Перейти к выбору способа оплаты';
-        }
-    });
-</script>
-
-</body>
-</html>
+            <button
