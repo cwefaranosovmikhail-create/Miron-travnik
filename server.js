@@ -13,7 +13,7 @@ const root = __dirname;
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
 const productAmount = '1.00';
 
-const sentInvoices = new Set(); 
+const sentInvoices = new Set();
 
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
@@ -29,10 +29,10 @@ const mimeTypes = {
 };
 
 const restrictedFiles = [
-  'Алтайский травник.pdf', 
-  '.env', 
-  'server.js', 
-  'package.json', 
+  'travnik.pdf',
+  '.env',
+  'server.js',
+  'package.json',
   'package-lock.json'
 ];
 
@@ -84,7 +84,7 @@ function buildSignature1(outSum, invId, password, extra = {}) {
 
 function verifyRobokassaSignature(data) {
   const password2 = (process.env.ROBOKASSA_PASSWORD2 || '').trim();
-  
+
   if (!password2) {
     console.log('\n!!! ОШИБКА: Переменная ROBOKASSA_PASSWORD2 не задана в Amvera !!!\n');
     return false;
@@ -123,7 +123,7 @@ function verifyRobokassaSignature(data) {
   console.log('3. Строка 1 (декод):', str1);
   console.log('4. Хеш 1:', hash1);
   console.log('7. Хеш от Робокассы:', received);
-  
+
   if (received === hash1 || received === hash2) {
     console.log('✅ ПОДПИСЬ СОВПАЛА!');
     console.log('==================================================\n\n');
@@ -145,8 +145,8 @@ async function sendOrderEmail(email, invId) {
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
   const from = process.env.SMTP_FROM || user;
-  
-  const filePath = path.join(root, 'Алтайский травник.pdf');
+
+  const filePath = path.join(root, 'travnik.pdf');
 
   if (!host || !user || !pass || !from) {
     console.warn('SMTP is not configured. Email was not sent.');
@@ -154,7 +154,7 @@ async function sendOrderEmail(email, invId) {
   }
 
   if (!fs.existsSync(filePath)) {
-    console.error('ОШИБКА: Файл "Алтайский травник.pdf" не найден в корне проекта!');
+    console.error('ОШИБКА: Файл "travnik.pdf" не найден в корне проекта!');
     return;
   }
 
@@ -169,17 +169,17 @@ async function sendOrderEmail(email, invId) {
     from: `"Михаил Добрый" <${from}>`,
     to: email,
     subject: 'Оплата подтверждена — Алтайский травник',
-    text: `Спасибо за покупку! Заказ №${invId} оплачен. Книга "Алтайский травник.pdf" прикреплена к этому письму.`,
+    text: `Спасибо за покупку! Заказ №${invId} оплачен. Книга "travnik.pdf" прикреплена к этому письму.`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
         <h2 style="color: #1b3022;">Оплата подтверждена</h2>
         <p>Спасибо! Ваш заказ №${invId} успешно оплачен.</p>
-        <p>Файл с книгой <b>Алтайский травник.pdf</b> прикреплен к этому письму.</p>
+        <p>Файл с книгой <b>travnik.pdf</b> прикреплен к этому письму.</p>
       </div>
     `,
     attachments: [
       {
-        filename: 'Алтайский травник.pdf',
+        filename: 'travnik.pdf',
         path: filePath
       }
     ]
@@ -215,7 +215,7 @@ async function handleCreatePayment(req, res) {
     paymentUrl.searchParams.set('Email', email);
     paymentUrl.searchParams.set('SignatureValue', signature);
     paymentUrl.searchParams.set('Shp_email', email);
-    
+
     paymentUrl.searchParams.set('SuccessUrl', process.env.SUCCESS_URL || 'https://miron-travnik.netlify.app/');
     paymentUrl.searchParams.set('FailUrl', process.env.FAIL_URL || 'https://miron-travnik.netlify.app/');
 
@@ -241,13 +241,13 @@ async function handleRobokassaResult(req, res) {
     // 2. ПРИНУДИТЕЛЬНО ПАРСИМ URL (GET-запрос)
     const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const urlParams = Object.fromEntries(urlObj.searchParams);
-    
+
     // 3. ПАРСИМ ТЕЛО (если оно было)
     const bodyParams = Object.fromEntries(new URLSearchParams(rawBody));
-    
+
     // 4. СКЛЕИВАЕМ ДАННЫЕ (URL имеет приоритет, если вдруг тело пустое)
     const data = { ...bodyParams, ...urlParams };
-    
+
     console.log('[WEBHOOK] ИТОГОВЫЕ ДАННЫЕ:', data);
 
     if (!verifyRobokassaSignature(data)) {
@@ -317,7 +317,7 @@ const server = http.createServer(async (req, res) => {
 
     const decodedPath = decodeURIComponent(url.pathname);
     const relativePath = decodedPath === '/' ? '/index.html' : decodedPath;
-    
+
     if (restrictedFiles.includes(path.basename(relativePath))) {
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Forbidden: Access denied');
@@ -325,7 +325,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     const filePath = path.resolve(root, `.${relativePath}`);
-    
+
     if (filePath !== root && !filePath.startsWith(root + path.sep)) {
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('Forbidden');
