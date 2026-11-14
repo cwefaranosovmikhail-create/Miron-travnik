@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Алтайский травник Деда Мирона — Мирон Травник</title>
+    <title>Алтайский травник Деда Мирона и пособие по интервальному голоданию — Мирон Травник</title>
     <style>
         :root {
             --bg-color: #f7f5f0;
@@ -50,12 +50,14 @@
             justify-content: center;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
+        .contents-screen {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
             padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            margin: 16px;
+            padding-top: 40px;
+            background-color: var(--card-bg);
+            justify-content: flex-start;
         }
 
         .card-dark {
@@ -64,17 +66,21 @@
             border-radius: var(--border-radius);
             padding: 24px;
             margin: 16px;
+            min-height: calc(100dvh - 32px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .badge {
             display: inline-block;
             background-color: #eee9dc;
             color: var(--text-main);
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 500;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -85,35 +91,29 @@
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 12px;
-            line-height: 1.25;
+            margin-bottom: 8px;
+            line-height: 1.2;
             color: #ffffff;
         }
 
         h2 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            line-height: 1.3;
-        }
-
-        h3 {
             font-size: 18px;
             font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.35;
+            margin-bottom: 8px;
+            line-height: 1.25;
         }
 
         p {
-            font-size: 15px;
+            font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            margin-bottom: 10px;
+            line-height: 1.45;
         }
 
         .screen-card p {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
         }
 
@@ -128,7 +128,7 @@
         .hero-img-wrap {
             border-radius: 12px;
             overflow: hidden;
-            margin-top: 16px;
+            margin-top: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             flex-shrink: 0;
         }
@@ -137,55 +137,43 @@
             width: 100%;
             display: block;
             object-fit: cover;
+            max-height: 42vh;
         }
 
-        .contents-screen {
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            padding-top: 48px;
-            background-color: var(--card-bg);
-            justify-content: flex-start;
+        .contents-block {
+            margin-bottom: 10px;
+            background: #fafaf8;
+            border-radius: 10px;
+            padding: 10px 12px;
+            border: 1px solid #eee;
         }
 
-        .contents-screen .badge {
-            margin-bottom: 12px;
+        .contents-block h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
         }
 
-        .contents-screen h2 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-
-        .contents-screen > p {
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-
-        .contents-list {
+        .contents-block ul {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin: 16px 0;
+            gap: 3px;
         }
 
-        .contents-list li {
+        .contents-block li {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.35;
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 14px;
-            color: var(--text-main);
-            line-height: 1.5;
+            gap: 6px;
         }
 
-        .contents-list li::before {
+        .contents-block li::before {
             content: "•";
             color: var(--accent-orange);
             font-weight: bold;
-            font-size: 20px;
-            line-height: 1.2;
             flex-shrink: 0;
         }
 
@@ -196,8 +184,8 @@
             color: #ffffff;
             border: none;
             border-radius: 12px;
-            padding: 16px;
-            font-size: 16px;
+            padding: 14px;
+            font-size: 15px;
             font-weight: 600;
             text-align: center;
             cursor: pointer;
@@ -217,13 +205,13 @@
             color: #ffffff;
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 12px;
-            padding: 12px;
-            font-size: 14px;
+            padding: 11px;
+            font-size: 13px;
             font-weight: 500;
             text-align: center;
             cursor: pointer;
             text-decoration: none;
-            margin-top: 12px;
+            margin-top: 10px;
         }
 
         .btn-sub:hover {
@@ -232,58 +220,58 @@
 
         .divider {
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-on-dark-muted);
-            margin: 16px 0;
+            margin: 10px 0;
             position: relative;
         }
 
         .security-text {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-on-dark-muted);
             text-align: center;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .price-box {
             text-align: center;
-            margin: 16px 0;
+            margin: 12px 0;
         }
 
         .old-price {
-            font-size: 18px;
+            font-size: 16px;
             color: #b0b0b0;
             text-decoration: line-through;
         }
 
         .new-price {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
             color: #ffffff;
         }
 
         .payment-note {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-on-dark-muted);
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .features-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin: 20px 0;
+            gap: 6px;
+            margin: 12px 0;
         }
 
         .features-list li {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            font-size: 14px;
+            gap: 8px;
+            font-size: 12.5px;
             color: #ffffff;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
         .features-list li::before {
@@ -292,143 +280,14 @@
             font-weight: bold;
             background: #e6ede8;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            font-size: 12px;
+            font-size: 11px;
             margin-top: 1px;
-        }
-
-        .situation-item {
-            background: #ffffff;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 10px;
-        }
-
-        .situation-item h3 {
-            font-size: 15px;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            color: var(--text-main);
-        }
-
-        .situation-item h3 span {
-            background: #eee9dc;
-            color: var(--text-main);
-            padding: 2px 8px;
-            border-radius: 6px;
-            font-size: 13px;
-            flex-shrink: 0;
-        }
-
-        .situation-item p {
-            font-size: 13px;
-            margin-bottom: 0;
-        }
-
-        .story-block {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 18px;
-            border: 1px solid #eee;
-            margin-top: 12px;
-        }
-
-        .story-block p {
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .story-block p:last-child {
-            margin-bottom: 0;
-        }
-
-        .story-final {
-            font-style: italic;
-            color: var(--primary-dark);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .faq-item {
-            display: flex;
-            flex-direction: column;
-            background: #ffffff;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            font-size: 14px;
-            border: 1px solid #eee;
-        }
-
-        .faq-item .faq-q {
-            font-weight: 600;
-            color: var(--text-main);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .faq-item .faq-q span {
-            font-size: 18px;
-            color: #666;
-            flex-shrink: 0;
-        }
-
-        .faq-item .faq-a {
-            margin-top: 8px;
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            font-size: 14px;
-            margin: 16px 0;
-        }
-
-        .footer-links a {
-            color: var(--text-on-dark);
-            text-decoration: none;
-        }
-
-        .footer-links a:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
-
-        .footer-contacts {
-            font-size: 14px;
-            color: var(--text-on-dark);
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .footer-contacts a {
-            color: var(--text-on-dark);
-            text-decoration: none;
-        }
-
-        .footer-contacts a:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
-
-        .copyright {
-            font-size: 12px;
-            color: #999;
-            margin-top: 20px;
         }
 
         .modal-overlay {
@@ -491,181 +350,81 @@
         .modal-content input[type="email"]:focus {
             border-color: #f7931e;
         }
-
-        .support-btn {
-            background-color: var(--primary-dark) !important;
-        }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
 
-    <!-- ПЕРВЫЙ ЭКРАН -->
+    <!-- ЭКРАН 1: ПЕРВЫЙ ЭКРАН -->
     <div class="screen-card">
-        <h2 style="font-size: 22px; margin-bottom: 12px;">Рецепты долголетия на травах без химии</h2>
-        <p style="margin-bottom: 16px;">Проверенная система домашнего оздоровления: доступные ингредиенты с кухни и травяной аптеки, народные рецепты, точные дозировки и понятное объяснение, как они помогают организму.</p>
+        <h2 style="font-size: 19px; margin-bottom: 8px;">Рецепты долголетия на травах и интервальное голодание</h2>
+        <p style="margin-bottom: 12px;">Два авторских пособия в одном комплекте: семейная энциклопедия трав Деда Мирона и практическое руководство по безопасному интервальному голоданию.</p>
 
-        <a href="#contents-section" class="btn-primary" style="text-align: center; text-decoration: none; margin-bottom: 16px; background-color: #f7931e;">Посмотреть содержание</a>
+        <a href="#contents-section" class="btn-primary" style="margin-bottom: 12px;">Посмотреть содержание</a>
 
         <div class="hero-img-wrap">
-            <img src="image_c9d3b8.jpg" alt="Таёжный лечебник Деда Мирона и Ариши" style="width: 100%; display: block; object-fit: cover;">
+            <img src="image_c9d3b8.jpg" alt="Таёжный лечебник Деда Мирона и Ариши">
         </div>
     </div>
 
-    <!-- ВТОРОЙ ЭКРАН: СОДЕРЖАНИЕ (без карусели) -->
+    <!-- ЭКРАН 2: СОДЕРЖАНИЕ -->
     <div class="contents-screen" id="contents-section">
-        <div class="badge">Что внутри книги</div>
-        <h2>Средства для 11 систем тела</h2>
-        <p>Удобная система: находите нужную задачу за секунды и получаете пошаговый рецепт с точными пропорциями.</p>
+        <div class="badge">Что внутри комплекта</div>
+        <h2 style="font-size: 18px;">Два пособия — 11 систем тела + гид по голоданию</h2>
+        <p>В комплекте два самостоятельных пособия, которые дополняют друг друга: травник для повседневной поддержки организма и руководство по интервальному голоданию для мягкого входа и восстановления.</p>
 
-        <ul class="contents-list">
-            <li><strong>Иммунитет и простуды:</strong> остановка болезни в первые часы, затяжной насморк, прогрев лимфоузлов.</li>
-            <li><strong>Суставы и спина:</strong> снятие воспалений, домашние растирки и компрессы.</li>
-            <li><strong>Нервная система и сон:</strong> успокаивающие сборы, борьба с бессонницей и тревогой.</li>
-            <li><strong>ЖКТ и пищеварение:</strong> поддержка желудка, мягкое очищение и восстановление.</li>
-            <li><strong>Сердце и сосуды:</strong> укрепление стенок сосудов, контроль давления.</li>
-            <li>Описание растений и их полезных свойств.</li>
-            <li>Где и когда собирают травы, как правильно сушить и хранить.</li>
-        </ul>
+        <div class="contents-block">
+            <h3>1. Алтайский травник Деда Мирона</h3>
+            <ul>
+                <li>Иммунитет и простуды</li>
+                <li>Суставы и спина</li>
+                <li>Нервная система и сон</li>
+                <li>ЖКТ и пищеварение</li>
+                <li>Сердце и сосуды</li>
+                <li>Описание растений, сбор, сушка, хранение</li>
+            </ul>
+        </div>
 
-        <a href="#book-description" class="btn-primary" style="text-align: center; text-decoration: none; margin-top: 16px; background-color: #f7931e;">Получить доступ</a>
+        <div class="contents-block">
+            <h3>2. Пособие по интервальному голоданию</h3>
+            <ul>
+                <li>Как безопасно войти в режим</li>
+                <li>Что происходит с организмом</li>
+                <li>Какие продукты можно и нельзя</li>
+                <li>Противопоказания и меры предосторожности</li>
+                <li>Напитки без сахара: вода, кофе без сахара, чай, травяные настои</li>
+            </ul>
+        </div>
+
+        <a href="#book-description" class="btn-primary" style="margin-top: 8px;">Получить доступ</a>
     </div>
 
-    <!-- ТРЕТИЙ БЛОК: ПОКУПКА -->
+    <!-- ЭКРАН 3: ПОКУПКА -->
     <div class="card-dark" id="book-description">
-        <h1>Алтайский травник Деда Мирона</h1>
-        <p class="muted">Семейная энциклопедия трав, природных рецептов и традиций домашнего оздоровления.</p>
+        <h1 style="font-size: 20px;">Алтайский травник Деда Мирона и пособие по интервальному голоданию</h1>
+        <p class="muted" style="font-size: 12.5px;">Два пособия по цене одного. Семейная энциклопедия трав и практическое руководство по безопасному интервальному голоданию.</p>
 
         <ul class="features-list">
-            <li>Удобный формат PDF — читайте со смартфона или распечатывайте.</li>
-            <li>Рецепты и рекомендации для 11 систем организма.</li>
-            <li>Понятные инструкции по приготовлению и применению.</li>
-            <li>Информация о свойствах растений и способах их использования.</li>
-            <li>Личные заметки Деда Мирона и истории внучки Аришки.</li>
-            <li>Бессрочный доступ к электронной книге.</li>
+            <li>Два PDF-пособия в одном комплекте</li>
+            <li>Рецепты для 11 систем организма</li>
+            <li>Безопасный вход в интервальное голодание</li>
+            <li>Списки разрешённых продуктов и напитков</li>
+            <li>Противопоказания и меры предосторожности</li>
+            <li>Бессрочный доступ</li>
         </ul>
 
         <div class="price-box">
             <div class="old-price">2 990 ₽</div>
-            <div class="new-price">499 ₽</div>
+            <div class="new-price">1 ₽</div>
         </div>
-        <div class="payment-note">Оплата единовременно, без подписок.</div>
+        <div class="payment-note">Два пособия по цене одного. Оплата единовременно, без подписок.</div>
 
-        <button class="btn-primary" onclick="openPaymentModal()">Купить книгу за 499 ₽</button>
-        <div class="security-text">Ссылка на скачивание придёт на вашу электронную почту.</div>
+        <button class="btn-primary" onclick="openPaymentModal()">Купить комплект за 1 ₽</button>
+        <div class="security-text">Ссылка на скачивание обоих PDF придёт на вашу электронную почту.</div>
 
         <div class="divider">если карта не подошла</div>
-        <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (499 ₽)</button>
-    </div>
-
-    <!-- ДЛЯ КОГО -->
-    <div class="card">
-        <div class="badge">Для кого эта книга</div>
-        <h2>Хотите лучше разобраться в мире природного оздоровления?</h2>
-        <p>Эта книга создана для тех, кто интересуется лекарственными растениями, домашними рецептами и традициями травничества.</p>
-
-        <div class="situation-item">
-            <h3><span>01</span> Интересуетесь здоровьем суставов и спины</h3>
-            <p>Хотите узнать, какие растения традиционно используют для приготовления домашних настоев, компрессов и растирок.</p>
-        </div>
-
-        <div class="situation-item">
-            <h3><span>02</span> Хотите наладить сон и справляться со стрессом</h3>
-            <p>Ищете информацию о травяных сборах, успокаивающих настоях и вечерних ритуалах.</p>
-        </div>
-
-        <div class="situation-item">
-            <h3><span>03</span> Заботитесь о здоровье всей семьи</h3>
-            <p>Хотите иметь под рукой справочник с информацией о растениях и традиционных домашних рецептах.</p>
-        </div>
-
-        <div class="situation-item">
-            <h3><span>04</span> Любите натуральные продукты и травы</h3>
-            <p>Хотите научиться разбираться в растениях, узнавать их свойства и правильно готовить домашние сборы.</p>
-        </div>
-
-        <div class="situation-item">
-            <h3><span>05</span> Хотите собрать полезные знания в одном месте</h3>
-            <p>Ищете понятную энциклопедию, к которой можно возвращаться в любое время.</p>
-        </div>
-    </div>
-
-    <!-- ИСТОРИЯ -->
-    <div class="card">
-        <div class="badge">История</div>
-        <h2>Знакомьтесь: Дед Мирон и его внучка Аришка</h2>
-
-        <div class="story-block">
-            <p>Дед Мирон — человек, который посвятил много времени изучению трав, растений и традиций народного травничества.</p>
-            <p>Он любит природу Алтая, знает множество интересных рецептов и с удовольствием делится своими знаниями.</p>
-            <p>Рядом с ним всегда его внучка Аришка. Она задаёт вопросы, интересуется растениями и помогает сохранять семейные знания для новых поколений.</p>
-            <p>Так появилась идея этой книги — собрать полезную информацию в одном месте, чтобы каждый мог познакомиться с удивительным миром растений.</p>
-            <p class="story-final">Ведь знания, которыми делятся, живут дольше.</p>
-        </div>
-    </div>
-
-    <!-- ОТЗЫВЫ -->
-    <div class="card">
-        <div style="color: #f28b1e; font-size: 18px; margin-bottom: 8px;">★★★★★</div>
-        <p style="font-size: 14px; font-style: italic; color: var(--text-main);">«Давно слежу за блогом Мирона, книгу очень ждала. Поразило, насколько всё разложено по полочкам — без воды, без эзотерики и заумных терминов.»</p>
-        <div style="display: flex; align-items: center; gap: 10px; margin-top: 12px;">
-            <div style="background: #e6ede8; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px;">НК</div>
-            <div style="font-size: 14px; font-weight: 600;">Наталья Кузнецова</div>
-        </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="card">
-        <div class="badge">Частые вопросы</div>
-        <h2>Ответы на популярные вопросы</h2>
-
-        <div class="faq-item">
-            <div class="faq-q">Как я получу книгу после оплаты? <span>+</span></div>
-            <div class="faq-a">После успешной оплаты ссылка на скачивание PDF-файла придёт на указанную вами электронную почту. Обычно доставка занимает 1–2 минуты.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-q">Нужно ли устанавливать специальную программу? <span>+</span></div>
-            <div class="faq-a">Нет. Книга открывается в обычном формате PDF на смартфоне, планшете или компьютере.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-q">Смогу ли я разобраться в рецептах без специальных навыков? <span>+</span></div>
-            <div class="faq-a">Да. Информация изложена простым языком, а рецепты сопровождаются понятными инструкциями.</div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-q">Заменяет ли книга консультацию врача? <span>+</span></div>
-            <div class="faq-a">Нет. Книга носит информационный и ознакомительный характер. Рецепты народного травничества не заменяют диагностику, назначенное лечение и консультацию специалиста.</div>
-        </div>
-    </div>
-
-    <!-- СЛУЖБА ЗАБОТЫ -->
-    <div class="card">
-        <div style="color: var(--accent-orange); font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 6px;">Служба заботы</div>
-        <h3>Нужна помощь с оплатой или скачиванием книги?</h3>
-        <p>Мы поможем разобраться!</p>
-        <p>Ссылка на скачивание обычно приходит в течение 1–2 минут после оплаты. Если письма нет во входящих, проверьте папку «Спам». Если не получилось — напишите нам, и мы постараемся помочь.</p>
-        <a href="https://t.me/mirontravnik" target="_blank" class="btn-primary support-btn" style="margin-top: 12px;">Написать в поддержку</a>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="card-dark" style="font-size: 13px;">
-        <div style="color: var(--accent-orange); font-weight: 600; margin-bottom: 4px;">Будьте здоровы</div>
-        <div style="font-size: 18px; font-weight: bold; margin-bottom: 16px; color: #ffffff;">Мирон Травник</div>
-
-        <div class="footer-contacts">
-            Владелец: Фараносов Александр Михайлович<br>
-            ИНН: 701711852684<br>
-            Телефон: <a href="tel:+79891609998">+7 (989) 160-99-98</a><br>
-            Электронная почта: <a href="mailto:miron.travnik.altay@gmail.com">miron.travnik.altay@gmail.com</a>
-        </div>
-
-        <div class="footer-links">
-            <a href="#">Политика конфиденциальности</a>
-            <a href="#">Публичная оферта</a>
-            <a href="https://t.me/mirontravnik">Написать в поддержку</a>
-        </div>
-
-        <div class="copyright">© 2026 Мирон Травник. Все права защищены.</div>
+        <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (1 ₽)</button>
     </div>
 
 </div>
@@ -674,12 +433,12 @@
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
-        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-книги (499 ₽):</p>
+        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-пособий (1 ₽):</p>
 
         <div class="payment-summary">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-size: 14px; font-weight: 600;">Книга «Алтайский травник Деда Мирона»</span>
-                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">499 ₽</span>
+                <span style="font-size: 14px; font-weight: 600;">Комплект: травник + голодание</span>
+                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">1 ₽</span>
             </div>
             <div class="payment-methods-badge">
                 <span class="method-tag" style="background: #ecfdf5; color: #059669;">⚡ СБП</span>
