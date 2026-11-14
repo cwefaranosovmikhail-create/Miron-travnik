@@ -41,7 +41,7 @@
             flex-direction: column;
         }
 
-        /* ЭКРАН 1 — фото под кнопкой, без обрезки головы */
+        /* ЭКРАН 1 */
         .screen-card {
             min-height: 100dvh;
             display: flex;
@@ -69,7 +69,7 @@
         .hero-img-wrap {
             border-radius: 12px;
             overflow: hidden;
-            margin-top: 16px; /* фото сразу под кнопкой, не прижато к низу */
+            margin-top: 16px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             flex-shrink: 0;
             width: 100%;
@@ -78,12 +78,12 @@
         .hero-img-wrap img {
             width: 100%;
             display: block;
-            height: auto; /* сохраняет пропорции, голова не обрезается */
-            max-height: 55vh; /* ограничение по высоте, но без обрезки сверху */
-            object-fit: contain; /* показывает изображение целиком */
+            height: auto;
+            max-height: 55vh;
+            object-fit: contain;
         }
 
-        /* ЭКРАН 2 — компактный, крупный чёрный текст */
+        /* ЭКРАН 2 */
         .contents-screen {
             min-height: 100dvh;
             display: flex;
@@ -164,7 +164,6 @@
             flex-shrink: 0;
         }
 
-        /* Кнопка «Получить доступ» */
         .btn-bright {
             display: block;
             width: 100%;
@@ -345,6 +344,70 @@
             margin: 10px 0;
         }
 
+        /* ФУТЕР */
+        .footer-dark {
+            background-color: var(--primary-dark);
+            color: #ffffff;
+            padding: 24px;
+            margin: 0 16px 16px;
+            border-radius: var(--border-radius);
+            font-size: 13px;
+        }
+
+        .footer-dark .footer-title {
+            color: var(--accent-orange);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .footer-dark .footer-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .footer-contacts {
+            font-size: 14px;
+            color: var(--text-on-dark);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .footer-contacts a {
+            color: var(--text-on-dark);
+            text-decoration: none;
+        }
+
+        .footer-contacts a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 14px;
+            margin: 16px 0;
+        }
+
+        .footer-links a {
+            color: var(--text-on-dark);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 12px;
+            color: #999;
+            margin-top: 20px;
+        }
+
         /* Модальное окно */
         .modal-overlay {
             display: none;
@@ -483,6 +546,27 @@
 
         <div class="divider">если карта не подошла</div>
         <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (780 ₽)</button>
+    </div>
+
+    <!-- ФУТЕР -->
+    <div class="footer-dark">
+        <div class="footer-title">Будьте здоровы</div>
+        <div class="footer-name">Мирон Травник</div>
+
+        <div class="footer-contacts">
+            Владелец: Фараносов Александр Михайлович<br>
+            ИНН: 701711852684<br>
+            Телефон: <a href="tel:+79891609998">+7 (989) 160-99-98</a><br>
+            Электронная почта: <a href="mailto:miron.travnik.altay@gmail.com">miron.travnik.altay@gmail.com</a>
+        </div>
+
+        <div class="footer-links">
+            <a href="#">Политика конфиденциальности</a>
+            <a href="#">Публичная оферта</a>
+            <a href="https://t.me/mirontravnik">Написать в поддержку</a>
+        </div>
+
+        <div class="copyright">© 2026 Мирон Травник. Все права защищены.</div>
     </div>
 
 </div>
