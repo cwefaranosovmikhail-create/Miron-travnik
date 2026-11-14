@@ -41,7 +41,7 @@
             flex-direction: column;
         }
 
-        /* ЭКРАН 1 — фото уменьшено на 15% */
+        /* ЭКРАН 1 — фото под кнопкой, без обрезки головы */
         .screen-card {
             min-height: 100dvh;
             display: flex;
@@ -69,7 +69,7 @@
         .hero-img-wrap {
             border-radius: 12px;
             overflow: hidden;
-            margin-top: auto;
+            margin-top: 16px; /* фото сразу под кнопкой, не прижато к низу */
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             flex-shrink: 0;
             width: 100%;
@@ -78,11 +78,12 @@
         .hero-img-wrap img {
             width: 100%;
             display: block;
-            object-fit: cover;
-            max-height: 45vh; /* уменьшено на ~15% */
+            height: auto; /* сохраняет пропорции, голова не обрезается */
+            max-height: 55vh; /* ограничение по высоте, но без обрезки сверху */
+            object-fit: contain; /* показывает изображение целиком */
         }
 
-        /* ЭКРАН 2 — компактнее, крупный чёрный текст */
+        /* ЭКРАН 2 — компактный, крупный чёрный текст */
         .contents-screen {
             min-height: 100dvh;
             display: flex;
