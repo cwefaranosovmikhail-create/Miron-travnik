@@ -14,7 +14,7 @@ const root = __dirname;
 console.log('Файлы в корне проекта:', fs.readdirSync(root));
 
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
-const productAmount = '1.00';
+const productAmount = '780.00';
 
 const sentInvoices = new Set();
 
