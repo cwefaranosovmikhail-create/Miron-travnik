@@ -41,7 +41,7 @@
             flex-direction: column;
         }
 
-        /* ЭКРАН 1 — фото прижато к низу */
+        /* ЭКРАН 1 — фото уменьшено на 15% */
         .screen-card {
             min-height: 100dvh;
             display: flex;
@@ -69,7 +69,7 @@
         .hero-img-wrap {
             border-radius: 12px;
             overflow: hidden;
-            margin-top: auto; /* прижимает фото к низу */
+            margin-top: auto;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             flex-shrink: 0;
             width: 100%;
@@ -79,16 +79,16 @@
             width: 100%;
             display: block;
             object-fit: cover;
-            max-height: 60vh; /* растягивается до конца экрана */
+            max-height: 45vh; /* уменьшено на ~15% */
         }
 
-        /* ЭКРАН 2 — крупные чёрные буквы */
+        /* ЭКРАН 2 — компактнее, крупный чёрный текст */
         .contents-screen {
             min-height: 100dvh;
             display: flex;
             flex-direction: column;
-            padding: 22px;
-            padding-top: 32px;
+            padding: 18px;
+            padding-top: 26px;
             background-color: var(--card-bg);
             justify-content: flex-start;
         }
@@ -97,44 +97,44 @@
             display: inline-block;
             background-color: #eee9dc;
             color: #000000;
-            padding: 8px 18px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             align-self: flex-start;
         }
 
         .contents-screen h2 {
-            font-size: 26px;
+            font-size: 22px;
             line-height: 1.2;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color: #000000;
             font-weight: 800;
         }
 
         .contents-screen > p {
-            font-size: 18px;
+            font-size: 15px;
             color: #000000;
-            margin-bottom: 16px;
-            line-height: 1.45;
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         .contents-block {
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             background: #fafaf8;
             border-radius: 12px;
-            padding: 16px 18px;
+            padding: 12px 14px;
             border: 1px solid #eee;
         }
 
         .contents-block h3 {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 800;
             color: #000000;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             line-height: 1.25;
         }
 
@@ -142,15 +142,15 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .contents-block li {
-            font-size: 17px;
+            font-size: 15px;
             color: #000000;
-            line-height: 1.45;
+            line-height: 1.4;
             display: flex;
-            gap: 10px;
+            gap: 8px;
             font-weight: 500;
         }
 
@@ -158,7 +158,7 @@
             content: "•";
             color: var(--accent-orange);
             font-weight: bold;
-            font-size: 22px;
+            font-size: 20px;
             line-height: 1.2;
             flex-shrink: 0;
         }
@@ -171,8 +171,8 @@
             color: #ffffff;
             border: none;
             border-radius: 14px;
-            padding: 20px;
-            font-size: 18px;
+            padding: 18px;
+            font-size: 17px;
             font-weight: 800;
             text-align: center;
             cursor: pointer;
@@ -180,7 +180,7 @@
             box-shadow: 0 6px 20px rgba(247, 147, 30, 0.45);
             transition: transform 0.15s, box-shadow 0.15s;
             margin-top: auto;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 0.3px;
             text-transform: uppercase;
         }
