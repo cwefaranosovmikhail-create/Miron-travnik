@@ -41,7 +41,7 @@
             flex-direction: column;
         }
 
-        /* ЭКРАН 1 */
+        /* ЭКРАН 1 — фото внизу, до конца экрана */
         .screen-card {
             min-height: 100dvh;
             display: flex;
@@ -69,19 +69,20 @@
         .hero-img-wrap {
             border-radius: 12px;
             overflow: hidden;
-            margin-top: 8px;
+            margin-top: auto; /* прижимает фото к низу */
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             flex-shrink: 0;
+            width: 100%;
         }
 
         .hero-img-wrap img {
             width: 100%;
             display: block;
             object-fit: cover;
-            max-height: 38vh;
+            max-height: 55vh; /* растягивается до конца экрана */
         }
 
-        /* ЭКРАН 2 — крупный текст для 60+ */
+        /* ЭКРАН 2 — крупный текст */
         .contents-screen {
             min-height: 100dvh;
             display: flex;
