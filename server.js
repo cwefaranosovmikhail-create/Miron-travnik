@@ -10,6 +10,10 @@ console.log("=========================================");
 
 const port = Number(process.env.PORT) || 3000;
 const root = __dirname;
+
+// ОТЛАДКА: показываем, какие файлы реально попали в контейнер
+console.log('Файлы в корне проекта:', fs.readdirSync(root));
+
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
 const productAmount = '1.00';
 
@@ -109,11 +113,9 @@ function verifyRobokassaSignature(data) {
 
   const received = String(normalizedData.SignatureValue).trim().toUpperCase();
 
-  // Вариант 1: Декодированные значения
   const str1 = [String(normalizedData.OutSum), String(normalizedData.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${v}`)].join(':');
   const hash1 = md5(str1);
 
-  // Вариант 2: Закодированные значения (на случай %40)
   const str2 = [String(normalizedData.OutSum), String(normalizedData.InvId), password2, ...Object.entries(extras).map(([k, v]) => `${k}=${encodeURIComponent(v)}`)].join(':');
   const hash2 = md5(str2);
 
@@ -150,6 +152,10 @@ async function sendOrderEmail(email, invId) {
   const filePath = path.join(root, 'travnik.pdf');
   const filePath2 = path.join(root, 'golodanie.pdf');
 
+  console.log('--- ПРОВЕРКА ФАЙЛОВ ПЕРЕД ОТПРАВКОЙ ---');
+  console.log('travnik.pdf существует:', fs.existsSync(filePath));
+  console.log('golodanie.pdf существует:', fs.existsSync(filePath2));
+
   if (!host || !user || !pass || !from) {
     console.warn('SMTP is not configured. Email was not sent.');
     return;
@@ -172,34 +178,39 @@ async function sendOrderEmail(email, invId) {
     auth: { user, pass }
   });
 
-  await transporter.sendMail({
-    from: `"Мирон Травник" <${from}>`,
-    to: email,
-    subject: 'Оплата подтверждена — комплект пособий',
-    text: `Спасибо за покупку! Заказ №${invId} оплачен. К письму прикреплены два пособия: "Алтайский травник Деда Мирона.pdf" и "Пособие по интервальному голоданию.pdf".`,
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
-        <h2 style="color: #1b3022;">Оплата подтверждена</h2>
-        <p>Спасибо! Ваш заказ №${invId} успешно оплачен.</p>
-        <p>К письму прикреплены два пособия:</p>
-        <ul>
-          <li><b>Алтайский травник Деда Мирона</b></li>
-          <li><b>Пособие по интервальному голоданию</b></li>
-        </ul>
-        <p style="color: #666; font-size: 14px;">С уважением, Мирон Травник</p>
-      </div>
-    `,
-    attachments: [
-      {
-        filename: 'Алтайский травник Деда Мирона.pdf',
-        path: filePath
-      },
-      {
-        filename: 'Пособие по интервальному голоданию.pdf',
-        path: filePath2
-      }
-    ]
-  });
+  try {
+    await transporter.sendMail({
+      from: `"Мирон Травник" <${from}>`,
+      to: email,
+      subject: 'Оплата подтверждена — комплект пособий',
+      text: `Спасибо за покупку! Заказ №${invId} оплачен. К письму прикреплены два пособия: "Алтайский травник Деда Мирона.pdf" и "Пособие по интервальному голоданию.pdf".`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
+          <h2 style="color: #1b3022;">Оплата подтверждена</h2>
+          <p>Спасибо! Ваш заказ №${invId} успешно оплачен.</p>
+          <p>К письму прикреплены два пособия:</p>
+          <ul>
+            <li><b>Алтайский травник Деда Мирона</b></li>
+            <li><b>Пособие по интервальному голоданию</b></li>
+          </ul>
+          <p style="color: #666; font-size: 14px;">С уважением, Мирон Травник</p>
+        </div>
+      `,
+      attachments: [
+        {
+          filename: 'Алтайский травник Деда Мирона.pdf',
+          path: filePath
+        },
+        {
+          filename: 'Пособие по интервальному голоданию.pdf',
+          path: filePath2
+        }
+      ]
+    });
+    console.log('ПИСЬМО РЕАЛЬНО ОТПРАВЛЕНО на', email);
+  } catch (err) {
+    console.error('ОШИБКА SMTP ПРИ ОТПРАВКЕ:', err);
+  }
 }
 
 async function handleCreatePayment(req, res) {
@@ -281,7 +292,7 @@ async function handleRobokassaResult(req, res) {
     if (!sentInvoices.has(invId)) {
       await sendOrderEmail(email, invId);
       sentInvoices.add(invId);
-      console.log(`Оплата ${invId} обработана, письмо отправлено на ${email}`);
+      console.log(`Оплата ${invId} обработана`);
     }
 
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
