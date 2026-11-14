@@ -41,94 +41,32 @@
             flex-direction: column;
         }
 
+        /* ЭКРАН 1 — весь экран, без обрезки фото */
         .screen-card {
             min-height: 100dvh;
             display: flex;
             flex-direction: column;
-            padding: 24px;
+            padding: 20px;
             background-color: var(--card-bg);
             justify-content: center;
         }
 
-        .contents-screen {
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            padding-top: 40px;
-            background-color: var(--card-bg);
-            justify-content: flex-start;
-        }
-
-        .card-dark {
-            background-color: var(--primary-dark);
-            color: #ffffff;
-            border-radius: var(--border-radius);
-            padding: 24px;
-            margin: 16px;
-            min-height: calc(100dvh - 32px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .badge {
-            display: inline-block;
-            background-color: #eee9dc;
-            color: var(--text-main);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 500;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .card-dark .badge {
-            background-color: rgba(255,255,255,0.12);
-            color: var(--accent-orange);
-        }
-
-        h1 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 8px;
+        .screen-card h2 {
+            font-size: 20px;
             line-height: 1.2;
-            color: #ffffff;
-        }
-
-        h2 {
-            font-size: 18px;
-            font-weight: 700;
             margin-bottom: 8px;
-            line-height: 1.25;
-        }
-
-        p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            line-height: 1.45;
         }
 
         .screen-card p {
             font-size: 13px;
             color: var(--text-muted);
-        }
-
-        .card-dark p {
-            color: var(--text-on-dark);
-        }
-
-        .card-dark p.muted {
-            color: var(--text-on-dark-muted);
+            margin-bottom: 14px;
         }
 
         .hero-img-wrap {
             border-radius: 12px;
             overflow: hidden;
-            margin-top: 12px;
+            margin-top: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             flex-shrink: 0;
         }
@@ -137,37 +75,59 @@
             width: 100%;
             display: block;
             object-fit: cover;
-            max-height: 42vh;
+            max-height: 38vh;
+        }
+
+        /* ЭКРАН 2 — содержание */
+        .contents-screen {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            padding-top: 36px;
+            background-color: var(--card-bg);
+            justify-content: flex-start;
+        }
+
+        .contents-screen h2 {
+            font-size: 19px;
+            margin-bottom: 6px;
+        }
+
+        .contents-screen > p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
         }
 
         .contents-block {
             margin-bottom: 10px;
             background: #fafaf8;
-            border-radius: 10px;
-            padding: 10px 12px;
+            border-radius: 12px;
+            padding: 12px 14px;
             border: 1px solid #eee;
         }
 
         .contents-block h3 {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .contents-block ul {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
         }
 
         .contents-block li {
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-muted);
-            line-height: 1.35;
+            line-height: 1.4;
             display: flex;
-            gap: 6px;
+            gap: 8px;
         }
 
         .contents-block li::before {
@@ -177,84 +137,74 @@
             flex-shrink: 0;
         }
 
-        .btn-primary {
+        /* Кнопка «Получить доступ» — крупная и яркая */
+        .btn-bright {
             display: block;
             width: 100%;
-            background-color: #f7931e;
+            background: linear-gradient(135deg, #f7931e 0%, #f28b1e 100%);
             color: #ffffff;
             border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 15px;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(247, 147, 30, 0.3);
-            transition: background 0.2s;
-        }
-
-        .btn-primary:hover {
-            background-color: #e08216;
-        }
-
-        .btn-sub {
-            display: block;
-            width: 100%;
-            background-color: transparent;
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            padding: 11px;
-            font-size: 13px;
-            font-weight: 500;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
-            margin-top: 10px;
-        }
-
-        .btn-sub:hover {
-            border-color: rgba(255,255,255,0.6);
-        }
-
-        .divider {
-            text-align: center;
-            font-size: 11px;
-            color: var(--text-on-dark-muted);
-            margin: 10px 0;
-            position: relative;
-        }
-
-        .security-text {
-            font-size: 11px;
-            color: var(--text-on-dark-muted);
-            text-align: center;
-            margin-top: 8px;
-        }
-
-        .price-box {
-            text-align: center;
-            margin: 12px 0;
-        }
-
-        .old-price {
-            font-size: 16px;
-            color: #b0b0b0;
-            text-decoration: line-through;
-        }
-
-        .new-price {
-            font-size: 28px;
+            border-radius: 14px;
+            padding: 20px;
+            font-size: 18px;
             font-weight: 800;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(247, 147, 30, 0.45);
+            transition: transform 0.15s, box-shadow 0.15s;
+            margin-top: auto;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .btn-bright:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 26px rgba(247, 147, 30, 0.55);
+        }
+
+        /* ЭКРАН 3 — покупка */
+        .card-dark {
+            background-color: var(--primary-dark);
+            color: #ffffff;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin: 0 16px 16px;
+            min-height: calc(100dvh - 32px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-dark h1 {
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.2;
             color: #ffffff;
         }
 
-        .payment-note {
-            font-size: 12px;
+        .card-dark p.muted {
+            font-size: 13px;
             color: var(--text-on-dark-muted);
-            text-align: center;
             margin-bottom: 12px;
+        }
+
+        /* Яркая плашка «Два пособия по цене одного» */
+        .promo-badge {
+            display: block;
+            background: linear-gradient(135deg, #f7931e 0%, #e08216 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 12px 0;
+            box-shadow: 0 4px 16px rgba(247, 147, 30, 0.4);
         }
 
         .features-list {
@@ -262,14 +212,14 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin: 12px 0;
+            margin: 10px 0;
         }
 
         .features-list li {
             display: flex;
             align-items: flex-start;
             gap: 8px;
-            font-size: 12.5px;
+            font-size: 13px;
             color: #ffffff;
             line-height: 1.4;
         }
@@ -290,6 +240,86 @@
             margin-top: 1px;
         }
 
+        .price-box {
+            text-align: center;
+            margin: 12px 0;
+        }
+
+        .old-price {
+            font-size: 17px;
+            color: #b0b0b0;
+            text-decoration: line-through;
+        }
+
+        .new-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .payment-note {
+            font-size: 12px;
+            color: var(--text-on-dark-muted);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            background-color: #f7931e;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(247, 147, 30, 0.3);
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #e08216;
+        }
+
+        .btn-sub {
+            display: block;
+            width: 100%;
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .btn-sub:hover {
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .security-text {
+            font-size: 11px;
+            color: var(--text-on-dark-muted);
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .divider {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-on-dark-muted);
+            margin: 10px 0;
+        }
+
+        /* Модальное окно — без изменений */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -356,10 +386,10 @@
 
 <div class="wrapper">
 
-    <!-- ЭКРАН 1: ПЕРВЫЙ ЭКРАН -->
+    <!-- ЭКРАН 1 -->
     <div class="screen-card">
-        <h2 style="font-size: 19px; margin-bottom: 8px;">Рецепты долголетия на травах и интервальное голодание</h2>
-        <p style="margin-bottom: 12px;">Два авторских пособия в одном комплекте: семейная энциклопедия трав Деда Мирона и практическое руководство по безопасному интервальному голоданию.</p>
+        <h2>Рецепты долголетия на травах и интервальное голодание</h2>
+        <p>Два авторских пособия в одном комплекте: семейная энциклопедия трав Деда Мирона и практическое руководство по безопасному интервальному голоданию.</p>
 
         <a href="#contents-section" class="btn-primary" style="margin-bottom: 12px;">Посмотреть содержание</a>
 
@@ -368,11 +398,11 @@
         </div>
     </div>
 
-    <!-- ЭКРАН 2: СОДЕРЖАНИЕ -->
+    <!-- ЭКРАН 2 -->
     <div class="contents-screen" id="contents-section">
-        <div class="badge">Что внутри комплекта</div>
-        <h2 style="font-size: 18px;">Два пособия — 11 систем тела + гид по голоданию</h2>
-        <p>В комплекте два самостоятельных пособия, которые дополняют друг друга: травник для повседневной поддержки организма и руководство по интервальному голоданию для мягкого входа и восстановления.</p>
+        <div class="badge" style="background:#eee9dc; color:#1b1b1b; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:500; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; align-self:flex-start;">Что внутри комплекта</div>
+        <h2>Два пособия — 11 систем тела + гид по голоданию</h2>
+        <p>В комплекте два самостоятельных пособия, которые дополняют друг друга.</p>
 
         <div class="contents-block">
             <h3>1. Алтайский травник Деда Мирона</h3>
@@ -397,13 +427,15 @@
             </ul>
         </div>
 
-        <a href="#book-description" class="btn-primary" style="margin-top: 8px;">Получить доступ</a>
+        <a href="#book-description" class="btn-bright">Получить доступ</a>
     </div>
 
-    <!-- ЭКРАН 3: ПОКУПКА -->
+    <!-- ЭКРАН 3 -->
     <div class="card-dark" id="book-description">
-        <h1 style="font-size: 20px;">Алтайский травник Деда Мирона и пособие по интервальному голоданию</h1>
-        <p class="muted" style="font-size: 12.5px;">Два пособия по цене одного. Семейная энциклопедия трав и практическое руководство по безопасному интервальному голоданию.</p>
+        <h1>Алтайский травник Деда Мирона и пособие по интервальному голоданию</h1>
+        <p class="muted">Два пособия по цене одного. Семейная энциклопедия трав и практическое руководство по безопасному интервальному голоданию.</p>
+
+        <div class="promo-badge">Два пособия по цене одного</div>
 
         <ul class="features-list">
             <li>Два PDF-пособия в одном комплекте</li>
@@ -418,7 +450,7 @@
             <div class="old-price">2 990 ₽</div>
             <div class="new-price">1 ₽</div>
         </div>
-        <div class="payment-note">Два пособия по цене одного. Оплата единовременно, без подписок.</div>
+        <div class="payment-note">Оплата единовременно, без подписок.</div>
 
         <button class="btn-primary" onclick="openPaymentModal()">Купить комплект за 1 ₽</button>
         <div class="security-text">Ссылка на скачивание обоих PDF придёт на вашу электронную почту.</div>
@@ -429,7 +461,7 @@
 
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО ОПЛАТЫ -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
