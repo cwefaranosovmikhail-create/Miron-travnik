@@ -11,7 +11,6 @@ console.log("=========================================");
 const port = Number(process.env.PORT) || 3000;
 const root = __dirname;
 
-// ОТЛАДКА: показываем, какие файлы реально попали в контейнер
 console.log('Файлы в корне проекта:', fs.readdirSync(root));
 
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
