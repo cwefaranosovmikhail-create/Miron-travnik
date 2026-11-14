@@ -41,7 +41,7 @@
             flex-direction: column;
         }
 
-        /* ЭКРАН 1 — фото внизу, до конца экрана */
+        /* ЭКРАН 1 — фото прижато к низу */
         .screen-card {
             min-height: 100dvh;
             display: flex;
@@ -79,10 +79,10 @@
             width: 100%;
             display: block;
             object-fit: cover;
-            max-height: 55vh; /* растягивается до конца экрана */
+            max-height: 60vh; /* растягивается до конца экрана */
         }
 
-        /* ЭКРАН 2 — крупный текст */
+        /* ЭКРАН 2 — крупные чёрные буквы */
         .contents-screen {
             min-height: 100dvh;
             display: flex;
@@ -96,45 +96,45 @@
         .contents-screen .badge {
             display: inline-block;
             background-color: #eee9dc;
-            color: var(--text-main);
-            padding: 6px 14px;
+            color: #000000;
+            padding: 8px 18px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             align-self: flex-start;
         }
 
         .contents-screen h2 {
-            font-size: 22px;
+            font-size: 26px;
             line-height: 1.2;
-            margin-bottom: 10px;
-            color: var(--primary-dark);
+            margin-bottom: 12px;
+            color: #000000;
             font-weight: 800;
         }
 
         .contents-screen > p {
-            font-size: 15px;
-            color: var(--text-muted);
-            margin-bottom: 14px;
+            font-size: 18px;
+            color: #000000;
+            margin-bottom: 16px;
             line-height: 1.45;
         }
 
         .contents-block {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             background: #fafaf8;
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 16px 18px;
             border: 1px solid #eee;
         }
 
         .contents-block h3 {
-            font-size: 16px;
+            font-size: 19px;
             font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 8px;
+            color: #000000;
+            margin-bottom: 10px;
             line-height: 1.25;
         }
 
@@ -142,22 +142,23 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
 
         .contents-block li {
-            font-size: 14px;
-            color: #3a3a3a;
-            line-height: 1.4;
+            font-size: 17px;
+            color: #000000;
+            line-height: 1.45;
             display: flex;
-            gap: 8px;
+            gap: 10px;
+            font-weight: 500;
         }
 
         .contents-block li::before {
             content: "•";
             color: var(--accent-orange);
             font-weight: bold;
-            font-size: 18px;
+            font-size: 22px;
             line-height: 1.2;
             flex-shrink: 0;
         }
