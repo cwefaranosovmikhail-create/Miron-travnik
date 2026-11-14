@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Алтайский травник Деда Мирона и пособие по интервальному голоданию — Мирон Травник</title>
+    <title>Алтайский травник: рецепты долголетия и пособие по интервальному голоданию — Мирон Травник</title>
     <style>
         :root {
             --bg-color: #f7f5f0;
@@ -41,32 +41,35 @@
             flex-direction: column;
         }
 
-        /* ЭКРАН 1 — весь экран, без обрезки фото */
+        /* ЭКРАН 1 */
         .screen-card {
             min-height: 100dvh;
             display: flex;
             flex-direction: column;
             padding: 20px;
             background-color: var(--card-bg);
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         .screen-card h2 {
             font-size: 20px;
             line-height: 1.2;
             margin-bottom: 8px;
+            color: var(--primary-dark);
+            font-weight: 800;
         }
 
         .screen-card p {
             font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         .hero-img-wrap {
             border-radius: 12px;
             overflow: hidden;
-            margin-top: 6px;
+            margin-top: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             flex-shrink: 0;
         }
@@ -78,53 +81,72 @@
             max-height: 38vh;
         }
 
-        /* ЭКРАН 2 — содержание */
+        /* ЭКРАН 2 — крупный текст для 60+ */
         .contents-screen {
             min-height: 100dvh;
             display: flex;
             flex-direction: column;
-            padding: 24px;
-            padding-top: 36px;
+            padding: 22px;
+            padding-top: 32px;
             background-color: var(--card-bg);
             justify-content: flex-start;
         }
 
+        .contents-screen .badge {
+            display: inline-block;
+            background-color: #eee9dc;
+            color: var(--text-main);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            align-self: flex-start;
+        }
+
         .contents-screen h2 {
-            font-size: 19px;
-            margin-bottom: 6px;
+            font-size: 22px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+            font-weight: 800;
         }
 
         .contents-screen > p {
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            line-height: 1.45;
         }
 
         .contents-block {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             background: #fafaf8;
             border-radius: 12px;
-            padding: 12px 14px;
+            padding: 14px 16px;
             border: 1px solid #eee;
         }
 
         .contents-block h3 {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 16px;
+            font-weight: 800;
             color: var(--text-main);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            line-height: 1.25;
         }
 
         .contents-block ul {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
         }
 
         .contents-block li {
-            font-size: 13px;
-            color: var(--text-muted);
+            font-size: 14px;
+            color: #3a3a3a;
             line-height: 1.4;
             display: flex;
             gap: 8px;
@@ -134,10 +156,12 @@
             content: "•";
             color: var(--accent-orange);
             font-weight: bold;
+            font-size: 18px;
+            line-height: 1.2;
             flex-shrink: 0;
         }
 
-        /* Кнопка «Получить доступ» — крупная и яркая */
+        /* Кнопка «Получить доступ» */
         .btn-bright {
             display: block;
             width: 100%;
@@ -164,7 +188,7 @@
             box-shadow: 0 8px 26px rgba(247, 147, 30, 0.55);
         }
 
-        /* ЭКРАН 3 — покупка */
+        /* ЭКРАН 3 */
         .card-dark {
             background-color: var(--primary-dark);
             color: #ffffff;
@@ -191,7 +215,6 @@
             margin-bottom: 12px;
         }
 
-        /* Яркая плашка «Два пособия по цене одного» */
         .promo-badge {
             display: block;
             background: linear-gradient(135deg, #f7931e 0%, #e08216 100%);
@@ -319,7 +342,7 @@
             margin: 10px 0;
         }
 
-        /* Модальное окно — без изменений */
+        /* Модальное окно */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -388,7 +411,7 @@
 
     <!-- ЭКРАН 1 -->
     <div class="screen-card">
-        <h2>Рецепты долголетия на травах и интервальное голодание</h2>
+        <h2>Алтайский травник: рецепты долголетия и пособие по интервальному голоданию</h2>
         <p>Два авторских пособия в одном комплекте: семейная энциклопедия трав Деда Мирона и практическое руководство по безопасному интервальному голоданию.</p>
 
         <a href="#contents-section" class="btn-primary" style="margin-bottom: 12px;">Посмотреть содержание</a>
@@ -400,9 +423,9 @@
 
     <!-- ЭКРАН 2 -->
     <div class="contents-screen" id="contents-section">
-        <div class="badge" style="background:#eee9dc; color:#1b1b1b; padding:5px 12px; border-radius:20px; font-size:11px; font-weight:500; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; align-self:flex-start;">Что внутри комплекта</div>
-        <h2>Два пособия — 11 систем тела + гид по голоданию</h2>
-        <p>В комплекте два самостоятельных пособия, которые дополняют друг друга.</p>
+        <div class="badge">Что внутри комплекта</div>
+        <h2>Два пособия — для здоровья тела и мягкого очищения</h2>
+        <p>В комплекте два самостоятельных пособия, которые дополняют друг друга. Всё написано простым языком, понятным каждому.</p>
 
         <div class="contents-block">
             <h3>1. Алтайский травник Деда Мирона</h3>
@@ -448,15 +471,15 @@
 
         <div class="price-box">
             <div class="old-price">2 990 ₽</div>
-            <div class="new-price">1 ₽</div>
+            <div class="new-price">780 ₽</div>
         </div>
         <div class="payment-note">Оплата единовременно, без подписок.</div>
 
-        <button class="btn-primary" onclick="openPaymentModal()">Купить комплект за 1 ₽</button>
+        <button class="btn-primary" onclick="openPaymentModal()">Купить комплект за 780 ₽</button>
         <div class="security-text">Ссылка на скачивание обоих PDF придёт на вашу электронную почту.</div>
 
         <div class="divider">если карта не подошла</div>
-        <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (1 ₽)</button>
+        <button class="btn-sub" onclick="openPaymentModal()">🌍 Оплатить зарубежной картой (780 ₽)</button>
     </div>
 
 </div>
@@ -465,12 +488,12 @@
 <div id="paymentModal" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Безопасная оплата</h3>
-        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-пособий (1 ₽):</p>
+        <p style="font-size: 13px; color: #666;">Введите почту для мгновенной доставки PDF-пособий (780 ₽):</p>
 
         <div class="payment-summary">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                 <span style="font-size: 14px; font-weight: 600;">Комплект: травник + голодание</span>
-                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">1 ₽</span>
+                <span style="font-size: 16px; font-weight: 800; color: #1b3022;">780 ₽</span>
             </div>
             <div class="payment-methods-badge">
                 <span class="method-tag" style="background: #ecfdf5; color: #059669;">⚡ СБП</span>
