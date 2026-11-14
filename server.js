@@ -11,7 +11,7 @@ console.log("=========================================");
 const port = Number(process.env.PORT) || 3000;
 const root = __dirname;
 const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN || 'MironTravnikAltai';
-const productAmount = '499.00';
+const productAmount = '1.00';
 
 const sentInvoices = new Set();
 
@@ -30,6 +30,7 @@ const mimeTypes = {
 
 const restrictedFiles = [
   'travnik.pdf',
+  'golodanie.pdf',
   '.env',
   'server.js',
   'package.json',
@@ -147,6 +148,7 @@ async function sendOrderEmail(email, invId) {
   const from = process.env.SMTP_FROM || 'miron.travnik.altay@gmail.com';
 
   const filePath = path.join(root, 'travnik.pdf');
+  const filePath2 = path.join(root, 'golodanie.pdf');
 
   if (!host || !user || !pass || !from) {
     console.warn('SMTP is not configured. Email was not sent.');
@@ -155,6 +157,11 @@ async function sendOrderEmail(email, invId) {
 
   if (!fs.existsSync(filePath)) {
     console.error('ОШИБКА: Файл "travnik.pdf" не найден в корне проекта!');
+    return;
+  }
+
+  if (!fs.existsSync(filePath2)) {
+    console.error('ОШИБКА: Файл "golodanie.pdf" не найден в корне проекта!');
     return;
   }
 
@@ -168,20 +175,28 @@ async function sendOrderEmail(email, invId) {
   await transporter.sendMail({
     from: `"Мирон Травник" <${from}>`,
     to: email,
-    subject: 'Оплата подтверждена — Алтайский травник',
-    text: `Спасибо за покупку! Заказ №${invId} оплачен. Книга "travnik.pdf" прикреплена к этому письму.`,
+    subject: 'Оплата подтверждена — комплект пособий',
+    text: `Спасибо за покупку! Заказ №${invId} оплачен. К письму прикреплены два пособия: "Алтайский травник Деда Мирона.pdf" и "Пособие по интервальному голоданию.pdf".`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
         <h2 style="color: #1b3022;">Оплата подтверждена</h2>
         <p>Спасибо! Ваш заказ №${invId} успешно оплачен.</p>
-        <p>Файл с книгой <b>travnik.pdf</b> прикреплен к этому письму.</p>
+        <p>К письму прикреплены два пособия:</p>
+        <ul>
+          <li><b>Алтайский травник Деда Мирона</b></li>
+          <li><b>Пособие по интервальному голоданию</b></li>
+        </ul>
         <p style="color: #666; font-size: 14px;">С уважением, Мирон Травник</p>
       </div>
     `,
     attachments: [
       {
-        filename: 'travnik.pdf',
+        filename: 'Алтайский травник Деда Мирона.pdf',
         path: filePath
+      },
+      {
+        filename: 'Пособие по интервальному голоданию.pdf',
+        path: filePath2
       }
     ]
   });
@@ -212,7 +227,7 @@ async function handleCreatePayment(req, res) {
     paymentUrl.searchParams.set('MerchantLogin', merchantLogin);
     paymentUrl.searchParams.set('OutSum', productAmount);
     paymentUrl.searchParams.set('InvId', invId);
-    paymentUrl.searchParams.set('Desc', 'Книга "Алтайский травник"');
+    paymentUrl.searchParams.set('Desc', 'Комплект: Алтайский травник + интервальное голодание');
     paymentUrl.searchParams.set('Email', email);
     paymentUrl.searchParams.set('SignatureValue', signature);
     paymentUrl.searchParams.set('Shp_email', email);
